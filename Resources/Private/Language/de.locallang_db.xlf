@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-20T12:22:09Z" product-name="moox_feusers">
+		<header/>
+		<body>
+			
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.is_company_admin">
+				<source>Is company admin</source>
+				<target>Benutzer ist Firmen-Administrator</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.is_moox_user">
+				<source>Is MOOX user</source>
+				<target>Benutzer ist MOOX-Benutzer</target>				
+			</trans-unit>						
+			
+		</body>
+	</file>
+</xliff>

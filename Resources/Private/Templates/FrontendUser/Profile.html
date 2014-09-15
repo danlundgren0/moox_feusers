@@ -1,0 +1,56 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	
+	<f:if condition="{frontendUser.uid}">				
+		
+		<div class="tx-moox-feusers-tabs">
+						
+			<f:if condition="{useCompanyAdmin}">
+			<f:if condition="{frontendUser.isCompanyAdmin}">
+			<f:if condition="{frontendUser.company}">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 style="margin-top:0px">{f:translate(key: 'tx_mooxfeusers_frontenduser.header_tab')}</h3>				
+				</div>
+				<div class="panel-body">			
+					<div class="btn-group">				
+						<button type="button" class="btn btn-default active" title="{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.editprofile')}">
+							<span class="glyphicon glyphicon-pencil"></span> &nbsp;{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.editprofile')}
+						</button>
+						<f:link.action action="list" title="{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.showusers')}">
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-list"></span> &nbsp;{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.showusers')}
+							</button>
+						</f:link.action>
+					</div>
+				</div>
+			</div>
+			
+			</f:if>
+			</f:if>
+			</f:if>
+		</div>
+		<div class="tx-moox-feusers-profile">		
+			<div class="tx-moox-feusers-form">
+				<f:form additionalAttributes="{role: 'form', data-toggle: 'validator'}" action="profile" arguments="{do: 'save'}" controller="FrontendUser" noCache="1" method="POST" name="tx-moox-feusers-profile-form">
+					<div class="tx-moox-feusers-form-buttons">
+						<f:form.button type="submit" class="btn btn-success" title="{f:translate(key: 'tx_mooxfeusers_frontenduser_action_profile.save')}">							
+							<span class="glyphicon glyphicon-floppy-saved"></span> &nbsp;{f:translate(key: 'tx_mooxfeusers_frontenduser_action_profile.save')}							
+						</f:form.button>						
+					</div>
+					<f:render partial="FrontendUser/InnerForm" arguments="{_all}" />
+					<div class="tx-moox-feusers-form-buttons">
+						<f:form.button type="submit" class="btn btn-success" title="{f:translate(key: 'tx_mooxfeusers_frontenduser_action_profile.save')}">										
+							<span class="glyphicon glyphicon-floppy-saved"></span> &nbsp;{f:translate(key: 'tx_mooxfeusers_frontenduser_action_profile.save')}							
+						</f:form.button>						
+					</div>
+				</f:form>
+			</div>		
+		</div>
+	</f:if>
+
+</f:section>

@@ -1,0 +1,110 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<f:if condition="{settings.cssfile}">
+	<f:then>
+		<v:asset.style name="moox-feusers-css" group="moox-feusers" path="{settings.cssfile}" standalone="TRUE" allowMoveToFooter="FALSE" external="1" />
+	</f:then>
+	<f:else>
+		<v:asset.style name="moox-feusers-css" group="moox-feusers" path="typo3conf/ext/moox_feusers/Resources/Public/Css/main.css" standalone="TRUE" allowMoveToFooter="FALSE" external="1" />
+	</f:else>
+</f:if>
+<f:if condition="{settings.enableBootstrapValidator}">
+	<v:asset.script name="bootstrap-validator" path="EXT:moox_feusers/Resources/Public/Js/validator.js" dependencies="jquery" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
+</f:if>
+<f:if condition="{settings.jqueryPasswordStrengthMeter}">
+	<f:if condition="{settings.enableZxcvbn}">
+		<v:asset.script name="zxcvbn" path="EXT:moox_feusers/Resources/Public/Js/zxcvbn-async.js" dependencies="jquery" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
+	</f:if>
+	<v:asset.script name="pwstrength" path="EXT:moox_feusers/Resources/Public/Js/pwstrength.js" dependencies="zxcvbn" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
+	<v:asset.script name="pwstrength-init" dependencies="pwstrength" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE">
+	<![CDATA[
+		$(document).ready(function () {
+			"use strict";
+			var options = {};
+			
+			options.common = {
+				minChar: ]]>{settings.passwordMinlength}<![CDATA[,
+				usernameField: "input[name='tx_mooxfeusers_pi1[FrontendUser][name]']",
+				userInputs: ['input[name="tx_mooxfeusers_pi1[FrontendUser][first_name]"]', 'input[name="tx_mooxfeusers_pi1[FrontendUser][middle_name]"]', 'input[name="tx_mooxfeusers_pi1[FrontendUser][last_name]"]'],
+				onLoad: function () {},
+				onKeyUp: function () {},
+				zxcvbn: ]]><f:if condition="{settings.enableZxcvbn}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+				debug: ]]><f:if condition="{settings.enableDebug}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[
+			};
+			
+			options.rules = {
+				scores: {
+					wordNotEmail: ]]>{settings.wordNotEmail}<![CDATA[,
+					wordLength: ]]>{settings.wordLength}<![CDATA[,
+					wordSimilarToUsername: ]]>{settings.wordSimilarToUsername}<![CDATA[,
+					wordSequences: ]]>{settings.wordSequences}<![CDATA[,
+					wordTwoCharacterClasses: ]]>{settings.wordTwoCharacterClasses}<![CDATA[,
+					wordRepetitions: ]]>{settings.wordRepetitions}<![CDATA[,
+					wordLowercase: ]]>{settings.wordLowercase}<![CDATA[,
+					wordUppercase: ]]>{settings.wordUppercase}<![CDATA[,
+					wordOneNumber: ]]>{settings.wordOneNumber}<![CDATA[,
+					wordThreeNumbers: ]]>{settings.wordThreeNumbers}<![CDATA[,
+					wordOneSpecialChar: ]]>{settings.wordOneSpecialChar}<![CDATA[,
+					wordTwoSpecialChar: ]]>{settings.wordTwoSpecialChar}<![CDATA[,
+					wordUpperLowerCombo: ]]>{settings.wordUpperLowerCombo}<![CDATA[,
+					wordLetterNumberCombo: ]]>{settings.wordLetterNumberCombo}<![CDATA[,
+					wordLetterNumberCharCombo: ]]>{settings.wordLetterNumberCharCombo}<![CDATA[
+				},
+				activated: {
+					wordNotEmail: ]]><f:if condition="{settings.enableWordNotEmail}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordLength: ]]><f:if condition="{settings.enableWordLength}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordSimilarToUsername: ]]><f:if condition="{settings.enableWordSimilarToUsername}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordSequences: ]]><f:if condition="{settings.enableWordSequences}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordTwoCharacterClasses: ]]><f:if condition="{settings.enableWordTwoCharacterClasses}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordRepetitions: ]]><f:if condition="{settings.enableWordRepetitions}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordLowercase: ]]><f:if condition="{settings.enableWordLowercase}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordUppercase: ]]><f:if condition="{settings.enableWordUppercase}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordOneNumber: ]]><f:if condition="{settings.enableWordOneNumber}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordThreeNumbers: ]]><f:if condition="{settings.enableWordThreeNumbers}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordOneSpecialChar: ]]><f:if condition="{settings.enableWordOneSpecialChar}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordTwoSpecialChar: ]]><f:if condition="{settings.enableWordTwoSpecialChar}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordUpperLowerCombo: ]]><f:if condition="{settings.enableWordUpperLowerCombo}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordLetterNumberCombo: ]]><f:if condition="{settings.enableWordLetterNumberCombo}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+					wordLetterNumberCharCombo: ]]><f:if condition="{settings.enableWordLetterNumberCharCombo}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[
+				},
+				raisePower: 1.4
+			};
+			
+			options.ui = {
+				showProgressBar: ]]><f:if condition="{settings.showProgressBar}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+				showPopover: ]]><f:if condition="{settings.showPopover}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+				showStatus: ]]><f:if condition="{settings.showStatus}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+				spanError: function (options, key) {
+					var text = options.ui.errorMessages[key];
+					return '<span style="color: #d52929">' + text + '</span>';
+				},
+				errorMessages: {
+					password_too_short: "]]>{settings.passwordTooShort}<![CDATA[",
+					email_as_password: "]]>{settings.emailAsPassword}<![CDATA[",
+					same_as_username: "]]>{settings.sameAsUsername}<![CDATA[",
+					two_character_classes: "]]>{settings.twoCharacterClasses}<![CDATA[",
+					repeated_character: "]]>{settings.repeatedCharacters}<![CDATA[",
+					sequence_found: "]]>{settings.sequenceFound}<![CDATA["
+				},
+				verdicts: ["Weak", "Normal", "Medium", "Strong", "Very Strong"],
+				showVerdicts: ]]><f:if condition="{settings.showVerdicts}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+				showVerdictsInsideProgressBar: ]]><f:if condition="{settings.showVerdictsInsideProgressBar}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+				showErrors: ]]><f:if condition="{settings.showErrors}"><f:then>true</f:then><f:else>false</f:else></f:if><![CDATA[,
+				viewports: {
+					progress: ".pwstrength_viewport_progress",
+					verdict: ".pwstrength_viewport_verdict",
+					errors: ".pwstrength_viewport_errors"
+				},
+				scores: [17, 26, 40, 50]					
+			};
+			
+			$('#password').pwstrength(options);
+		});
+	]]>
+	</v:asset.script>
+</f:if>
+
+<div class="tx-moox-feusers">
+	<f:flashMessages renderMode="div" />
+	<f:render section="main" />
+</div>

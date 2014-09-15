@@ -1,0 +1,45 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	
+	<f:if condition="{frontendUser.uid}">		
+		
+		<div class="tx-moox-feusers-tabs">			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 style="margin-top:0px">{f:translate(key: 'tx_mooxfeusers_frontenduser.header_tab')}</h3>					
+				</div>
+				<div class="panel-body">
+					<div class="btn-group">												
+						<f:link.action action="profile" style="float:left" title="{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.editprofile')}">
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-pencil"></span> &nbsp;{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.editprofile')}
+							</button>
+						</f:link.action>
+						<button type="button" class="btn btn-default active" title="{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.showusers')}">
+							<span class="glyphicon glyphicon-list"></span> &nbsp;{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.showusers')}
+						</button>
+						<f:link.action action="create" title="{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.adduser')}">
+							<button type="button" class="btn btn-success">
+								<span class="glyphicon glyphicon-plus"></span> &nbsp;{f:translate(key: 'tx_mooxfeusers_frontenduser.tabs.adduser')}
+							</button>
+						</f:link.action>				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tx-moox-feusers-list">			
+			<f:if condition="{companyUsers -> f:count()}>0">
+				<f:then>						
+					<f:render partial="FrontendUser/UserList" arguments="{frontendUser:frontendUser,companyUsers:companyUsers}" />
+				</f:then>
+				<f:else>
+				</f:else>
+			</f:if>
+		</div>
+		
+	</f:if>
+
+</f:section>

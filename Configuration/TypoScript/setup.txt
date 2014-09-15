@@ -1,0 +1,80 @@
+plugin.tx_mooxfeusers {
+	view {
+		templateRootPath = {$plugin.tx_mooxfeusers.view.templateRootPath}
+		partialRootPath = {$plugin.tx_mooxfeusers.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_mooxfeusers.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_mooxfeusers.persistence.storagePid}		
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		rewrittenPropertyMapper = 1
+	}
+}
+
+plugin.tx_mooxfeusers.settings {		
+	cssfile = {$plugin.tx_mooxfeusers.settings.cssfile}
+	usernameMinlength = {$plugin.tx_mooxfeusers.settings.usernameMinlength}
+	passwordMinlength = {$plugin.tx_mooxfeusers.settings.passwordMinlength}
+	enableBootstrapValidator = {$plugin.tx_mooxfeusers.settings.enableBootstrapValidator}
+	jqueryPasswordStrengthMeter = {$plugin.tx_mooxfeusers.settings.jqueryPasswordStrengthMeter}
+	enableZxcvbn = {$plugin.tx_mooxfeusers.settings.enableZxcvbn}
+	enableDebug = {$plugin.tx_mooxfeusers.settings.enableDebug}
+	enableWordNotEmail = {$plugin.tx_mooxfeusers.settings.enableWordNotEmail}
+	enableWordLength = {$plugin.tx_mooxfeusers.settings.enableWordLength}
+	enableWordSimilarToUsername = {$plugin.tx_mooxfeusers.settings.enableWordSimilarToUsername}
+	enableWordSequences = {$plugin.tx_mooxfeusers.settings.enableWordSequences}
+	enableWordTwoCharacterClasses = {$plugin.tx_mooxfeusers.settings.enableWordTwoCharacterClasses}
+	enableWordRepetitions = {$plugin.tx_mooxfeusers.settings.enableWordRepetitions}
+	enableWordLowercase = {$plugin.tx_mooxfeusers.settings.enableWordLowercase}
+	enableWordUppercase = {$plugin.tx_mooxfeusers.settings.enableWordUppercase}
+	enableWordOneNumber = {$plugin.tx_mooxfeusers.settings.enableWordOneNumber}
+	enableWordThreeNumbers = {$plugin.tx_mooxfeusers.settings.enableWordThreeNumbers}
+	enableWordOneSpecialChar = {$plugin.tx_mooxfeusers.settings.enableWordOneSpecialChar}
+	enableWordTwoSpecialChar = {$plugin.tx_mooxfeusers.settings.enableWordTwoSpecialChar}
+	enableWordUpperLowerCombo = {$plugin.tx_mooxfeusers.settings.enableWordUpperLowerCombo}
+	enableWordLetterNumberCombo = {$plugin.tx_mooxfeusers.settings.enableWordLetterNumberCombo}
+	enableWordLetterNumberCharCombo = {$plugin.tx_mooxfeusers.settings.enableWordLetterNumberCharCombo}
+	wordNotEmail = {$plugin.tx_mooxfeusers.settings.wordNotEmail}
+	wordLength = {$plugin.tx_mooxfeusers.settings.wordLength}
+	wordSimilarToUsername = {$plugin.tx_mooxfeusers.settings.wordSimilarToUsername}
+	wordSequences = {$plugin.tx_mooxfeusers.settings.wordSequences}
+	wordTwoCharacterClasses = {$plugin.tx_mooxfeusers.settings.wordTwoCharacterClasses}
+	wordRepetitions = {$plugin.tx_mooxfeusers.settings.wordRepetitions}
+	wordLowercase = {$plugin.tx_mooxfeusers.settings.wordLowercase}
+	wordUppercase = {$plugin.tx_mooxfeusers.settings.wordUppercase}
+	wordOneNumber = {$plugin.tx_mooxfeusers.settings.wordOneNumber}
+	wordThreeNumbers = {$plugin.tx_mooxfeusers.settings.wordThreeNumbers}
+	wordOneSpecialChar = {$plugin.tx_mooxfeusers.settings.wordOneSpecialChar}
+	wordTwoSpecialChar = {$plugin.tx_mooxfeusers.settings.wordTwoSpecialChar}
+	wordUpperLowerCombo = {$plugin.tx_mooxfeusers.settings.wordUpperLowerCombo}
+	wordLetterNumberCombo = {$plugin.tx_mooxfeusers.settings.wordLetterNumberCombo}
+	wordLetterNumberCharCombo = {$plugin.tx_mooxfeusers.settings.wordLetterNumberCharCombo}
+	showProgressBar = {$plugin.tx_mooxfeusers.settings.showProgressBar}
+	showPopover = {$plugin.tx_mooxfeusers.settings.showPopover}
+	showStatus = {$plugin.tx_mooxfeusers.settings.showStatus}
+	showVerdicts = {$plugin.tx_mooxfeusers.settings.showVerdicts}
+	showVerdictsInsideProgressBar = {$plugin.tx_mooxfeusers.settings.showVerdictsInsideProgressBar}
+	showErrors = {$plugin.tx_mooxfeusers.settings.showErrors}
+	passwordTooShort = {$plugin.tx_mooxfeusers.settings.passwordTooShort}
+	emailAsPassword = {$plugin.tx_mooxfeusers.settings.emailAsPassword}
+	sameAsUsername = {$plugin.tx_mooxfeusers.settings.sameAsUsername}
+	twoCharacterClasses = {$plugin.tx_mooxfeusers.settings.twoCharacterClasses}
+	repeatedCharacters = {$plugin.tx_mooxfeusers.settings.repeatedCharacters}
+	sequenceFound = {$plugin.tx_mooxfeusers.settings.sequenceFound}
+}
+
+# Module configuration
+module.tx_mooxfeusers {
+	persistence {
+		storagePid = {$module.tx_mooxfeusers.persistence.storagePid}
+	}
+	view {
+		templateRootPath = {$module.tx_mooxfeusers.view.templateRootPath}
+		partialRootPath = {$module.tx_mooxfeusers.view.partialRootPath}
+		layoutRootPath = {$module.tx_mooxfeusers.view.layoutRootPath}
+	}
+}
+
+

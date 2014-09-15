@@ -1,0 +1,28 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 style="margin-top:0px">
+			{f:translate(key: 'tx_mooxfeusers_frontenduser_action_list.header')}: {frontendUser.company}
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{f:translate(key: 'tx_mooxfeusers_frontenduser_action_list.column.name')}</th>
+						<th>{f:translate(key: 'tx_mooxfeusers_frontenduser_action_list.column.username')}</th>
+						<th>{f:translate(key: 'tx_mooxfeusers_frontenduser_action_list.column.email')}</th>
+						<th style="text-align: right">{f:translate(key: 'tx_mooxfeusers_frontenduser_action_list.column.actions')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<f:for each="{companyUsers}" as="companyUser">						
+						<f:render partial="FrontendUser/UserListItem" arguments="{companyUser:companyUser}" />				
+					</f:for>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+<T3DataStructure>
+	<meta>
+        <langDisable>1</langDisable>
+	</meta>
+	<ROOT>				
+		<type>array</type>
+		<el>
+			<switchableControllerActions>
+				<TCEforms>
+					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_controller_selection</label>
+					<onChange>reload</onChange>
+					<config>
+						<type>select</type>
+						<items>														
+							<numIndex index="0">
+								<numIndex index="0">LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_controller_selection.frontenduser_profile</numIndex>
+								<numIndex index="1">FrontendUser->profile;FrontendUser->list;FrontendUser->create;FrontendUser->edit;FrontendUser->delete;FrontendUser->error</numIndex>
+							</numIndex>
+						</items>
+						<default>FrontendUser->profile;FrontendUser->list;FrontendUser->create;FrontendUser->edit;FrontendUser->delete;FrontendUser->error</default>
+					</config>
+				</TCEforms>
+			</switchableControllerActions>
+			<settings.fe_group>
+				<TCEforms>
+					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_fe_group</label>
+					<config>
+						<type>select</type>						
+						<maxitems>10</maxitems>
+						<size>4</size>
+						<minitems>0</minitems>						
+						<foreign_table>fe_groups</foreign_table>
+						<foreign_table_where>AND fe_groups.deleted = 0 AND fe_groups.hidden = 0 order by fe_groups.title</foreign_table_where>
+					</config>
+				</TCEforms>
+			</settings.fe_group>
+		</el>
+		
+	</ROOT>	
+</T3DataStructure>

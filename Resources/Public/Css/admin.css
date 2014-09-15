@@ -1,0 +1,45 @@
+.tx-moox-feusers-admin {
+
+}
+
+.tx-moox-feusers-admin .typo3-messages {
+	margin-bottom: 20px;
+}
+
+.tx-moox-feusers-admin-listing {
+	
+}
+
+.tx-moox-feusers-admin-listing  table {
+	width: 100%;
+}
+
+.tx-moox-feusers-admin-listing-header {
+	background-color: #CCCCCC;
+}
+
+.tx-moox-feusers-admin-listing th {
+	line-height: 20px;
+	padding: 5px;
+}
+
+.tx-moox-feusers-admin-listing tr.odd {
+	background-color: #EEEEEE;
+}
+
+.tx-moox-feusers-admin-listing tr.even {
+	background-color: #F7F7F7;
+}
+
+.tx-moox-feusers-admin-listing tr.odd:hover, .tx-moox-feusers-admin-listing tr.even:hover {
+	background-color: #ebf8ff;
+}
+
+.tx-moox-feusers-admin-listing td {
+	padding: 5px;
+}
+
+.tx-moox-feusers-admin-icon {
+	display: inline-block;
+	margin-right: 5px;
+}

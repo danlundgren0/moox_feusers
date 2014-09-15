@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-20T12:22:09Z" product-name="moox_feusers">
+		<header/>
+		<body>
+			
+			<trans-unit id="tx_mooxfeusers_frontenduser.header_tab">
+				<source>What do you want to do?</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.tabs.editprofile">
+				<source>edit profile</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.tabs.showusers">
+				<source>show company users</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.tabs.adduser">
+				<source>add user</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_profile.header_data">
+				<source>personal information</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.header_data">
+				<source>new user</source>				
+			</trans-unit>	
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.header">
+				<source>users of company</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.column.name">
+				<source>name</source>			
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.column.username">
+				<source>username</source>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.column.email">
+				<source>email</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.column.actions">
+				<source>actions</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.action.edit">
+				<source>edit</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.action.delete">
+				<source>delete</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.action.delete.confirm">
+				<source>really delete this user?</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.header_password">
+				<source>password</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.usergroup">
+				<source>usergroup</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.company">
+				<source>company</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.username">
+				<source>username</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.title">
+				<source>title</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.name">
+				<source>name</source>				
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.first_name">
+				<source>first name</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.middle_name">
+				<source>middle name</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.last_name">
+				<source>last name</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.address">
+				<source>address</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.zip">
+				<source>zip</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.city">
+				<source>city</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.country">
+				<source>country</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.telephone">
+				<source>telephone</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.fax">
+				<source>fax</source>				
+			</trans-unit>						
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.email">
+				<source>email</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.www">
+				<source>www</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.password">
+				<source>password</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.password_repeat">
+				<source>password [repetition]</source>			
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.password_hint">
+				<source>leave blank to keep current password</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.required">
+				<source>required</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_profile.save">
+				<source>save</source>				
+			</trans-unit>	
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.save">
+				<source>save</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.cancel">
+				<source>cancel</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_edit.save">
+				<source>save</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_edit.cancel">
+				<source>cancel</source>			
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_edit.reload">
+				<source>reload</source>				
+			</trans-unit>
+			
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.profilesaved.header">
+				<source>form:</source>				
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.profilesaved">
+				<source>profile saved successfully</source>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.profileerror.header">
+				<source>form:</source>				
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.profileerror">
+				<source>profile could not be saved</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.createerror.header">
+				<source>form:</source>				
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.createerror">
+				<source>Please verify your entries.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.usersaved.header">
+				<source>form:</source>		
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.usersaved">
+				<source>profile saved successfully</source>			
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.editerror.header">
+				<source>form:</source>				
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.editerror">
+				<source>profile could not be saved</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.useradded">
+				<source>user added successfully</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.userdeleted">
+				<source>user removed successfully</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.password.header">
+				<source>password</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.password.notmatching">
+				<source>passwords do not match</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.password.wronglength">
+				<source>Password is to short. Use at least 8 characters.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.password.missing">
+				<source>No password entered.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.email.header">
+				<source>email</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.email.missing">
+				<source>No email address entered.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.email.invalid">
+				<source>Address is invalid.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.name.header">
+				<source>name</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.name.missing">
+				<source>No name entered.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.username.header">
+				<source>username</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.username.missing">
+				<source>No username entered.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.username.wronglength">
+				<source>Username is to short. Use at least 3 characters.</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.username.existing">
+				<source>Enterd username already exists.</source>				
+			</trans-unit>
+			
+			<trans-unit id="administration.folder.listing">
+				<source>user folders</source>				
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

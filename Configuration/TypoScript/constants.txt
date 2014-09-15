@@ -1,0 +1,143 @@
+plugin.tx_mooxfeusers {
+	view {
+		# cat=plugin.tx_mooxfeusers/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:moox_feusers/Resources/Private/Templates/
+		# cat=plugin.tx_mooxfeusers/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:moox_feusers/Resources/Private/Partials/
+		# cat=plugin.tx_mooxfeusers/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:moox_feusers/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_mooxfeusers//a; type=string; label=Default storage PID
+		storagePid =
+	}
+	settings {
+		# cat=plugin.tx_mooxfeusers/file/01; type=string; label= Path to local css file (leave blank for default css)
+		cssfile =
+		
+		# cat=plugin.tx_mooxfeusers/misc/02; type=int+; label= minimal length of username (lenght > 3)
+		usernameMinlength = 3
+		
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/01; type=boolean; label= Enable Bootstrap Validator
+		enableBootstrapValidator = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/02; type=boolean; label= Enable jQuery Password Strength Meter
+		jqueryPasswordStrengthMeter = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/03; type=boolean; label= Enable "zxcvbn" rules : Use the zxcvbn to calculate the password entropy and use it as the score. zxcvbn will be used instead of the default rules engine.
+		enableZxcvbn = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/04; type=boolean; label= Enable Debug : If true, it prints the password strength in the javascript console, so you can test and tune your rules settings.
+		enableDebug = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/05; type=boolean; label= Enable Progress Bar : Displays the password strength in a progress bar.
+		showProgressBar = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/06; type=boolean; label= Enable Popover : Displays the error messages and the verdicts in a Bootstrap popover, instead of below the input field. If the "showVerdictsInsideProgressBar" option is active, then the verdicts won't appear on the popover.
+		showPopover = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/07; type=boolean; label= Enable Status : Displays the password strength as a validation status in the password field.
+		showStatus = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/08; type=boolean; label= Enable Verdicts : Determines if the verdicts are displayed or not.
+		showVerdicts = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/09; type=boolean; label= Enable Verdicts inside of progress bar : When this setting is active, the verdict viewport is ignored and they won't appear on the popover if it is being showed. Also this option overrides the value of the showVerdicts one.
+		showVerdictsInsideProgressBar = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/enable/10; type=boolean; label= Enable Errors : Determines if the error list is displayed with the progress bar or not.
+		showErrors = 0
+		
+		# customsubcategory=rules=LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:rules
+		
+		# cat=plugin.tx_mooxfeusers_password_settings/rules/01; type=int+; label= minimal length of password (lenght > 3)
+		passwordMinlength = 8
+		
+		# customsubcategory=rules_activated=LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:rules_activated
+		
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/01; type=boolean; label= Enable wordNotEmail
+		enableWordNotEmail = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/02; type=boolean; label= Enable wordLength
+		enableWordLength = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/03; type=boolean; label= Enable wordSimilarToUsername
+		enableWordSimilarToUsername = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/04; type=boolean; label= Enable wordSequences
+		enableWordSequences = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/05; type=boolean; label= Enable wordTwoCharacterClasses
+		enableWordTwoCharacterClasses = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/06; type=boolean; label= Enable wordRepetitions
+		enableWordRepetitions = 0
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/07; type=boolean; label= Enable wordLowercase
+		enableWordLowercase = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/08; type=boolean; label= Enable wordUppercase
+		enableWordUppercase = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/09; type=boolean; label= Enable wordOneNumber
+		enableWordOneNumber = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/10; type=boolean; label= Enable wordThreeNumbers
+		enableWordThreeNumbers = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/11; type=boolean; label= Enable wordOneSpecialChar
+		enableWordOneSpecialChar = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/12; type=boolean; label= Enable wordTwoSpecialChar
+		enableWordTwoSpecialChar = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/13; type=boolean; label= Enable wordUpperLowerCombo
+		enableWordUpperLowerCombo = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/14; type=boolean; label= Enable wordLetterNumberCombo
+		enableWordLetterNumberCombo = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_activated/15; type=boolean; label= Enable wordLetterNumberCharCombo
+		enableWordLetterNumberCharCombo = 1
+		
+		# customsubcategory=rules_scores=LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:rules_scores
+		
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/01; type=int; label= wordNotEmail
+		wordNotEmail = -100
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/02; type=int; label= wordLength
+		wordLength = -50
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/03; type=int; label= wordSimilarToUsername
+		wordSimilarToUsername = -100
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/04; type=int; label= wordSequences
+		wordSequences = -50
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/05; type=int; label= wordTwoCharacterClasses
+		wordTwoCharacterClasses = 2
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/06; type=int; label= wordRepetitions
+		wordRepetitions = -25
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/07; type=int; label= wordLowercase
+		wordLowercase = 1
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/08; type=int; label= wordUppercase
+		wordUppercase = 3
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/09; type=int; label= wordOneNumber
+		wordOneNumber = 3
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/10; type=int; label= wordThreeNumbers
+		wordThreeNumbers = 5
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/11; type=int; label= wordOneSpecialChar
+		wordOneSpecialChar = 3
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/12; type=int; label= wordTwoSpecialChar
+		wordTwoSpecialChar = 5
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/13; type=int; label= wordUpperLowerCombo
+		wordUpperLowerCombo = 2
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/14; type=int; label= wordLetterNumberCombo
+		wordLetterNumberCombo = 2
+		# cat=plugin.tx_mooxfeusers_password_settings/rules_scores/15; type=int; label= wordLetterNumberCharCombo
+		wordLetterNumberCharCombo = 2
+		
+		# customsubcategory=error_messages=LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:error_messages
+		
+		# cat=plugin.tx_mooxfeusers_password_settings/error_messages/01; type=string; label= Password too short
+		passwordTooShort = The Password is too short
+		# cat=plugin.tx_mooxfeusers_password_settings/error_messages/02; type=string; label= Email as password
+		emailAsPassword = Do not use your email as your password
+		# cat=plugin.tx_mooxfeusers_password_settings/error_messages/03; type=string; label= Same as username
+		sameAsUsername = Your password cannot contain your username
+		# cat=plugin.tx_mooxfeusers_password_settings/error_messages/04; type=string; label= Two character classes
+		twoCharacterClasses = Use different character classes
+		# cat=plugin.tx_mooxfeusers_password_settings/error_messages/05; type=string; label= Repeated characters
+		repeatedCharacters = Too many repetitions
+		# cat=plugin.tx_mooxfeusers_password_settings/error_messages/06; type=string; label= Sequence found
+		sequenceFound = Your password contains sequences
+	}
+}
+
+module.tx_mooxfeusers {
+	view {
+		# cat=module.tx_mooxfeusers/file; type=string; label=Path to template root (BE)
+		templateRootPath = EXT:moox_feusers/Resources/Private/Backend/Templates/
+		# cat=module.tx_mooxfeusers/file; type=string; label=Path to template partials (BE)
+		partialRootPath = EXT:moox_feusers/Resources/Private/Backend/Partials/
+		# cat=module.tx_mooxfeusers/file; type=string; label=Path to template layouts (BE)
+		layoutRootPath = EXT:moox_feusers/Resources/Private/Backend/Layouts/
+	}
+	persistence {
+		# cat=module.tx_mooxfeusers//a; type=string; label=Default storage PID
+		storagePid =
+	}
+}

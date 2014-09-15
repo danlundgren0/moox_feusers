@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for backend of moox_social</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">MOOX-Frontend-User</label>
+			<label index="pi1_plus_wiz_description">Frontend user login, registration, profile etc.</label>
+			<label index="pi1_controller_selection">choose mode</label>
+			<label index="pi1_controller_selection.frontenduser_profile">profile</label>
+			<label index="pi1_controller_selection.not_configured">not configured</label>
+			<label index="pi1_preview_mode">mode</label>
+			<label index="pi1_fe_group">fe group</label>
+			<label index="rules">Rules</label>
+			<label index="rules_activated">Activated : An object that sets wich validation rules are activated. By changing this object is possible to deactivate some validations, or to activate them for extra security.</label>
+			<label index="rules_scores">Scores : Scores returned by the rules when they match. Negative values are for penalizations.</label>
+			<label index="error_messages">Error Messages</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="pi1_title">MOOX-Frontend-Benutzer</label>
+			<label index="pi1_plus_wiz_description">Frontend-Benutzer Login, Registrierung, Profilverwaltung etc.</label>
+			<label index="pi1_controller_selection">Modus wählen</label>
+			<label index="pi1_controller_selection.frontenduser_profile">Profil bearbeiten</label>
+			<label index="pi1_controller_selection.not_configured">nicht konfiguriert</label>	
+			<label index="pi1_preview_mode">Modus</label>
+			<label index="pi1_fe_group">Benutzergruppenauswahl für neue Benutzer</label>
+		</languageKey>		
+	</data>
+</T3locallang>

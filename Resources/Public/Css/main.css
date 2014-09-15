@@ -1,0 +1,122 @@
+.tx-moox-feusers {
+	width: 700px;
+}
+
+#tx-moox-feusers-overlay 
+{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px; 
+    margin-top: -50px; 
+}
+
+#tx-moox-feusers-ajaxquery {	
+	color: #666666;
+	padding: 10px;
+	border: 2px solid #d6e9c6;
+	background-color: #dff0d8;
+	display: none;
+	max-height: 200px;
+	border-radius: 4px;
+	overflow: auto;
+	margin-bottom: 15px;
+}
+
+#tx-moox-feusers-ajaxquery strong {
+	width: 60px;
+	display: inline-block;
+	background-color: #FFFFFF;
+	padding: 3px;
+	margin-bottom: 2px;
+}
+
+#tx-moox-feusers-ajaxquery a {
+	font-weight: normal;	
+}
+
+.tx-moox-feusers-tabs {
+	margin-bottom: 15px;
+}
+
+.tx-moox-feusers-profile {
+
+}
+
+.tx-moox-feusers-edit {
+
+}
+
+.tx-moox-feusers-form {
+	
+}
+
+.tx-moox-feusers-form-buttons {
+	text-align: right;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+.tx-moox-feusers .typo3-messages {
+	padding-bottom: 13px;
+}
+
+.tx-moox-feusers .typo3-messages .typo3-message {
+	padding: 15px;
+	margin-bottom: 5px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.tx-moox-feusers .typo3-messages .message-ok {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #3c763d;
+}
+
+.tx-moox-feusers .typo3-messages .message-warning {
+	background-color: #fcf8e3;
+	border-color: #faebcc;
+	color: #8a6d3b;
+}
+
+.tx-moox-feusers .typo3-messages .message-info {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #31708f;
+}
+
+.tx-moox-feusers .typo3-messages .message-notice {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #31708f;
+}
+
+.tx-moox-feusers .typo3-messages .message-error {
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	color: #a94442;
+}
+
+.tx-moox-feusers .typo3-messages .message-header {
+	float: left;
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+.tx-moox-feusers .typo3-messages .message-body {
+
+}
+
+
+
+

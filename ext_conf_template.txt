@@ -1,0 +1,2 @@
+# cat=basic/enable/11; type=boolean; label=Enable company administration in fe
+useCompanyAdmin = 0
