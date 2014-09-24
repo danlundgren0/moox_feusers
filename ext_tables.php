@@ -13,29 +13,6 @@ $pluginSignature = str_replace('_','',$_EXTKEY) . '_pi1';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_pi1.xml');
 
-
-if (false && TYPO3_MODE === 'BE') {
-
-	/**
-	 * Registers a Backend Module
-	 */
-	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-		'TYPO3.' . $_EXTKEY,
-		'tools',	 // Make module a submodule of 'tools'
-		'management',	// Submodule key
-		'',						// Position
-		array(
-			'Administration' => 'listUsers,showUser,editUser,deleteUser',
-		),
-		array(
-			'access' => 'user,group',
-			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
-			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_init.xlf',
-		)
-	);
-
-}
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'MOOX feusers');
 
 // include pageTS
@@ -83,9 +60,4 @@ if (!empty($extConf['useCompanyAdmin'])) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'is_company_admin');
 }
 
-/***************
- * Icon in page tree
- */
-$TCA['pages']['columns']['module']['config']['items'][] = array('MOOX-FE-Users', 'feuser', 'EXT:moox_feusers/ext_icon.gif');
-t3lib_SpriteManager::addTcaTypeIcon('pages', 'contains-feusers', '../typo3conf/ext/moox_feuser/ext_icon.gif');
 ?>
