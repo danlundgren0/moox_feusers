@@ -140,4 +140,38 @@ module.tx_mooxfeusers {
 		# cat=module.tx_mooxfeusers//a; type=string; label=Default storage PID
 		storagePid =
 	}
+	settings {
+		# cat=module.tx_mooxfeusers/various/01; type=string; label=[Listview] Default sort field
+		defaultSortField = name;
+		# cat=module.tx_mooxfeusers/various/02; type=string; label=[Listview] Default sort direction
+		defaultSortDirection = ASC;
+		# cat=module.tx_mooxfeusers/various/03; type=int+; label=[Listview] Users per page in listview
+		itemsPerPage = 10
+		# cat=module.tx_mooxfeusers/various/04; type=string; label=[Listview] Fields to show in backend module:[comma separated: field1:lenght1,field2:lenght2,... for example: forename:40,surname:30]
+		listViewFields = username,name,company,email,lastlogin
+		# cat=module.tx_mooxfeusers/various/05; type=string; label=[Listview] Field separator:[used to separate additional fields]
+		listViewFieldSeparator = &nbsp;|&nbsp;
+		# cat=module.tx_mooxfeusers/various/06; type=int+; label=[Listview] Default feuser start pid
+		feuserStartPid = 
+		# cat=module.tx_mooxfeusers/various/07; type=int+; label=[MIN] minimum usergroup count
+		minUsergroups = 1
+		# cat=module.tx_mooxfeusers/various/08; type=int+; label=[MAX] maximum usergroup count
+		maxUsergroups = 2
+		# cat=module.tx_mooxfeusers/various/09; type=boolean; label=[Add] Default setting of newsletter permission
+		addDisallowMailing = 0
+		# cat=plugin.tx_mooxfeusers/various/10; type=int+; label=[Add] Minimum length of username (lenght > 3)
+		addUsernameMinlength = 3
+		# cat=plugin.tx_mooxfeusers/various/11; type=int+; label=[All] Minimal length of password (lenght > 3)
+		passwordMinlength = 8
+		# cat=module.tx_mooxfeusers/various/12; type=string; label=[Import] Default csv import format string
+		importFormat = gender;title;forename;surname;company;department;street;zip;city;region;country;phone;mobile;fax;email;www
+		# cat=module.tx_mooxfeusers/various/13; type=string; label=[Import] Default csv separator
+		importSeparator = ;
+		# cat=module.tx_mooxfeusers/various/14; type=options[Email-Adress-Dubletten zulassen (Ohne Überprüfung hinzufügen)=0,Vorhandene Email-Adressen ergänzen=1,Vorhandene Email-Adressen überschreiben=2,Vorhandene Email-Adressen überspringen=3]; label=[Import] Default csv import mode
+		importMode = 2	
+		# cat=module.tx_mooxfeusers/various/15; type=boolean; label=[Import] Default behavior for line 1
+		importSkipFirst = 1	
+		# cat=module.tx_mooxfeusers/various/16; type=boolean; label=[Import] Default setting of newsletter permission
+		importDisallowMailing = 1
+	}
 }

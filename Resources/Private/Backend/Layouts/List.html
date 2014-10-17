@@ -1,0 +1,45 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<v:var.set name="cssFile" value="{f:uri.resource(path:'Css/administration.css')}" />
+<v:var.set name="javascriptFile" value="{f:uri.resource(path:'JavaScript/administration.js')}" />
+
+<f:be.container includeCssFiles="{admincss: cssFile}" includeJsFiles="{adminjs: javascriptFile}" loadJQuery="true" loadPrototype="false">
+	<f:if condition="false">
+	<f:if condition="{javascriptFile}!=''">
+		<script src="{javascriptFile}" type="text/javascript"></script>
+	</f:if>
+	</f:if>	
+	<div class="typo3-fullDoc tx-moox-feusers-admin">
+		<div id="typo3-docheader">			
+			<div class="typo3-docheader-functions">				
+				<div class="left">
+					<f:be.buttons.csh />						
+					<f:be.menus.actionMenu>						
+						<f:be.menus.actionMenuItem label="Frontend-Benutzer" controller="Administration" action="index" />
+						<f:comment>
+							<f:be.menus.actionMenuItem label="Import" controller="Import" action="index" />
+						</f:comment>
+					</f:be.menus.actionMenu>
+				</div>
+				<div class="right">
+					<f:be.buttons.shortcut />
+				</div>
+			</div>			
+		</div>		
+		<div class="typo3-docheader-buttons">
+			<div class="buttongroup">
+				<div class="left">
+					<f:link.action action="add" title="Neuer Benutzer">
+						<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-new">&nbsp;</span>
+					</f:link.action>
+				</div>
+			</div>
+		</div>
+		<div id="typo3-docbody">
+			<div id="typo3-inner-docbody">
+				<f:flashMessages renderMode="div" />				
+				<f:render section="content" />
+			</div>
+		</div>		
+	</div>
+</f:be.container>

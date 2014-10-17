@@ -4,11 +4,89 @@
 		<header/>
 		<body>
 			
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser">
+				<source>frontend user</source>				
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender">
+				<source>gender</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender.none">
+				<source>no selection</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender.male">
+				<source>male</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender.female">
+				<source>female</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.username">
+				<source>username</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.password">
+				<source>password</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.name">
+				<source>full name</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.first_name">
+				<source>first name</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.middle_name">
+				<source>middle name</source>				
+			</trans-unit>	
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.last_name">
+				<source>last name</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.address">
+				<source>address</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.telephone">
+				<source>telephone</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.fax">
+				<source>fax</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.email">
+				<source>email</source>				
+			</trans-unit>				
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.title">
+				<source>title</source>				
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.zip">
+				<source>zipcode</source>				
+			</trans-unit>	
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.city">
+				<source>city</source>				
+			</trans-unit>				
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.country">
+				<source>country</source>				
+			</trans-unit>											
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.www">
+				<source>www</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.company">
+				<source>company</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.images">
+				<source>image(s)</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.add_images">
+				<source>add images</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.disallow_mailing">
+				<source>receiving of newsletter mailings is prohibited</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.registered">
+				<source>registered</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.unregistered">
+				<source>unregistered</source>				
+			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.is_company_admin">
 				<source>Is company admin</source>				
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.is_moox_user">
-				<source>Is MOOX user</source>				
+				<source>Is MOOX user</source>							
 			</trans-unit>
 
 		</body>

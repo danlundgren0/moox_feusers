@@ -266,18 +266,119 @@
 				<target>Der Benutzername ist zu kurz. Benutzen Sie mindestes %s Zeichen.</target>
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_frontenduser.messages.username.existing">
-				<source>Enterd username already exists.</source>
+				<source>Entered username already exists.</source>
 				<target>Der eingegebene Benutzername existiert bereits.</target>
 			</trans-unit>
 			
-			
-			<trans-unit id="administration.folder.listing">
-				<source>user folders</source>
-				<target>Benutzer-Ordner</target>
+			<trans-unit id="listview.gender">
+				<source>gender</source>
+				<target>Geschlecht/Anrede</target>
+			</trans-unit>
+			<trans-unit id="listview.gender.0">
+				<source>no selection</source>
+				<target>Keine Auswahl</target>
+			</trans-unit>
+			<trans-unit id="listview.gender.1">
+				<source>male</source>
+				<target>Herr</target>
+			</trans-unit>
+			<trans-unit id="listview.gender.2">
+				<source>female</source>
+				<target>Frau</target>
+			</trans-unit>
+			<trans-unit id="listview.username">
+				<source>username</source>
+				<target>Benutzername</target>
+			</trans-unit>
+			<trans-unit id="listview.password">
+				<source>password</source>
+				<target>Passwort</target>
+			</trans-unit>
+			<trans-unit id="listview.name">
+				<source>full name</source>
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="listview.first_name">
+				<source>first name</source>
+				<target>Vorname</target>
+			</trans-unit>
+			<trans-unit id="listview.middle_name">
+				<source>middle name</source>
+				<target>Zuname</target>
+			</trans-unit>	
+			<trans-unit id="listview.last_name">
+				<source>last name</source>
+				<target>Nachname</target>
+			</trans-unit>
+			<trans-unit id="listview.address">
+				<source>street</source>
+				<target>Straße</target>
+			</trans-unit>
+			<trans-unit id="listview.telephone">
+				<source>telephone</source>
+				<target>Telefon</target>
+			</trans-unit>
+			<trans-unit id="listview.fax">
+				<source>fax</source>
+				<target>Fax</target>
+			</trans-unit>
+			<trans-unit id="listview.email">
+				<source>email</source>
+				<target>E-Mail</target>
+			</trans-unit>				
+			<trans-unit id="listview.title">
+				<source>title</source>
+				<target>Titel</target>
+			</trans-unit>			
+			<trans-unit id="listview.zip">
+				<source>zipcode</source>
+				<target>Postleitzahl</target>
+			</trans-unit>	
+			<trans-unit id="listview.city">
+				<source>city</source>
+				<target>Stadt/Ort</target>
+			</trans-unit>				
+			<trans-unit id="listview.country">
+				<source>country</source>
+				<target>Land</target>
+			</trans-unit>											
+			<trans-unit id="listview.www">
+				<source>www</source>
+				<target>WWW</target>
+			</trans-unit>
+			<trans-unit id="listview.company">
+				<source>company</source>
+				<target>Firma</target>
+			</trans-unit>
+			<trans-unit id="listview.tstamp">
+				<source>updated</source>
+				<target>Geändert am</target>
+			</trans-unit>
+			<trans-unit id="listview.starttime">
+				<source>starttime</source>
+				<target>Zugriff [Start]</target>
+			</trans-unit>
+			<trans-unit id="listview.endtime">
+				<source>endtime</source>
+				<target>Zugriff [Ende]</target>
+			</trans-unit>
+			<trans-unit id="listview.crdate">
+				<source>created</source>
+				<target>Erstellt am</target>
+			</trans-unit>
+			<trans-unit id="listview.lastlogin">
+				<source>last login</source>
+				<target>Letzter Login</target>
+			</trans-unit>
+			<trans-unit id="listview.fullname">
+				<source>name</source>
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="listview.fulladdress">
+				<source>address</source>
+				<target>Adresse</target>
 			</trans-unit>
 
-			
-			
 		</body>
 	</file>
 </xliff>

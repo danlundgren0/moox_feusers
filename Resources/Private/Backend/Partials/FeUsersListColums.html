@@ -1,0 +1,79 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+<f:for each="{fields}" as="field" iteration="iteration">	
+	<v:variable.set name="text" value="" />
+	<v:switch value="{field.name}">
+		<v:case case="fullname" break="TRUE">
+			<v:variable.set name="text" value="{f:format.stripTags(value: item.firstName)}{f:if(condition: item.middleName, then: ' ')}{f:format.stripTags(value: item.middleName)}{f:if(condition: item.lastName, then: ' ')}{f:format.stripTags(value: item.lastName)}" />
+		</v:case>
+		<v:case case="gender" break="TRUE">
+			<v:variable.set name="genderKey" value="listview.gender.{item.gender}" />
+			<v:variable.set name="text" value="{f:translate(key: genderKey, default: item.gender)}" />
+		</v:case>
+		<v:case case="fulladdress" break="TRUE">
+			<v:variable.set name="text" value="{f:format.stripTags(value: item.zip)} {f:format.stripTags(value: item.city)}<br />{f:format.stripTags(value: item.address)}" />
+		</v:case>
+		<v:case case="default">
+			<f:if condition="{field.type}=='datetime'">
+				<f:then>
+					<v:variable.set name="text" value="{v:variable.get(name: 'item.{field.name}')}" />
+					<f:if condition="{text}>0">
+						<f:then>
+							<v:variable.set name="text" value="{f:format.date(format: 'd.m.Y H:i', date: text)}" />	
+						</f:then>
+						<f:else>
+							<v:variable.set name="text" value="" />
+						</f:else>
+					</f:if>
+				</f:then>
+				<f:else>
+					<v:variable.set name="text" value="{v:variable.get(name: 'item.{field.name}')}" />
+					<v:variable.set name="text" value="{f:format.stripTags(value: text)}" />
+				</f:else>
+			</f:if>
+		</v:case>
+	</v:switch>
+	<f:for each="{field.additional}" as="additionalField">
+		<v:switch value="{additionalField.name}">
+			<v:case case="fullname" break="TRUE">
+				<v:variable.set name="additionalText" value="{f:format.stripTags(value: item.firstName)}{f:if(condition: item.middleName, then: ' ')}{f:format.stripTags(value: item.middleName)}{f:if(condition: item.lastName, then: ' ')}{f:format.stripTags(value: item.lastName)}" />
+			</v:case>
+			<v:case case="gender" break="TRUE">
+				<v:variable.set name="genderKey" value="listview.gender.{item.gender}" />
+				<v:variable.set name="additionalText" value="{f:translate(key: genderKey, default: item.gender)}" />
+			</v:case>
+			<v:case case="fulladdress" break="TRUE">
+				<v:variable.set name="additionalText" value="{f:format.stripTags(value: item.zip)} {f:format.stripTags(value: item.city)}<br />{f:format.stripTags(value: item.address)}" />
+			</v:case>
+			<v:case case="default">
+				<f:if condition="{additionalField.type}=='datetime'">
+					<f:then>
+						<v:variable.set name="additionalText" value="{v:variable.get(name: 'item.{additionalField.name}')}" />
+						<f:if condition="{additionalText}>0">
+							<f:then>
+								<v:variable.set name="additionalText" value="{f:format.date(format: "d.m.Y H:i", date: additionalText)}" />	
+							</f:then>
+							<f:else>
+								<v:variable.set name="additionalText" value="" />
+							</f:else>
+						</f:if>
+						<v:variable.set name="additionalText" value="{f:format.date(format: "d.m.Y H:i", date: additionalText)}" />					
+					</f:then>
+					<f:else>
+						<v:variable.set name="additionalText" value="{v:variable.get(name: 'item.{additionalField.name}')}" />
+						<v:variable.set name="additionalText" value="{f:format.stripTags(value: additionalText)}" />
+					</f:else>
+				</f:if>				
+			</v:case>
+		</v:switch>
+		<v:variable.set name="text" value="{text}{fieldsSeparator}{additionalText}" />
+	</f:for>
+	<f:for each="{replacements}" as="replacement">
+		<v:variable.set name="text" value="{v:format.replace(substring: replacement.search, content: text, replacement: replacement.replace)}" />
+	</f:for>
+	<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-{field.name}" onclick="mooxFeusersToggleDetails({item.uid})">
+		<f:if condition="{iteration.isFirst}">
+			<span id="feuser-details-{item.uid}-expander" class="feuser-details-expander-reset pointer t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down">&nbsp;</span>					
+		</f:if>
+		<span title="{text} [UID: {item.uid}]"><f:format.raw>{text -> f:format.crop(maxCharacters: field.lenght)}</f:format.raw></span>
+	</td>				
+</f:for>

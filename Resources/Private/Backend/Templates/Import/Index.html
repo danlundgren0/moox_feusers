@@ -1,0 +1,83 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<f:layout name="Import" />
+
+<f:section name="content">	
+	<div class="tx-moox-address-admin">
+		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Adressen importieren</h1>		
+		<div class="tx-moox-address-admin-body">
+			
+			<div class="tx-moox-address-admin-filter">				
+				<div class="filter-field">
+					<label for="folder" class="label-folder-import">
+						In diesen Ordner importieren:
+					</label>
+					<div id="selected-folder">
+						<img class="current-folder-icon pointer" width="16" height="16" alt="Liste" align="center" title="Liste" src="../typo3/sysext/t3skin/icons/module_web_list.gif">
+						<span id="folder-expander" class="pointer t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down">&nbsp;</span>
+						<span class="pointer folder" title="Pfad: <f:for each="{rootline}" as="path">\{path.title}</f:for> [UID: {page}]"><f:if condition="{folder}">{v:page.info(pageUid: folder, field: 'title')} / </f:if><f:if condition="{page}>0"><f:then>{v:page.info(pageUid: page, field: 'title')}&nbsp;&nbsp;&nbsp;[UID: {page} | Rootpage: {rootpage.title}]</f:then><f:else>Adressen ohne Ordner</f:else></f:if></span>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="folder-list folder-list-import" id="folder-list">
+					<f:if condition="{folders}">
+						<f:then>
+							<f:render partial="FolderList" arguments="{page: page, folders: folders, action: 'import'}" />
+						</f:then>
+						<f:else>
+							<div class="folder-noothers">Keine anderen Ordner gefunden</div>
+						</f:else>
+					</f:if>
+					<div class="folder-list-footer">							
+						<a href="#" id="folder-list-close" class="pointer" title="schließen">schließen <span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-close">&nbsp;</span></a>
+					</div>
+				</div>
+			</div>
+			<div class="tx-moox-address-admin-form">				
+				<f:form action="index" enctype="multipart/form-data" controller="Import" noCache="1" method="POST" id="importForm" name="import" object="{object}">
+					<div class="tx-moox-address-admin-form-header<f:if condition="{allErrors.file}"> has-error</f:if>">
+						Import-Datei
+					</div>
+					<div class="tx-moox-address-admin-form-item<f:if condition="{allErrors.file}"> has-error</f:if>">
+						<f:form.upload property="file" id="import-file" />
+					</div>
+					<div class="tx-moox-address-admin-form-header<f:if condition="{allErrors.format}"> has-error</f:if>">
+						Import-Format
+					</div>
+					<div class="tx-moox-address-admin-form-item<f:if condition="{allErrors.format}"> has-error</f:if>">
+						<f:form.textfield type="text" property="format" id="import-format" />
+					</div>
+					<div class="tx-moox-address-admin-form-header<f:if condition="{allErrors.separator}"> has-error</f:if>">
+						Import-Trennzeichen
+					</div>
+					<div class="tx-moox-address-admin-form-item<f:if condition="{allErrors.separator}"> has-error</f:if>">
+						<f:form.textfield type="text" property="separator" class="import-separator" id="import-separator" />
+					</div>
+					<div class="tx-moox-address-admin-form-header">
+						Import-Modus
+					</div>
+					<div class="tx-moox-address-admin-form-item">
+						<f:form.select property="mode" id="import-mode" options="{0:'Email-Adress-Dubletten zulassen (Ohne Überprüfung hinzufügen)',1:'Vorhandene Email-Adressen ergänzen',2:'Vorhandene Email-Adressen überschreiben',3:'Vorhandene Email-Adressen überspringen'}" />
+					</div>
+					<f:if condition="{mailerActive}">
+						<div class="tx-moox-address-admin-form-header">
+							Empfang von Newslettern für importierte Empfänger erlauben (falls Email-Adresse vorhanden)
+						</div>
+						<div class="tx-moox-address-admin-form-item">
+							<f:form.checkbox property="mailingAllowed" value="1" class="import-mailing-allowed" id="import-mailing-allowed" />
+						</div>
+					</f:if>
+					<div class="tx-moox-address-admin-form-header">
+						Erste Zeile überspringen
+					</div>
+					<div class="tx-moox-address-admin-form-item">
+						<f:form.checkbox property="skipFirst" value="1" class="import-skip-first" id="import-skip-first" />
+					</div>
+					<div class="tx-moox-address-admin-form-submit">
+						<f:form.submit property="process" id="import-process" value="importieren" />							
+					</div>
+				</f:form>
+			</div>
+		</div>
+	</div>
+</f:section>

@@ -1,2 +1,8 @@
-# cat=basic/enable/11; type=boolean; label=Enable company administration in fe
+# Backend module
+###########################
+# cat=basic/folders/101; type=string; label=Folder for image uploads
+imageUploadFolder = uploads/tx_mooxfeusers
+# cat=basic/enable/102; type=boolean; label=Enable company administration in frontend
 useCompanyAdmin = 0
+# cat=backend module/basic/101; type=string; label=Default fields to show in backend module:[comma separated: field1:lenght1,field2:lenght2... for example: forename:40,surname:30]
+listViewFields = username,name,company,email

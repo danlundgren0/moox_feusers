@@ -1,0 +1,168 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+<f:layout name="Form" />
+
+<f:section name="content">
+	<div class="tx-moox-feusers-admin">
+		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Benutzer hinzufügen</h1>
+		<div class="tx-moox-feusers-admin-body">			
+			<div class="tx-moox-feusers-admin-form">				
+				<div class="tx-moox-feusers-admin-form-header">
+					Benutzername (* Pflichtfeld)
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield required="1" type="text" property="username" placeholder="Benutzername" id="feuser-username" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.password}"> has-error</f:if>">
+					Passwort
+				</div>
+				<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.password}"> has-error</f:if>">
+					<f:form.password property="password" id="feuser-password" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Geschlecht/Anrede
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.select property="gender" id="feuser-gender" options="{0:'Keine Auswahl',1:'Herr',2:'Frau'}" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Titel
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="title" placeholder="Titel" id="feuser-title" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Vorname
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="firstName" placeholder="Vorname" id="feuser-first-name" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Zuname
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="middleName" placeholder="Zuname" id="feuser-middle-name" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Nachname
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="lastName" placeholder="Nachname" id="feuser-last-name" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.newImage}"> has-error</f:if>">
+					Bild(er)
+				</div>
+				<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.newImage}"> has-error</f:if>">
+					<f:form.upload property="newImage" id="import-image" /><f:form.submit property="addImage" class="add-image" title="Bild hinzufügen" value="Bild hinzufügen" />
+					<f:if condition="{object.images -> f:count()}>0">
+						<div class="tx-moox-feusers-admin-form-item-images">
+							<f:for each="{object.images}" as="image" iteration="iteration">
+								<div class="feuser-image">
+									<div class="feuser-image-thumb">
+										<f:image height="80c" width="80c" src="{image.src}" alt="{image.name}" />
+									</div>
+									<div class="feuser-image-name">
+										<f:form.submit property="removeNewImage_{iteration.index}" onclick="return window.confirm('Wollen Sie das Bild wirklich löschen?')" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete remove-image" title="Bild entfernen" value="" />
+										{image.name}										
+									</div>																			
+									<f:form.hidden property="newImage_{iteration.index}" id="feuser-image-{iteration.index}" value="{image.object}" />
+									<div class="clear"></div>
+								</div>								
+							</f:for>
+						</div>
+					</f:if>												
+				</div>
+				<f:if condition="{page}>0">					
+					<f:comment>
+						<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.falImage}"> has-error</f:if>">
+							Fal-Bild(er)
+						</div>
+						<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.falImage}"> has-error</f:if>">
+							<f:form.upload property="falImage" id="add-fal-image" /><f:form.submit property="addFalImage" class="add-fal-image" title="Bild hinzufügen" value="Bild hinzufügen" />
+							<f:if condition="{object.falImages -> f:count()}>0">
+								<div class="tx-moox-feusers-admin-form-item-images">
+									<f:for each="{object.falImages}" as="falImage" iteration="iteration">
+										<div class="feuser-fal-images">
+											<div class="feuser-fal-image-thumb">
+												<f:image src="{falImage.uid}" treatIdAsReference="1" title="{falImage.originalResource.title}" alt="{falImage.originalResource.alternative}" height="80c" width="80c" />
+											</div>
+											<div class="feuser-fal-image-name">
+												<f:form.submit property="removeFalImage_{falImage.uid}" onclick="return window.confirm('Wollen Sie das Bild wirklich löschen?')" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete remove-fal-image" title="Bild entfernen" value="" />
+												{falImage.originalResource.name}										
+											</div>
+											<div class="clear"></div>
+										</div>									
+									</f:for>
+								</div>
+							</f:if>
+						</div>
+					</f:comment>
+				</f:if>								
+				<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.company}"> has-error</f:if>">
+					Firma
+				</div>
+				<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.company}"> has-error</f:if>">
+					<f:form.textfield type="text" property="company" placeholder="Firma" id="feuser-company" />
+				</div>				
+				<div class="tx-moox-feusers-admin-form-header">
+					Straße
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="address" placeholder="Straße" id="feuser-address" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					PLZ | Stadt/Ort
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="zip" placeholder="PLZ" id="feuser-zip" />
+					<f:form.textfield type="text" property="city" placeholder="Stadt/Ort" id="feuser-city" />
+				</div>				
+				<div class="tx-moox-feusers-admin-form-header">
+					Land
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="country" placeholder="Land" id="feuser-country" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Telefon
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="telephone" placeholder="Telefon" id="feuser-telephone" />
+				</div>				
+				<div class="tx-moox-feusers-admin-form-header">
+					Fax
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="fax" placeholder="Fax" id="feuser-fax" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.email}"> has-error</f:if>">
+					E-Mail
+				</div>
+				<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.email}"> has-error</f:if>">
+					<f:form.textfield type="text" property="email" placeholder="E-Mail" id="feuser-email" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					WWW
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" property="www" placeholder="WWW" id="feuser-www" />
+				</div>
+				<f:render partial="FeUserGroupSelector" arguments="{object: object, usergroupSelectionTree: usergroupSelectionTree}" />
+				<div class="clear"></div>
+				<f:if condition="{mailerActive}">
+					<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.disallowedMailing}"> has-error</f:if>">
+						Empfang von Newslettern unterbinden
+					</div>
+					<div class="tx-moox-feusers-admin-form-item">
+						<f:form.checkbox property="disallowedMailing" id="feuser-disallowed-mailing" value="1" />
+					</div>
+				</f:if>
+				<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.isCompanyAdmin}"> has-error</f:if>">
+					Benutzer ist ein Firmen-Administrator
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.checkbox property="isCompanyAdmin" id="feuser-is-company-admin" value="1" />
+				</div>								
+			</div>
+		</div>
+	</div>		
+</f:section>

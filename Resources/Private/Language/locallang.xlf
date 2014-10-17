@@ -201,11 +201,89 @@
 				<source>Username is to short. Use at least 3 characters.</source>				
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_frontenduser.messages.username.existing">
-				<source>Enterd username already exists.</source>				
+				<source>Entered username already exists.</source>				
 			</trans-unit>
 			
-			<trans-unit id="administration.folder.listing">
-				<source>user folders</source>				
+			<trans-unit id="listview.gender">
+				<source>gender</source>			
+			</trans-unit>
+			<trans-unit id="listview.gender.0">
+				<source>no selection</source>				
+			</trans-unit>
+			<trans-unit id="listview.gender.1">
+				<source>male</source>				
+			</trans-unit>
+			<trans-unit id="listview.gender.2">
+				<source>female</source>				
+			</trans-unit>
+			<trans-unit id="listview.username">
+				<source>username</source>				
+			</trans-unit>
+			<trans-unit id="listview.password">
+				<source>password</source>				
+			</trans-unit>
+			<trans-unit id="listview.name">
+				<source>name</source>				
+			</trans-unit>
+			<trans-unit id="listview.first_name">
+				<source>first name</source>				
+			</trans-unit>
+			<trans-unit id="listview.middle_name">
+				<source>middle name</source>				
+			</trans-unit>	
+			<trans-unit id="listview.last_name">
+				<source>last name</source>				
+			</trans-unit>
+			<trans-unit id="listview.address">
+				<source>street</source>				
+			</trans-unit>
+			<trans-unit id="listview.telephone">
+				<source>telephone</source>			
+			</trans-unit>
+			<trans-unit id="listview.fax">
+				<source>fax</source>				
+			</trans-unit>
+			<trans-unit id="listview.email">
+				<source>email</source>				
+			</trans-unit>				
+			<trans-unit id="listview.title">
+				<source>title</source>				
+			</trans-unit>			
+			<trans-unit id="listview.zip">
+				<source>zipcode</source>				
+			</trans-unit>	
+			<trans-unit id="listview.city">
+				<source>city</source>				
+			</trans-unit>				
+			<trans-unit id="listview.country">
+				<source>country</source>				
+			</trans-unit>											
+			<trans-unit id="listview.www">
+				<source>www</source>				
+			</trans-unit>
+			<trans-unit id="listview.company">
+				<source>company</source>				
+			</trans-unit>
+			<trans-unit id="listview.tstamp">
+				<source>updated</source>				
+			</trans-unit>
+			<trans-unit id="listview.starttime">
+				<source>starttime</source>				
+			</trans-unit>
+			<trans-unit id="listview.endtime">
+				<source>endtime</source>				
+			</trans-unit>
+			<trans-unit id="listview.crdate">
+				<source>created</source>				
+			</trans-unit>
+			<trans-unit id="listview.lastlogin">
+				<source>last login</source>				
+			</trans-unit>
+			<trans-unit id="listview.fullname">
+				<source>name</source>				
+			</trans-unit>
+			<trans-unit id="listview.fulladdress">
+				<source>address</source>				
 			</trans-unit>
 
 		</body>

@@ -4,6 +4,110 @@
 		<header/>
 		<body>
 			
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser">
+				<source>frontend user</source>
+				<target>Frontend-Benutzer</target>
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender">
+				<source>gender</source>
+				<target>Geschlecht/Anrede</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender.none">
+				<source>no selection</source>
+				<target>Keine Auswahl</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender.male">
+				<source>male</source>
+				<target>Herr</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.gender.female">
+				<source>female</source>
+				<target>Frau</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.username">
+				<source>username</source>
+				<target>Benutzername</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.password">
+				<source>password</source>
+				<target>Passwort</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.name">
+				<source>full name</source>
+				<target>Voller Name</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.first_name">
+				<source>first name</source>
+				<target>Vorname</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.middle_name">
+				<source>middle name</source>
+				<target>Zuname</target>
+			</trans-unit>	
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.last_name">
+				<source>last name</source>
+				<target>Nachname</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.address">
+				<source>address</source>
+				<target>Adresse</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.telephone">
+				<source>telephone</source>
+				<target>Telefon</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.fax">
+				<source>fax</source>
+				<target>Fax</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.email">
+				<source>email</source>
+				<target>E-Mail</target>
+			</trans-unit>				
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.title">
+				<source>title</source>
+				<target>Titel</target>
+			</trans-unit>			
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.zip">
+				<source>zipcode</source>
+				<target>Postleitzahl</target>
+			</trans-unit>	
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.city">
+				<source>city</source>
+				<target>Stadt/Ort</target>
+			</trans-unit>				
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.country">
+				<source>country</source>
+				<target>Land</target>
+			</trans-unit>											
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.www">
+				<source>www</source>
+				<target>WWW</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.company">
+				<source>company</source>
+				<target>Firma</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.images">
+				<source>image(s)</source>
+				<target>Bild(er)</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.add_images">
+				<source>add images</source>
+				<target>Bild(er) hinzufügen</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.disallow_mailing">
+				<source>receiving of newsletter mailings is prohibited</source>
+				<target>Empfang von Newslettern verboten</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.registered">
+				<source>registered</source>
+				<target>Angemeldet am</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.unregistered">
+				<source>unregistered</source>
+				<target>Abgemeldet am</target>
+			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.is_company_admin">
 				<source>Is company admin</source>
 				<target>Benutzer ist Firmen-Administrator</target>

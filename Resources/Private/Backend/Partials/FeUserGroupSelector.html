@@ -1,0 +1,49 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<div class="feuser-usergroup-selector">
+	<div class="feuser-usergroup-selector-display-wrapper">
+		<div class="feuser-usergroup-selector-display-header">Gruppen-Sortierung</div>
+		<select name="usergroups_list" id="usergroups_list" size="10" class="feuser-usergroup-selector-display" multiple="multiple">
+			<f:if condition="{object.usergroups -> f:count()}>0">
+				<f:for each="{object.usergroups}" as="group" iteration="iteration">
+					<option value="{group.uid}">{group.title}{f:if(condition: iteration.isFirst, then: ' (Hauptgruppe)')}</option>
+				</f:for>			
+			</f:if>
+		</select>
+		<f:if condition="{object.usergroupsUids -> f:count()}>0">
+			<f:then>
+				<f:form.hidden id="feuser-usergroup-selector-hidden" property="usergroups" value="{v:iterator.implode(content: object.usergroupsUids, glue: ',')}" />
+			</f:then>
+			<f:else>
+				<f:form.hidden id="feuser-usergroup-selector-hidden" property="usergroups" value="" />
+			</f:else>			
+		</f:if>
+		<f:if condition="{settings.maxUsergroups}>0">
+			<f:form.hidden id="feuser-usergroup-selector-max" name="usergroupMax" value="{settings.maxUsergroups}" />
+			<div class="feuser-usergroup-selector-display-footer">
+				(<span id="feuser-usergroup-selector-cnt">{object.usergroups -> f:count()}</span> von {settings.maxUsergroups} möglichen Benutzergruppen gewählt)		
+			</div>
+		</f:if>
+		<f:if condition="{settings.minUsergroups}>0">
+			<f:form.hidden id="feuser-usergroup-selector-min" name="usergroupMin" value="{settings.minUsergroups}" />
+		</f:if>				
+	</div>
+	<div class="feuser-usergroup-selector-actions">
+		<div class="feuser-usergroup-selector-actions-icon"><span onclick="mooxFeusersMoveOptionsToTop('#usergroups')" class="t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-to-top t3-btn t3-btn-moveoption-top" title="Ausgewählte Objekte zum Anfang verschieben">&nbsp;</span></div>
+		<div class="feuser-usergroup-selector-actions-icon"><span onclick="mooxFeusersMoveOptionsOneUp('#usergroups')" class="t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-up t3-btn t3-btn-moveoption-up" title="Ausgewählte Objekte nach oben verschieben">&nbsp;</span></div>
+		<div class="feuser-usergroup-selector-actions-icon"><span onclick="mooxFeusersMoveOptionsOneDown('#usergroups')" class="t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down t3-btn t3-btn-moveoption-down" title="Ausgewählte Objekte nach unten verschieben">&nbsp;</span></div>
+		<div class="feuser-usergroup-selector-actions-icon"><span onclick="mooxFeusersMoveOptionsToBottom('#usergroups')" class="t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-to-bottom t3-btn t3-btn-moveoption-bottom" title="Ausgewählte Objekte zum Ende verschieben">&nbsp;</span></div>
+		<div class="feuser-usergroup-selector-actions-icon"><span onclick="mooxFeusersRemoveOptions('#usergroups')" class="t3-icon t3-icon-actions t3-icon-actions-selection t3-icon-selection-delete t3-btn t3-btn-removeoption" title="Ausgewähltes Objekt löschen">&nbsp;</span></div>
+		<div class="feuser-usergroup-selector-actions-icon"><span onclick="mooxFeusersSetMainUsergroup('#usergroups')" class="t3-icon t3-icon-apps t3-icon-apps-toolbar t3-icon-toolbar-menu-shortcut" title="Ausgewähltes Objekt löschen">&nbsp;</span></div>
+	</div>
+	<div class="feuser-usergroup-selector-selector-wrapper">
+		<div class="feuser-usergroup-selector-selector-header">Gruppen-Auswahl</div>
+		<div class="feuser-usergroup-selector-selector">	
+			{f:format.raw(value: usergroupSelectionTree)}
+		</div>
+		<div class="feuser-usergroup-selector-selector-footer">
+			<span onclick="mooxFeusersAddAllOptions('#usergroups')" class="moox-feusers-icon icon-select-all">Alle auswählen</span>
+			<span onclick="mooxFeusersRemoveAllOptions('#usergroups')" class="moox-feusers-icon icon-unselect-all">Alle abwählen</span>
+		</div>
+	</div>
+</div>		

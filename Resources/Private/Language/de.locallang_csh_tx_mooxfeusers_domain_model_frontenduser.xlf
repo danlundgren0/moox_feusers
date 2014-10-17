@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0.description">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-02-20T12:22:09Z" product-name="moox_address.description">
+		<header/>
+		<body>
+			
+			<trans-unit id="gender.description">
+				<source>gender</source>
+				<target>Geschlecht/Anrede</target>
+			</trans-unit>
+			<trans-unit id="title.description">
+				<source>title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="forename.description">
+				<source>forename</source>
+				<target>Vorname</target>
+			</trans-unit>
+			<trans-unit id="surname.description">
+				<source>surname</source>
+				<target>Nachname</target>
+			</trans-unit>		
+			<trans-unit id="company.description">
+				<source>company</source>
+				<target>Firma</target>
+			</trans-unit>	
+			<trans-unit id="department.description">
+				<source>department</source>
+				<target>Abteilung</target>
+			</trans-unit>	
+			<trans-unit id="street.description">
+				<source>street</source>
+				<target>Straße</target>
+			</trans-unit>	
+			<trans-unit id="zip.description">
+				<source>zipcode</source>
+				<target>Postleitzahl</target>
+			</trans-unit>	
+			<trans-unit id="city.description">
+				<source>city</source>
+				<target>Stadt/Ort</target>
+			</trans-unit>	
+			<trans-unit id="region.description">
+				<source>region</source>
+				<target>Bundesland/Region</target>
+			</trans-unit>	
+			<trans-unit id="country.description">
+				<source>country</source>
+				<target>Land</target>
+			</trans-unit>	
+			<trans-unit id="phone.description">
+				<source>phone</source>
+				<target>Telefon</target>
+			</trans-unit>	
+			<trans-unit id="mobile.description">
+				<source>mobile</source>
+				<target>Handy</target>
+			</trans-unit>	
+			<trans-unit id="fax.description">
+				<source>fax</source>
+				<target>Fax</target>
+			</trans-unit>	
+			<trans-unit id="email.description">
+				<source>email</source>
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="www.description">
+				<source>www</source>
+				<target>WWW</target>
+			</trans-unit>
+			<trans-unit id="images.description">
+				<source>images</source>
+				<target>Bilder</target>
+			</trans-unit>
+			<trans-unit id="mailing_allowed.description">
+				<source>receiving of newsletter mailings is permitted</source>
+				<target>Empfang von Newslettern erlaubt</target>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

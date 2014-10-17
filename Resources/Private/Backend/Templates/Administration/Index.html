@@ -1,0 +1,76 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<f:layout name="List" />
+
+<f:section name="content">	
+	<div class="tx-moox-feusers-admin">	
+		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Frontend-Benutzer</h1>
+		<div class="tx-moox-feusers-admin-body">			
+			<div class="tx-moox-feusers-admin-filter tx-moox-feusers-admin-filter-folder">
+				<div class="filter-field">					
+					<div id="selected-folder">
+						<img class="current-folder-icon pointer" width="16" height="16" alt="Liste" align="center" title="Liste" src="../typo3/sysext/t3skin/icons/module_web_list.gif">
+						<span id="folder-expander" class="pointer t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down">&nbsp;</span>
+						<span class="pointer folder" title="<f:if condition="{page}>0"><f:then>Pfad: <f:for each="{rootline}" as="path">\{path.title}</f:for> [UID: {page}]</f:then><f:else>Benutzer ohne Ordner</f:else></f:if>"><f:if condition="{folder}">{v:page.info(pageUid: folder, field: 'title')} / </f:if><f:if condition="{page}>0"><f:then>{v:page.info(pageUid: page, field: 'title')}&nbsp;&nbsp;&nbsp;[UID: {page} | Rootpage: {rootpage.title}]</f:then><f:else>Benutzer ohne Ordner</f:else></f:if></span>
+					</div>
+					<div class="clear"></div>
+				</div>				
+				<div class="folder-list" id="folder-list">
+					<f:if condition="{folders}">
+						<f:then>
+							<f:render partial="FolderList" arguments="{page: page, folders: folders}" />
+						</f:then>
+						<f:else>
+							<div class="folder-noothers">Keine anderen Ordner gefunden</div>
+						</f:else>
+					</f:if>
+					<div class="folder-list-footer">							
+						<a href="#" id="folder-list-close" class="pointer" title="schließen">schließen <span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-close">&nbsp;</span></a>
+					</div>
+				</div>
+			</div>
+			<div class="tx-moox-feusers-admin-filter">
+				<f:form noCache="1" method="POST" id="filterForm" name="filter" object="{filter}">
+					<div class="filter-field">						
+						<f:form.select property="mailing" id="filter-mailing" class="filter-mailing" options="{0:'Zeige alle Benutzer',1:'Zeige nur Benutzer an die Newsletter geschickt werden dürfen',2:'Zeige nur Benutzer an die keine Newsletter geschickt werden dürfen'}" />
+						<f:form.select property="state" id="filter-state" class="filter-state" options="{0:'aktivierte und deaktivierte',1:'nur aktivierte',2:'nur deaktivierte'}" />
+						<f:form.select property="perPage" id="filter-per-page" class="filter-per-page" options="{10:'10 Benutzer pro Seite',25:'25 Benutzer pro Seite',50:'50 Benutzer pro Seite',100:'100 Benutzer pro Seite',500:'500 Benutzer pro Seite'}" />
+					</div>
+					<div class="filter-field">	
+						<f:form.textfield type="text" property="query" id="filter-query" class="filter-query" placeholder="Suchbegriff eingeben" id="filter-query" />
+						<f:form.submit property="submit" id="filter-submit" class="filter-submit" value="suchen" />
+						<div class="clear"></div>
+					</div>
+				</f:form>
+			</div>
+			<div class="tx-moox-feusers-admin-info">
+				<f:if condition="{feUsers -> f:count()}>0">
+					<f:then>						
+						<f:be.widget.paginate objects="{feUsers}" as="paginatedFeUsers" configuration="{itemsPerPage: filter.perPage}">
+							<div class="tx-moox-feusers-admin-table">
+								<table cellpadding="0" cellspacing="0" border="0" width="100%">
+									<thead>
+										<tr>
+											<th></th>
+											<f:for each="{fields}" as="field" iteration="iteration">
+												<f:render partial="FeUsersListHeader" arguments="{filter: filter, field: field}" />																						
+											</f:for>
+										</tr>
+									</thead>
+									<f:render partial="FeUsersList" arguments="{feUsers: paginatedFeUsers, pagination: pagination, mailerActive: mailerActive, replacements: replacements, fields: fields, fieldsSeparator: fieldsSeparator, conf: conf}" />								
+								</table>							
+							</div>
+						</f:be.widget.paginate>
+						<div class="clear"></div>						
+					</f:then>
+					<f:else>
+						<div class="tx-moox-feusers-admin-nofeusers">
+							Derzeit sind keine Benutzer in diesem Ordner vorhanden.
+						</div>
+					</f:else>
+				</f:if>
+			</div>		
+		</div>
+	</div>
+
+</f:section>

@@ -1,0 +1,207 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<div class="feuser-details-content">										
+	<div class="feuser-details-content-inner">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.username" value="{v:format.replace(substring: replacement.search, content: item.username, replacement: replacement.replace)}" />
+		</f:for>
+		<strong>Benutzername:</strong><br />{f:format.raw(value: item.username)}		
+	</div>
+	<f:if condition="{item.usergroup -> f:count()}>0">
+		<div class="feuser-details-content-inner">		
+			<strong>Benutzergruppe(n):</strong><br />
+			<div class="feuser-groups">
+				<f:for each="{item.usergroup}" as="group" iteration="iteration">
+					<f:if condition="{iteration.isFirst}">
+						<f:then>
+							<span class="t3-icon t3-icon-apps t3-icon-apps-toolbar t3-icon-toolbar-menu-shortcut">&nbsp;</span>
+						</f:then>
+						<f:else>
+							<span class="t3-icon t3-icon-mimetypes t3-icon-mimetypes-x t3-icon-x-sys_category">&nbsp;</span>
+						</f:else>
+					</f:if>
+					<span title="UID: {group.uid}">{group.title}{f:if(condition: iteration.isFirst, then: ' (Hauptkategorie)')}</span>{f:if(condition: iteration.isLast, else: '<br />')}							
+				</f:for>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</f:if>
+	<f:if condition="{item.image}!=''">
+		<f:if condition="{conf.imageUploadFolder}!=''">
+			<div class="feuser-details-content-inner">
+				<strong>Bild(er):</strong><br />
+				<div class="feuser-images">
+					<f:for each="{v:iterator.explode(content: item.image, glue: ',')}" as="image" iteration="iteration">
+						<v:media.exists file="{conf.imageUploadFolder}/{image}">						
+							<div class="feuser-image-thumb">
+								<f:image src="/{conf.imageUploadFolder}/{image}" title="{image}" alt="{image}" height="80c" width="80c" />				
+							</div>
+						</v:media.exists>
+					</f:for>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</f:if>
+	</f:if>
+	<f:if condition="{item.falImages -> f:count()}>0">
+		<div class="feuser-details-content-inner">
+			<strong>Bild(er):</strong><br />
+			<div class="feuser-images">
+				<f:for each="{item.falImages}" as="image" iteration="iteration">
+					<div class="feuser-image-thumb">
+						<f:image src="{image.uid}" treatIdAsReference="1" title="{image.originalResource.title}" alt="{image.originalResource.alternative}" height="80c" width="80c" />				
+					</div>									
+				</f:for>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</f:if>
+	<div class="feuser-details-content-inner">
+		<strong>Anrede/Geschlecht:</strong><br />
+		<v:switch value="{item.gender}">
+			<v:case case="1" break="TRUE">
+				Herr
+			</v:case>
+			<v:case case="2" break="TRUE">
+				Frau
+			</v:case>
+			<v:case case="default">
+				Kein Angaben
+			</v:case>
+		</v:switch>
+	</div>
+	<f:if condition="{item.title}!=''">
+		<div class="feuser-details-content-inner">
+			<f:for each="{replacements}" as="replacement">
+				<v:variable.set name="item.title" value="{v:format.replace(substring: replacement.search, content: item.title, replacement: replacement.replace)}" />
+			</f:for>
+			<strong>Titel:</strong><br />{f:format.raw(value: item.title)}
+		</div>
+	</f:if>
+	<f:if condition="{item.firstName}!=''">
+		<div class="feuser-details-content-inner">
+			<f:for each="{replacements}" as="replacement">
+				<v:variable.set name="item.firstName" value="{v:format.replace(substring: replacement.search, content: item.firstName, replacement: replacement.replace)}" />
+			</f:for>
+			<strong>Vorname:</strong><br />{f:format.raw(value: item.firstName)}
+		</div>
+	</f:if>
+	<f:if condition="{item.middleName}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.middleName" value="{v:format.replace(substring: replacement.search, content: item.middleName, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Zuname:</strong><br />{f:format.raw(value: item.middleName)}
+		</div>
+	</f:if>
+	<f:if condition="{item.lastName}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.lastName" value="{v:format.replace(substring: replacement.search, content: item.lastName, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Nachname:</strong><br />{f:format.raw(value: item.lastName)}
+		</div>
+	</f:if>
+	<f:if condition="{item.name}!=''">
+		<div class="feuser-details-content-inner">
+			<f:for each="{replacements}" as="replacement">
+				<v:variable.set name="item.name" value="{v:format.replace(substring: replacement.search, content: item.name, replacement: replacement.replace)}" />
+			</f:for>
+			<strong>Voller Name:</strong><br />{f:format.raw(value: item.name)}
+		</div>
+	</f:if>
+	<f:if condition="{item.company}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.company" value="{v:format.replace(substring: replacement.search, content: item.company, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Firma:</strong><br />{f:format.raw(value: item.company)}
+		</div>
+	</f:if>	
+	<f:if condition="{item.address}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.address" value="{v:format.replace(substring: replacement.search, content: item.address, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Straße:</strong><br />{f:format.raw(value: item.address)}
+		</div>
+	</f:if>
+	<f:if condition="{item.zip}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.zip" value="{v:format.replace(substring: replacement.search, content: item.zip, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>PLZ:</strong><br />{f:format.raw(value: item.zip)}
+		</div>
+	</f:if>
+	<f:if condition="{item.city}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.city" value="{v:format.replace(substring: replacement.search, content: item.city, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Stadt/Ort:</strong><br />{f:format.raw(value: item.city)}
+		</div>
+	</f:if>	
+	<f:if condition="{item.country}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.country" value="{v:format.replace(substring: replacement.search, content: item.country, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Land:</strong><br />{f:format.raw(value: item.country)}
+		</div>
+	</f:if>
+	<f:if condition="{item.telephone}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.telephone" value="{v:format.replace(substring: replacement.search, content: item.telephone, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Telefon:</strong><br />{f:format.raw(value: item.telephone)}
+		</div>
+	</f:if>	
+	<f:if condition="{item.fax}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.fax" value="{v:format.replace(substring: replacement.search, content: item.fax, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Fax:</strong><br />{f:format.raw(value: item.fax)}
+		</div>
+	</f:if>
+	<f:if condition="{item.email}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.email" value="{v:format.replace(substring: replacement.search, content: item.email, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>Email:</strong><br />{f:format.raw(value: item.email)}
+		</div>
+	</f:if>
+	<f:if condition="{item.www}!=''">
+		<f:for each="{replacements}" as="replacement">
+			<v:variable.set name="item.www" value="{v:format.replace(substring: replacement.search, content: item.www, replacement: replacement.replace)}" />
+		</f:for>
+		<div class="feuser-details-content-inner">
+			<strong>WWW:</strong><br />{f:format.raw(value: item.www)}
+		</div>
+	</f:if>
+	<f:if condition="{mailerActive}">
+		<div class="feuser-details-content-inner">
+			<strong>Empfang von Newslettern erlaubt:</strong><br />
+			<v:switch value="{item.disallowMailing}">
+				<v:case case="0" break="TRUE">
+					Ja
+				</v:case>				
+				<v:case case="default">
+					Nein
+				</v:case>
+			</v:switch>
+		</div>		
+	</f:if>
+	<div class="feuser-details-content-inner">
+		<strong>Erstellt am:</strong><br /><f:format.date format="d.m.Y H:i:s">{item.crdate}</f:format.date>
+	</div>
+	<div class="feuser-details-content-inner">
+		<strong>Zuletzt geändert am:</strong><br /><f:format.date format="d.m.Y H:i:s">{item.tstamp}</f:format.date>
+	</div>
+	<div class="feuser-details-content-inner">
+		<strong>Benutzer-UID:</strong><br />{item.uid}
+	</div>					
+</div>

@@ -1,0 +1,744 @@
+#tx-moox-feusers-admin-overlay 
+{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px; 
+    margin-top: -50px; 
+}
+
+.tx-moox-feusers-admin {
+
+}
+
+.tx-moox-feusers-admin h1 {
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 15px;
+	vertical-align: middle;
+}
+
+.tx-moox-feusers-admin img.moox-icon {
+	float: left;
+	margin-right: 10px;
+}
+
+.typo3-docheader-buttons a {	
+	display: inline-block;	
+}
+
+.typo3-docheader-buttons .buttongroup {	
+	margin-top: -2px;
+}
+
+.typo3-docheader-buttons input[type="submit"]{
+	border: 0px;
+	padding: 0px;
+	margin: 0px;	
+}
+
+.tx-moox-feusers-admin-table .sort-up {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.tx-moox-feusers-admin-table .sort-asc a, .tx-moox-feusers-admin-table .sort-desc a {
+	color: #888888;	
+}
+
+.tx-moox-feusers-admin-table .sort-asc a:hover, .tx-moox-feusers-admin-table .sort-desc a:hover {
+	color: #FFFFFF;	
+}
+
+.tx-moox-feusers-admin-table .sort-asc.active a, .tx-moox-feusers-admin-table .sort-desc.active a  {
+	color: #FFFFFF;	
+}
+
+.tx-moox-feusers-admin input.remove-image, .tx-moox-feusers-admin input.remove-fal-image  {
+	border: 0px;
+}
+
+.tx-moox-feusers-admin input.add-image, .tx-moox-feusers-admin input.add-fal-image {
+	padding: 6px;
+	margin: 0px;
+	margin-left: 10px;
+	float: right;
+	width: 18%;
+}
+
+
+.typo3-messages {
+	margin-bottom: 20px !important;
+}
+
+img.mailing-state {
+	vertical-align: middle;
+}
+
+.tx-moox-feusers-admin #typo3-dblist-pagination {
+	background-color: #EEEEEE;
+	padding-left: 10px;
+	margin-top: 15px;
+}
+
+.tx-moox-feusers-admin a {
+	text-decoration: none !important;
+}
+
+.tx-moox-feusers-admin .clear {
+	clear: both;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-nofeusers {
+	text-align: center;
+	padding: 50px;
+	background-color: #EEEEEE;
+}
+
+.tx-moox-feusers-admin .actions a{
+	text-decoration: none;
+}
+
+.tx-moox-feusers-admin .pointer {
+	cursor: pointer;
+}
+
+.tx-moox-feusers-admin-buttons {	
+	font-weight: bold;	
+}
+
+.tx-moox-feusers-admin-buttons a {
+	color: #000000;
+	line-height: 28px;
+	display: inline-block;
+	padding: 3px;
+	padding-right: 10px;
+	background-position: 10px 5px;
+	background-color: #EEEEEE;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.tx-moox-feusers-admin-buttons a:hover,.tx-moox-feusers-admin-buttons a.active {
+	background-color: #DDDDDD;
+}
+
+.tx-moox-feusers-admin-filter {
+	background-color: #EDEDED;
+	border-top: 1px solid #CDCDCD;
+	border-bottom: 1px solid #CDCDCD;
+	padding: 12px;
+	margin-bottom: 5px;
+	font-family: Share, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+.tx-moox-feusers-admin form {
+	margin-bottom: 0px !important;
+}
+
+.tx-moox-feusers-admin-filter .filter-field {
+	padding: 2px 0;
+}
+
+.tx-moox-feusers-admin-filter .filter-field select {
+	height: 25px;
+	line-height: 25px;	
+}
+
+.tx-moox-feusers-admin-filter .filter-field input {
+	height: 25px;
+	line-height: 25px;
+	padding: 0px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin: 0px;
+}
+
+.tx-moox-feusers-admin-filter .filter-mailing {
+	width: 55%;
+}
+
+.tx-moox-feusers-admin-filter .filter-state {
+	width: 25%;
+}
+
+.tx-moox-feusers-admin-filter .filter-per-page {
+	width: 19%;
+}
+
+.tx-moox-feusers-admin-filter .filter-query {
+	width: 88%;
+	float: left;
+}
+
+.tx-moox-feusers-admin-filter .filter-submit {
+	width: 10%;
+	float: right;
+}
+
+.tx-moox-feusers-admin-filter .filter-field label {
+	display: block;
+	float: left;
+	width: 150px;
+}
+
+.tx-moox-feusers-admin-filter .filter-field h2 {
+	font-family: Share, Verdana, Arial, Helvetica, sans-serif;
+	font-variant: normal;
+	font-weight: bold;
+	font-size: 16px;
+	margin: 0px;
+	margin-bottom: 5px;
+	display: inline-block;
+	background-color: #FFFFFF;
+	color: #585858;
+	height: 25px;
+	line-height: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+}
+
+.tx-moox-feusers-admin-filter .filter-field label.label-folder-import {
+	display: block;
+	float: left;
+	width: 200px;
+}
+
+.tx-moox-feusers-admin-filter .folder-list {		
+	display: none;
+	border: 1px solid #CCCCCC;
+	-moz-box-shadow: 0px 0px 10px #333333;
+	-webkit-box-shadow: 0px 0px 10px #333333;
+	box-shadow: 0px 0px 10px #333333;
+	margin-bottom: 10px;	
+	margin-top: 10px;	
+}
+
+.tx-moox-feusers-admin-filter .folder-list-import {
+	margin-left: 200px;
+}
+
+.tx-moox-feusers-admin-filter .folder-list-footer {
+	padding-left: 20px;
+	border-top: 2px solid #999999;
+	margin-top: -1px;
+	background-color: #BBBBBB;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: right;
+}
+
+.tx-moox-feusers-admin-filter a#folder-list-close {
+	text-decoration: none;
+	font-weight: normal;
+	color: #FFFFFF;	
+}
+
+.tx-moox-feusers-admin-filter .folder-noothers {	
+	background-color: #FFFFFF;
+	padding:5px;
+}
+
+.tx-moox-feusers-admin-filter .folder-icon {	
+	float: left;
+	margin-right: 10px;
+}
+
+.tx-moox-feusers-admin-filter .current-folder-icon {		
+	
+}
+
+.tx-moox-feusers-admin-filter .folder-list ul {
+	margin: 0px;
+	margin-bottom: -2px;
+}
+
+.tx-moox-feusers-admin-filter .folder-list ul li {
+	background-color: #FFFFFF;
+	border-bottom: 2px solid #EEEEEE;
+	padding: 3px;
+	padding-left: 15px;
+}
+
+.tx-moox-feusers-admin-filter .folder-list ul li:hover {
+	background-color: #F1F1F1;	
+}
+
+.tx-moox-feusers-admin-filter .folder-list ul li.active {
+	background-color: #F1F1F1;	
+}
+
+.tx-moox-feusers-admin-filter .folder-list ul li.folder-last {
+	border: 0px;
+}
+
+.tx-moox-feusers-admin-filter .folder-list ul li a {
+	display: block;
+	text-decoration: none;
+}
+
+.tx-moox-feusers-admin-body {
+	background-color: #DDDDDD;
+	padding: 10px;
+}
+
+.tx-moox-feusers-admin-header {
+	background-color: #585858;
+	color: #FFFFFF;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.tx-moox-feusers-admin-table {
+	border-bottom: 1px solid #f3f3f3;
+}
+
+.tx-moox-feusers-admin-table  .feuser-details {
+	display: none;
+}
+
+.tx-moox-feusers-admin-table  .feuser-details-content{
+	margin: 5px;	
+	padding: 20px;
+	-moz-box-shadow: 0px 0px 10px #333333;
+	-webkit-box-shadow: 0px 0px 10px #333333;
+	box-shadow: 0px 0px 10px #333333;
+	background-color: #F9F9F9;
+}
+
+.tx-moox-feusers-admin-table  .feuser-details-content-inner{
+	margin-bottom: 10px;
+}
+
+.tx-moox-feusers-admin-table  .feuser-details-content-inner img {
+	margin-top: 5px;
+	border: 1px solid #BBBBBB;
+	padding: 3px;
+}
+
+.tx-moox-feusers-admin-table  .feuser-details-content-inner .feuser-images .feuser-image-thumb {
+	float: left;
+	margin-right: 5px;
+}
+
+.tx-moox-feusers-admin-table  .feuser-details-content-inner .feuser-fal-images .feuser-fal-image-thumb {
+	float: left;
+	margin-right: 5px;
+}
+
+.tx-moox-feusers-admin-table table th {
+	background-color: #585858;
+	color: #FFFFFF;
+	padding: 5px;
+	text-align: left;
+}
+
+.tx-moox-feusers-admin-table table th a {
+	color: #DDDDDD;	
+}
+
+.tx-moox-feusers-admin-table table th a:hover {
+	color: #FFFFFF;	
+}
+
+.tx-moox-feusers-admin-table-row {
+	
+}
+
+.tx-moox-feusers-admin-table-row-even {
+	background-color: #f3f3f3;
+}
+
+.tx-moox-feusers-admin-table-row-odd {
+	background-color: #FFFFFF;
+}
+
+.tx-moox-feusers-admin-table-row:hover {
+	background-color: #d9edf7;
+}
+
+.tx-moox-feusers-admin-table-label {
+	font-weight: bold;
+	padding: 5px;
+}
+
+.tx-moox-feusers-admin-table-options {	
+	padding: 5px;
+}
+
+.tx-moox-feusers-admin-table-value {	
+	padding: 5px;
+	cursor: pointer;
+}
+
+.tx-moox-feusers-admin-table-value .query, .feuser-details .query {
+	background-color: #bce8f1;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form {
+	background-color: #EEEEEE;
+	padding: 10px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-header {		
+	background-color: #BBBBBB;
+	color: #FFFFFF;
+	padding: 5px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-header.has-error {
+	background-color: #d9534f;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item {		
+	background-color: #EEEEEE;	
+	line-height: 30px;
+	margin-bottom: 5px
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item.has-error {
+	
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item.has-error input {
+	border-color: #d9534f;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item-disabled {		
+	background-color: #F9F9F9;	
+	color: #BBBBBB;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item label {
+	display: inline-block;
+	width: 140px;
+	padding-left: 10px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item select {
+	width: 100%;
+	margin: 0px;
+	height: 30px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input[type="text"]{
+	width: 99.2%;
+	margin: 0px;
+	padding: 0.3%;
+	line-height: 22px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input[type="password"]{
+	width: 99.2%;
+	margin: 0px;
+	padding: 0.3%;
+	line-height: 22px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input[type="file"]{
+	width: 80%;
+	margin: 0px;
+	padding: 0.3%;
+	line-height: 22px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input#import-separator {
+	width: 20px;	
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input#feuser-zip {
+	width: 9%;	
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input#feuser-city {
+	width: 88.7%;	
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-images {
+	margin-bottom: 5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-fal-images {
+	margin-bottom: 5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-image {
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 3px;
+	padding: 1%;
+	width: 97.8%;
+	margin-top: 5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-fal-image {
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 3px;
+	padding: 1%;
+	width: 97.8%;
+	margin-top: 5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-image-thumb {
+	width: 110px;
+	float: left;
+	height: 90px;
+	overflow: hidden;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-fal-image-thumb {
+	width: 110px;
+	float: left;
+	height: 90px;
+	overflow: hidden;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-image-thumb img {
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-fal-image-thumb img {
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-image-name {
+	float: left;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-fal-image-name {
+	float: left;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-image-name input {
+	margin-right:5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item .feuser-fal-image-name input {
+	margin-right:5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-submit {		
+	margin-top: 15px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-submit input[type="submit"]{		
+	line-height: 22px;
+}
+
+.feuser-usergroup-selector {
+	margin-top: 10px;
+	margin-bottom: 10px;	
+}
+
+.feuser-usergroup-selector .t3-icon-toolbar-menu-shortcut {
+	cursor: pointer;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-display-wrapper {
+	width: 35%;
+	display: inline-block;	
+	float: left;	
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-display-header {
+	background-color: #BBBBBB;
+	padding-left: 7px;
+	padding-right: 5px;
+	line-height: 24px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-display {
+	width: 100%;
+	display: inline-block;		
+	height: 250px;
+	padding: 5px;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-actions {
+	width: 2%;
+	display: inline-block;		
+	float: left;
+	overflow: hidden;
+	margin-left: 2px;	
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-selector-wrapper {
+	width: 60%;
+	display: inline-block;	
+	float: right;
+	margin-right: 12px;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-selector-header {
+	width: 100%;
+	background-color: #BBBBBB;
+	padding-left: 10px;
+	padding-right: px;
+	line-height: 24px;
+	font-weight: bold;
+	color: #FFFFFF;
+	border: 1px solid #BBBBBB;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-selector {
+	width: 100%;
+	display: inline-block;
+	border: 1px solid rgb(169, 169, 169);
+	background-color: #FFFFFF;
+	padding: 5px;	
+	height: 238px;
+	overflow: auto;	
+}
+
+.feuser-usergroup-selector-selector-footer {
+	margin-top: 5px;
+}
+
+.feuser-usergroup-selector-display-footer {
+	margin-top: 5px;
+}
+
+.feuser-usergroup-selector-context {
+	background-color: #EEEEEE;	
+	border: 1px solid #999999;
+	position: relative;
+	margin-top: -20px;	
+	z-index: 100;
+	display: none;
+}
+
+.feuser-usergroup-selector-context .moox-feusers-context-element {
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: 5px 5px;	
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 25px;
+	padding-right: 10px;	
+	border-top: 1px solid #999999;
+	margin-top: -1px;
+	cursor: pointer;
+}
+
+.feuser-usergroup-selector-context .moox-feusers-context-element:hover {
+	background-color: #DDDDDD;
+}
+
+.feuser-usergroup-selector-context .moox-feusers-context-element.icon-select-branch {
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/feuser_selected.png);
+}
+
+.feuser-usergroup-selector-context .moox-feusers-context-element.icon-unselect-branch {
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/feuser_unselected.png);
+}
+
+.feuser-usergroup-selector-selector-footer .moox-feusers-icon {
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: 5px 4px;	
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 25px;
+	padding-right: 10px;
+	margin-right: 10px;
+	background-color: #CCCCCC;
+	border: 1px solid #999999;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.feuser-usergroup-selector-selector-footer .moox-feusers-icon:hover {
+	background-color: #DDDDDD;
+}
+
+.feuser-usergroup-selector-selector-footer .moox-feusers-icon.icon-select-all {
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/feuser_selected.png);
+}
+
+.feuser-usergroup-selector-selector-footer .moox-feusers-icon.icon-unselect-all {
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/feuser_unselected.png);
+}
+
+
+.feuser-usergroup-selector .feuser-usergroup-selector-selector ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+.feuser-usergroup-selector .feuser-usergroup-selector-selector ul li{
+	display: block;
+	border-bottom: 1px solid #EEEEEE;
+	line-height: 25px;
+	margin: 0px;	
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-wrapper{
+	cursor: pointer;
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/feuser_unselected.png);
+	background-repeat: no-repeat;
+	background-position: 3px 2px;
+	padding-left: 25px;
+	color: #999999;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-wrapper:hover{
+	background-color: #EEEEEE;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-selector ul li ul li{
+	display: block;
+	border: 0px;
+	border-top: 1px solid #EEEEEE;
+	padding-left: 20px;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-title {
+	margin-left: 3px;
+}
+
+.feuser-usergroup-selector .feuser-usergroup-selector-active {
+	color: #000000;
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/feuser_selected.png);
+}
+
+img.feuser-usergroup-selector-state {
+	vertical-align: middle;
+	margin-right: 5px;
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/feuser_unselected.png);
+}
+
+.feuser-usergroup-selector-wrapper .t3-icon-toolbar-menu-shortcut {
+	margin-right: 4px;
+}
+
+.moox-feusers-context-element.icon-select-mainusergroup {
+	padding-left: 5px;
+	background-image: none;
+}
+.moox-feusers-context-element.icon-select-mainusergroup span{
+	margin-right: 4px;
+}

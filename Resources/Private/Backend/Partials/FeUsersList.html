@@ -1,0 +1,37 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<tbody>
+	<f:for each="{feUsers}" as="item" iteration="iteration">
+		<tr id="feuser-row-{item.uid}" class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
+			<td class="tx-moox-feusers-admin-table-options" style="width: 120px">
+				<f:link.action action="delete" arguments="{uid:item.uid,pagination:pagination}" onclick="return window.confirm('Wollen Sie diesen Benutzer wirklich löschen?')" title="{item.username} [{item.name}] löschen">
+					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete">&nbsp;</span>
+				</f:link.action>							
+				<f:link.action action="edit" arguments="{uid:item.uid,pagination:pagination}" title="{item.username} [{item.name}] bearbeiten">
+					<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open">&nbsp;</span>
+				</f:link.action>
+				<f:link.action action="toggleState" arguments="{uid:item.uid,pagination:pagination}" title="{item.username} [{item.name}] {f:if(condition: item.hidden, then: 'deaktivieren', else: 'aktivieren')}">
+					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-{f:if(condition: item.hidden, then: 'unhide', else: 'hide')}">&nbsp;</span>
+				</f:link.action>
+				<f:if condition="{mailerActive}">
+					<f:link.action action="toggleDisallowMailing" arguments="{uid:item.uid,pagination:pagination}" title="Newsletter-Empfang für {item.username} [{item.name}] {f:if(condition: item.mailingAllowed, then: 'deaktivieren', else: 'aktivieren')}">
+						<f:if condition="{item.disallowMailing}">
+							<f:then>
+								<img class="mailing-state" src="{f:uri.resource(path:'Icons/icon_mailing_disallowed.png')}" width="16" height="16" alt="Newsletter-Empfang aktivieren" title="Newsletter-Empfang aktivieren" />								
+							</f:then>
+							<f:else>
+								<img class="mailing-state" src="{f:uri.resource(path:'Icons/icon_mailing_allowed.gif')}" width="16" height="16" alt="Newsletter-Empfang deaktivieren" title="Newsletter-Empfang deaktivieren" />
+							</f:else>
+						</f:if>
+					</f:link.action>
+				</f:if>
+			</td>
+			<f:render partial="FeUsersListColums" arguments="{fields: fields, item: item, replacements: replacements, fieldsSeparator: fieldsSeparator}" />	
+		</tr>
+		<tr class="feuser-details" id="feuser-details-{item.uid}">
+			<td colspan="<v:math.sum a="{fields -> f:count()}" b="1" />">
+				<f:render partial="FeUserDetails" arguments="{item: item, mailerActive: mailerActive, replacements: replacements, conf: conf}" />
+			</td>
+		</tr>
+	</f:for>
+</tbody>

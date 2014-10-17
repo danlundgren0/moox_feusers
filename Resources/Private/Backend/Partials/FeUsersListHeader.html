@@ -1,0 +1,29 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+<th>
+	<v:variable.set name="sortFieldTxt"><f:translate key="listview.{field.name}" default="{field.name}" /></v:variable.set>
+	<v:variable.set name="sortField" value="{field.name}" />
+	<f:for each="{field.additional}" as="additionalField" iteration="iteration">
+		<v:variable.set name="sortFieldTxt">{sortFieldTxt} | <f:translate key="listview.{additionalField}" default="{additionalField}" /></v:variable.set>
+		<v:variable.set name="sortField" value="{sortField}|{additionalField}" />
+	</f:for>
+	<f:if condition="{filter.sortField}!={sortField}">
+		<f:then>
+			<f:link.action action="index" arguments="{filter: {sortField: sortField, sortDirection: 'ASC'}}" title="Nach \"{sortFieldTxt}\" sortieren">
+				{sortFieldTxt}
+			</f:link.action>
+		</f:then>
+		<f:else>
+			{sortFieldTxt}
+		</f:else>
+	</f:if>	
+	<span class="sort-asc<f:if condition="{filter.sortField}=={sortField}"><f:if condition="{filter.sortDirection}=='ASC'"> active</f:if></f:if>">
+		<f:link.action action="index" arguments="{filter: {sortField: sortField, sortDirection: 'ASC'}}" title="Nach \"{sortFieldTxt}\" aufsteigend sortieren">
+			&#9650;
+		</f:link.action>
+	</span> 
+	<span class="sort-desc<f:if condition="{filter.sortField}=={sortField}"><f:if condition="{filter.sortDirection}=='DESC'"> active</f:if></f:if>">
+		<f:link.action action="index" arguments="{filter: {sortField: sortField, sortDirection: 'DESC'}}" title="Nach \"{sortFieldTxt}\" Absteigend sortieren">
+			&#9660;
+		</f:link.action>
+	</span> 
+</th>

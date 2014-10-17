@@ -1,12 +1,36 @@
+# ==============================================
+# Persistence object mapping configuration
+# ==============================================
 config.tx_extbase {
-	persistence {
-		classes {
+    persistence {
+        classes {
+            TYPO3\MooxFeusers\Domain\Model\File {
+                mapping {
+                    tableName = sys_file
+                }
+            }
+            TYPO3\MooxFeusers\Domain\Model\FileReference {
+                mapping {
+                    tableName = sys_file_reference
+                    columns {
+                        uid_local.mapOnProperty = file
+                    }
+                }
+            }
 			TYPO3\MooxFeusers\Domain\Model\FrontendUser {
 				mapping {
 					tableName = fe_users
 					recordType = Tx_Extbase_Domain_Model_FrontendUser
 				}
-			}			
-		}
-	}
+			}
+			TYPO3\MooxFeusers\Domain\Model\FrontendUserGroup {
+				mapping {
+					tableName = fe_groups
+					recordType = Tx_Extbase_Domain_Model_FrontendUserGroup
+				}
+			}
+        }
+        # make sure ref_index is updated
+        updateReferenceIndex = 1
+    }
 }
