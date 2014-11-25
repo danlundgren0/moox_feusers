@@ -124,6 +124,19 @@ plugin.tx_mooxfeusers {
 		repeatedCharacters = Too many repetitions
 		# cat=plugin.tx_mooxfeusers_password_settings/error_messages/06; type=string; label= Sequence found
 		sequenceFound = Your password contains sequences
+		
+		# customsubcategory=verdicts=LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:verdicts
+		
+		# cat=plugin.tx_mooxfeusers_password_settings/verdicts/01; type=string; label= Verdict 1
+		verdict1 = Weak
+		# cat=plugin.tx_mooxfeusers_password_settings/verdicts/02; type=string; label= Verdict 2
+		verdict2 = Normal
+		# cat=plugin.tx_mooxfeusers_password_settings/verdicts/03; type=string; label= Verdict 3
+		verdict3 = Medium
+		# cat=plugin.tx_mooxfeusers_password_settings/verdicts/04; type=string; label= Verdict 4
+		verdict4 = Strong
+		# cat=plugin.tx_mooxfeusers_password_settings/verdicts/05; type=string; label= Verdict 5
+		verdict5 = Very Strong
 	}
 }
 
@@ -154,9 +167,9 @@ module.tx_mooxfeusers {
 		# cat=module.tx_mooxfeusers/various/06; type=int+; label=[Listview] Default feuser start pid
 		feuserStartPid = 
 		# cat=module.tx_mooxfeusers/various/07; type=int+; label=[MIN] minimum usergroup count
-		minUsergroups = 1
+		minUsergroups = 0
 		# cat=module.tx_mooxfeusers/various/08; type=int+; label=[MAX] maximum usergroup count
-		maxUsergroups = 2
+		maxUsergroups = 0
 		# cat=module.tx_mooxfeusers/various/09; type=boolean; label=[Add] Default setting of newsletter permission
 		addDisallowMailing = 0
 		# cat=plugin.tx_mooxfeusers/various/10; type=int+; label=[Add] Minimum length of username (lenght > 3)

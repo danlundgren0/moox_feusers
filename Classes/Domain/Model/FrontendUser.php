@@ -33,7 +33,7 @@ namespace TYPO3\MooxFeusers\Domain\Model;
  *
  */
 class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
-	
+		
 	/**
 	 * tstamp
 	 *
@@ -81,7 +81,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	 *
 	 * @var string
 	 */
-    protected $username;
+    protected $username;	
 	
 	/**
 	 * disallow mailing
@@ -103,7 +103,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	 *
 	 * @var \integer	
 	 */
-	protected $hidden;
+	protected $disable;
 	
 	/**
 	 * is company admin
@@ -117,7 +117,28 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	 *
 	 * @var boolean
 	 */
-    protected $isMooxFeuser = FALSE;		
+    protected $isMooxFeuser = FALSE;
+	
+	/**
+	 * password recovery hash
+	 *
+	 * @var string
+	 */
+    protected $passwordRecoveryHash;
+	
+	/**
+	 * password recovery timestamp
+	 *
+	 * @var integer
+	 */
+    protected $passwordRecoveryTstamp;
+	
+	/**
+	 * sorted usergroup
+	 *
+	 * @var array
+	 */
+    protected $sortedUsergroup;
 	
 	public function initializeObject() {
 		/**
@@ -350,22 +371,22 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
     }
 	
 	/**
-	 * Returns the hidden
+	 * Returns the disable
 	 *
-	 * @return \integer $hidden
+	 * @return \integer $disable
 	 */
-	public function getHidden() {
-		return $this->hidden;
+	public function getDisable() {
+		return $this->disable;
 	}
 
 	/**
-	 * Sets the hidden
+	 * Sets the disable
 	 *
-	 * @param \integer $hidden
+	 * @param \integer $disable
 	 * @return void
 	 */
-	public function setHidden($hidden) {
-		$this->hidden = $hidden;
+	public function setDisable($disable) {
+		$this->disable = $disable;
 	}
 	
     /**
@@ -407,12 +428,77 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	 */
 	public function setPassword($password) {
 		if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('saltedpasswords')) {
-			$saltedpasswordsInstance = \TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance();
-			$encryptedPassword = $saltedpasswordsInstance->getHashedPassword($password);
-			$this->password = $encryptedPassword;
+			if (\TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::isUsageEnabled('BE')) {
+				$objSalt = \TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance(NULL);
+				if (is_object($objSalt)) {
+					$password = $objSalt->getHashedPassword($password);
+				}
+			}
+			$this->password = $password;
 		} else {
 			parent::setPassword($password);
-		}
+		}		
 	}
+	
+	/**
+     * get password recovery hash
+	 *
+     * @return integer $passwordRecoveryHash password recovery hash
+     */
+    public function getPasswordRecoveryHash() {
+       return $this->passwordRecoveryHash;
+    }
+     
+    /**
+     * set password recovery hash
+	 *
+     * @param integer $passwordRecoveryHash password recovery hash
+	 * @return void
+     */
+    public function setPasswordRecoveryHash($passwordRecoveryHash) {
+        $this->passwordRecoveryHash = $passwordRecoveryHash;
+    }
+	
+	/**
+     * get password recovery timestamp
+	 *
+     * @return integer $passwordRecoveryTstamp password recovery timestamp
+     */
+    public function getPasswordRecoveryTstamp() {
+       return $this->passwordRecoveryTstamp;
+    }
+     
+    /**
+     * set password recovery timestamp
+	 *
+     * @param integer $passwordRecoveryTstamp password recovery timestamp
+	 * @return void
+     */
+    public function setPasswordRecoveryTstamp($passwordRecoveryTstamp) {
+        $this->passwordRecoveryTstamp = $passwordRecoveryTstamp;
+    }
+		
+	/**
+     * get sorted usergroup
+	 *
+     * @return array
+     */
+    public function getSortedUsergroup() {
+       $user = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('usergroup', 'fe_users', 'uid='.$this->uid);
+	   if(!is_null($user) && $user['usergroup']!="" && $user['usergroup']!=0){
+			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+			$frontendUserGroupRepository = $objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\FrontendUserGroupRepository');
+			$return = array();
+			foreach(explode(",",$user['usergroup']) AS $uid){
+				$group = $frontendUserGroupRepository->findByUid($uid,FALSE);
+				if(is_object($group)){
+					$return[] = $group;
+				}
+			}
+			return $return;
+	   } else {
+			return array();
+	   }	  
+    }
 }
 ?>

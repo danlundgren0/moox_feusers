@@ -1,8 +1,7 @@
 {namespace v=Tx_Vhs_ViewHelpers}
-
 <tr>
-	<td>{companyUser.name}</td>
 	<td>{companyUser.username}</td>
+	<td>{companyUser.name}</td>	
 	<td>{companyUser.email}</td>
 	<td style="text-align: right">
 		<f:link.action action="edit" arguments="{editUser:companyUser}" title="{f:translate(key: 'tx_mooxfeusers_frontenduser_action_list.action.edit')}">

@@ -180,10 +180,8 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		} else {
 			$configuration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		}
-		if (empty($configuration['persistence']['storagePid'])) {
-			$currentPid['persistence']['storagePid'] = $this->page;
-			$this->configurationManager->setConfiguration(array_merge($configuration, $currentPid));
-		}		
+		$currentPid['persistence']['storagePid'] = $this->page;
+		$this->configurationManager->setConfiguration(array_merge($configuration, $currentPid));		
 	}
 	
 	/**
@@ -767,7 +765,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				$allErrors['username']	= true;
 				$dataError 				= true;
 				$hasErrors 				= true;
-			} elseif($this->frontendUserRepository->findByUsername(trim($add['username']))->count()>0){
+			} elseif($this->frontendUserRepository->findByUsername(array($this->page),trim($add['username']))->count()>0){
 				$errorMessages[] 		= 	array( 
 														"title" => "Benutzername",
 														"message" => "Dieser Benutzername existiert bereits"
@@ -830,8 +828,8 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			
 				$object = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Model\\FrontendUser');
 				
-				foreach($add['usergroupsUids'] AS $usergroupUid){
-					$usergroup = $this->frontendUserGroupRepository->findOneByUid($usergroupUid);																
+				foreach($add['usergroupsUids'] AS $usergroupUid){					
+					$usergroup = $this->frontendUserGroupRepository->findByUid($usergroupUid);																
 					$object->addUsergroup($usergroup);							
 				}
 				//$object->setUsergroup($add['usergroup']);
@@ -847,24 +845,26 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				$object->setMiddleName($add['middleName']);
 				$object->setLastName($add['lastName']);
 				$name = "";
-				if($add['firstName']!=""){
-					$name = $add['firstName'];
+				if(trim($add['firstName'])!=""){
+					$name = trim($add['firstName']);
 				}
-				if($add['middleName']!="" && $name==""){
-					$name = $add['middleName'];
-				} else {
+				if(trim($add['middleName'])!="" && $name==""){
+					$name = trim($add['middleName']);
+				} elseif(trim($add['middleName'])!="" && $name!=""){
 					$name .= " ".$add['middleName'];
 				}
-				if($add['lastName']!="" && $name==""){
-					$name = $add['lastName'];
-				} else {
+				if(trim($add['lastName'])!="" && $name==""){
+					$name = trim($add['lastName']);
+				} elseif(trim($add['lastName'])!="" && $name!=""){
 					$name .= " ".$add['lastName'];
 				}
+				$add['name'] = $name;
 				$object->setName($name);
 				$object->setAddress($add['address']);
 				$object->setTelephone($add['telephone']);
 				$object->setFax($add['fax']);
 				$object->setEmail($add['email']);
+				$object->setGender($add['gender']);
 				$object->setTitle($add['title']);
 				$object->setZip($add['zip']);
 				$object->setCity($add['city']);
@@ -873,7 +873,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				$object->setCompany($add['company']);
 				//$object->setImage($add['image']);
 				//$object->setFalImage($add['falImage']);
-				$object->setDisallowMailing($add['disallowMailing']);
+				$object->setDisallowMailing(($add['disallowMailing'])?1:0);
 				$object->setIsCompanyAdmin($add['isCompanyAdmin']);
 				
 				if(count($new_images_tmp)){					
@@ -1119,7 +1119,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 						\TYPO3\CMS\Core\Messaging\FlashMessage::OK);
 				}
 			}
-					
+			
 			$object = $this->frontendUserRepository->findByUid($uid,FALSE);
 			
 			if(!count($edit)){
@@ -1129,13 +1129,14 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				$edit['usergroups'] 		= array();
 				$edit['usergroupsUids'] 	= array();
 				if(count($object->getUsergroup())){
-					foreach($object->getUsergroup() AS $usergroup){
+					foreach($object->getSortedUsergroup() AS $usergroup){
 						$edit['usergroups'][] 		= array("uid" => $usergroup->getUid(), "title" => $usergroup->getTitle());
 						$edit['usergroupsUids'][] 	= $usergroup->getUid();
 					}
 				}
 				$edit['starttime'] 			= $object->getStarttime();
 				$edit['endtime'] 			= $object->getEndtime();
+				$edit['name'] 				= $object->getName();
 				$edit['firstName'] 			= $object->getFirstName();
 				$edit['middleName']	 		= $object->getMiddleName();
 				$edit['lastName'] 			= $object->getLastName();
@@ -1232,15 +1233,23 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				}
 				
 				if(!$hasErrors){					
-										
-					foreach($object->getUsergroup() AS $usergroup){
-						$object->removeUsergroup($usergroup);					
-					}					
-					foreach($edit['usergroupsUids'] AS $usergroupUid){
-						$usergroup = $this->frontendUserGroupRepository->findOneByUid($usergroupUid);																
-						$object->addUsergroup($usergroup);							
+					/*
+					if(count($object->getUsergroup())){	
+						foreach($object->getUsergroup() AS $usergroup){
+							$object->removeUsergroup($usergroup);					
+						}										
+					}
+					$this->frontendUserRepository->update($object);								
+					$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
+					
+					$edit['usergroups'] = array();											
+					foreach($edit['usergroupsUids'] AS $usergroupUid){						
+						$usergroup = $this->frontendUserGroupRepository->findByUid($usergroupUid);
+						$edit['usergroups'][] = array("uid" => $usergroup->getUid(), "title" => $usergroup->getTitle());
+						//$object->addUsergroup($usergroup);							
 					}
 					//$object->setUsergroup($edit['usergroup']);
+					*/					
 					if($edit['password']!=""){
 						$object->setPassword($edit['password']);
 					}
@@ -1250,25 +1259,27 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 					$object->setMiddleName($edit['middleName']);
 					$object->setLastName($edit['lastName']);
 					$name = "";
-					if($edit['firstName']!=""){
-						$name = $edit['firstName'];
+					if(trim($edit['firstName'])!=""){
+						$name = trim($edit['firstName']);
 					}
-					if($edit['middleName']!="" && $name==""){
-						$name = $edit['middleName'];
-					} else {
+					if(trim($edit['middleName'])!="" && $name==""){
+						$name = trim($edit['middleName']);
+					} elseif(trim($edit['middleName'])!="" && $name!=""){
 						$name .= " ".$edit['middleName'];
 					}
-					if($edit['lastName']!="" && $name==""){
-						$name = $edit['lastName'];
-					} else {
+					if(trim($edit['lastName'])!="" && $name==""){
+						$name = trim($edit['lastName']);
+					} elseif(trim($edit['lastName'])!="" && $name!=""){
 						$name .= " ".$edit['lastName'];
 					}
+					$edit['name'] = $name;
 					$object->setName($name);
 					$object->setAddress($edit['address']);
 					$object->setTelephone($edit['telephone']);
 					$object->setFax($edit['fax']);
 					$object->setEmail($edit['email']);
 					$object->setTitle($edit['title']);
+					$object->setGender($edit['gender']);
 					$object->setZip($edit['zip']);
 					$object->setCity($edit['city']);
 					$object->setCountry($edit['country']);
@@ -1276,7 +1287,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 					$object->setCompany($edit['company']);
 					//$object->setImage($edit['image']);
 					//$object->setFalImage($edit['falImage']);
-					$object->setDisallowMailing($edit['disallowMailing']);
+					$object->setDisallowMailing(($edit['disallowMailing'])?1:0);
 					$object->setIsCompanyAdmin($edit['isCompanyAdmin']);
 					
 					if(false && $edit['falImage']['name']!=""){
@@ -1328,6 +1339,9 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 															
 					$this->frontendUserRepository->update($object);								
 					$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
+					
+					// workaround because of problems with setting new groups by extbase
+					$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery( "fe_users","uid=".$object->getUid(),array("usergroup" => implode(",",$edit['usergroupsUids'])));
 					
 					$this->flashMessageContainer->add(
 						'', 
@@ -1443,11 +1457,11 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			
 			$object = $this->frontendUserRepository->findByUid($uid,FALSE);
 			
-			if($object->getHidden()==1){
-				$object->setHidden(0);
+			if($object->getDisable()==1){
+				$object->setDisable(0);
 				$action = "aktviert";
 			} else {
-				$object->setHidden(1);
+				$object->setDisable(1);
 				$action = "deaktviert";
 			}			
 			
@@ -1467,23 +1481,23 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	}
 	
 	/**
-	 * action toggle mailing allowed
+	 * action toggle disallow mailing
 	 *
 	 * @param \int $uid	
 	 * @param \array $pagination
 	 * @return void
 	 */
-	public function toggleMailingAllowedAction($uid = 0, $pagination = array()) {			
+	public function toggleDisallowMailingAction($uid = 0, $pagination = array()) {			
 		
 		if($uid>0){						
 			
 			$object = $this->frontendUserRepository->findByUid($uid,FALSE);
 			
-			if($object->getMailingAllowed()==1){
-				$object->setMailingAllowed(0);
-				$action = "aktviert";
+			if($object->getDisallowMailing()==1){
+				$object->setDisallowMailing(0);
+				$action = "aktiviert";
 			} else {
-				$object->setMailingAllowed(1);
+				$object->setDisallowMailing(1);
 				$action = "deaktviert";
 			}			
 			

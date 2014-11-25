@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'MOOX feusers',
-	'description' => 'Manage feusers, login, register, edit, create, delete',
+	'description' => 'Manage feusers, login, register, edit, add, delete',
 	'category' => 'plugin',
 	'author' => 'Dominic Martin',
 	'author_email' => 'dm@dcn.de',

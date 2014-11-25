@@ -1,0 +1,260 @@
+#tx-moox-feusers-admin-overlay 
+{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px; 
+    margin-top: -50px; 
+}
+
+.tx-moox-feusers-admin {
+
+}
+
+.tx-moox-feusers-admin img.moox-icon {
+	float: left;
+	margin-right: 10px;
+}
+
+.typo3-docheader-buttons a {	
+	display: inline-block;	
+}
+
+.typo3-docheader-buttons .buttongroup {	
+	margin-top: -2px;
+}
+
+.typo3-docheader-buttons input[type="submit"]{
+	border: 0px;
+	padding: 0px;
+	margin: 0px;	
+}
+
+.typo3-messages {
+	margin-bottom: 20px !important;
+}
+
+.tx-moox-feusers-admin a {
+	text-decoration: none !important;
+}
+
+.tx-moox-feusers-admin .clear {
+	clear: both;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-options {
+	background-color: #DDDDDD;
+	border-top: 1px solid #CDCDCD;
+	border-bottom: 1px solid #CDCDCD;
+	padding: 10px;
+	padding-top: 5px;
+	margin-bottom: 20px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-footer {
+	margin-top: 15px;	
+	margin-bottom: 5px;
+	text-align: right;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-iframe {
+	margin-top: 10px;
+	background-color: #EEEEEE;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-iframe-content {
+	margin-top: 10px;	
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-bottom: 10px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-iframe-content iframe{
+	height: 400px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-iframe-header {
+	background-color: #DDDDDD;
+	font-weight: bold;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.tx-moox-feusers-admin  .tx-moox-feusers-admin-option {
+	
+}
+
+.tx-moox-feusers-admin  .tx-moox-feusers-admin-option label {
+	margin-top: 5px;
+	font-weight: bold;
+}
+
+.tx-moox-feusers-admin .actions a {
+	text-decoration: none;
+}
+
+.tx-moox-feusers-admin .pointer {
+	cursor: pointer;
+}
+
+.tx-moox-feusers-admin-buttons {	
+	font-weight: bold;	
+}
+
+.tx-moox-feusers-admin-buttons a {
+	color: #000000;
+	line-height: 28px;
+	display: inline-block;
+	padding: 3px;
+	padding-right: 10px;
+	background-position: 10px 5px;
+	background-color: #EEEEEE;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.tx-moox-feusers-admin-buttons a:hover,.tx-moox-feusers-admin-buttons a.active {
+	background-color: #DDDDDD;
+}
+
+.tx-moox-feusers-admin-body {
+	background-color: #DDDDDD;
+	padding: 10px;
+}
+
+.tx-moox-feusers-admin-info {
+	background-color: #FFFFFF;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.tx-moox-feusers-admin-header {
+	background-color: #585858;
+	color: #FFFFFF;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.tx-moox-feusers-admin-table {
+
+}
+
+.tx-moox-feusers-admin-table table th {
+	background-color: #dadada;
+	color: #000000;
+	padding: 5px;
+	text-align: left;
+}
+
+.tx-moox-feusers-admin-table-row {
+	
+}
+
+.tx-moox-feusers-admin-table-row-even {
+	background-color: #f3f3f3;
+}
+
+.tx-moox-feusers-admin-table-row-odd {
+
+}
+
+.tx-moox-feusers-admin-table {
+	border-bottom: 1px solid #f3f3f3;
+}
+
+.tx-moox-feusers-admin-table-label {
+	font-weight: bold;
+	padding: 5px;
+}
+
+.tx-moox-feusers-admin-table-value {	
+	padding: 5px;
+}
+
+.tx-moox-feusers-admin .news-info-field-content-inner .allowed {
+	color: green;
+	font-weight: bold;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form {
+	background-color: #FFFFFF;
+	padding: 10px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-header {		
+	background-color: #BBBBBB;
+	color: #FFFFFF;
+	padding: 5px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-header.current-year {		
+	background-color: #d6e9c6;
+	color: #3c763d;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item {		
+	background-color: #EEEEEE;	
+	line-height: 30px;
+	margin-bottom: 5px
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item.current-week {		
+	background-color: #d6e9c6;
+	color: #3c763d;
+	font-weight: bold;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item-disabled {		
+	background-color: #F9F9F9;	
+	color: #BBBBBB;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item:hover {		
+	background-color: #DDDDDD;		
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item label {
+	display: inline-block;
+	width: 140px;
+	padding-left: 10px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item select {
+	height: 30px;
+	width: 100%;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input[type="text"]{
+	width: 99.2%;
+	margin: 0px;
+	padding: 0.3%;
+	line-height: 22px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item textarea{
+	width: 99.2%;
+	margin: 0px;
+	padding: 0.3%;	
+	height: 500px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-index .typo3-messages, .tx-moox-feusers-admin .tx-moox-feusers-admin-index .typo3-message {
+	margin-bottom: 10px !important;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-index .list-unstyled {
+	margin-top: 5px;
+	margin-bottom: 30px;
+}

@@ -52,6 +52,27 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 */
 	protected $frontendUserGroupRepository;
 	
+	/**
+	 * templateRepository
+	 *
+	 * @var \TYPO3\MooxFeusers\Domain\Repository\TemplateRepository
+	 * @inject
+	 */
+	protected $templateRepository;
+	
+	/**
+	 * extConf
+	 *
+	 * @var boolean
+	 */
+	protected $extConf;
+	
+	/**
+	 * storagePids
+	 *
+	 * @var array 	
+	 */
+	protected $storagePids;
 	
 	public $langLL = "LLL:EXT:moox_feusers/Resources/Private/Language/locallang.xlf:tx_mooxfeusers_frontenduser.";
 	
@@ -59,14 +80,39 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
      *
      * @return void
      */
-    public function initializeAction() {		 
+    public function initializeAction() {			
 		
-		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
+		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);
 		
-		if(FALSE === $accessControllService->hasLoggedInFrontendUser()) {
-			
-        } 
-    }		
+		$this->initializeStorageSettings();		
+    }
+
+	/**
+	 * initialize storage settings
+	 *	 
+	 * @return void
+	 */
+	protected function initializeStorageSettings() {
+				
+		$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);		
+		
+		if($this->settings['storagePids']!=""){
+			$this->setStoragePids(explode(",",$this->settings['storagePids']));
+		} else {
+			$this->setStoragePids(array());
+		}
+		
+		if(!empty($this->settings['storagePid']) && $this->settings['storagePid']!="TS"){
+			if (empty($configuration['persistence']['storagePid'])) {
+				$storagePids['persistence']['storagePid'] = $this->settings['storagePid'];
+				$this->configurationManager->setConfiguration(array_merge($configuration, $storagePids));
+			} else {
+				$configuration['persistence']['storagePid'] = $this->settings['storagePid'];
+				$this->configurationManager->setConfiguration($configuration);
+			}
+		}		
+	}
+	
 	
 	/**
 	 * action list
@@ -81,7 +127,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
 		
 		if(TRUE === $accessControllService->hasLoggedInFrontendUser()) {
-            $frontendUser = $this->frontendUserRepository->findOneByUid($accessControllService->getFrontendUserUid());		  
+            $frontendUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());		  
         } 
 		
 		if($frontendUser && $accessControllService->isAccessAllowed($frontendUser)) {
@@ -89,7 +135,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			if($extConf['useCompanyAdmin'] && $frontendUser->getIsCompanyAdmin() && $frontendUser->getCompany()!=""){
 			
 				$this->view->assign('frontendUser', $frontendUser);            			
-				$this->view->assign('companyUsers', $this->frontendUserRepository->findByCompany($frontendUser->getUid(),$frontendUser->getCompany()));
+				$this->view->assign('companyUsers', $this->frontendUserRepository->findByCompany($this->storagePids,$frontendUser->getUid(),$frontendUser->getCompany()));
 				
 			} else {
 				$this->redirect("profile");
@@ -101,11 +147,11 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	}
 		
 	/**
-	 * action create
+	 * action add
 	 *
 	 * @return void
 	 */
-	public function createAction() {				
+	public function addAction() {				
 		
 		// Get the extensions's configuration
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);
@@ -122,16 +168,16 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		
 		$requestArguments = $this->request->getArguments();
 		
-		$adminUser = $this->frontendUserRepository->findOneByUid($accessControllService->getFrontendUserUid());
+		$adminUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());
 		
-		$createUser = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Model\\FrontendUser');	
+		$addUser = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Model\\FrontendUser');	
 		
 		$groupSelect = array();
 		
 		if($this->settings['fe_group']!=""){
 			$groups = explode(",",$this->settings['fe_group']);
 			foreach($groups AS $group){
-				$loadedGroup = $this->frontendUserGroupRepository->findOneByUid($group);
+				$loadedGroup = $this->frontendUserGroupRepository->findByUid($group);
 				$groupSelect[$group] = $loadedGroup->getTitle();				
 			}
 		}
@@ -160,7 +206,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$allErrors['username']	= true;
 					$dataError 				= true;
 					$hasErrors 				= true;
-				} elseif($this->frontendUserRepository->findByUsername(trim($requestArguments['FrontendUser']['username']))->count()>0){
+				} elseif($this->frontendUserRepository->findByUsername($this->storagePids,trim($requestArguments['FrontendUser']['username']))->count()>0){
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.username.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.username.existing', $this->extensionName )
@@ -170,7 +216,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$hasErrors 				= true;
 				}
 				
-				if(trim($requestArguments['FrontendUser']['name'])==""){					
+				if(false && trim($requestArguments['FrontendUser']['name'])==""){					
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.name.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.name.missing', $this->extensionName )
@@ -180,7 +226,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$hasErrors 				= true;
 				}
 				
-				if(trim($requestArguments['FrontendUser']['email'])==""){					
+				if(false && trim($requestArguments['FrontendUser']['email'])==""){					
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.email.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.email.missing', $this->extensionName )
@@ -188,7 +234,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$allErrors['email']		= true;
 					$dataError 				= true;
 					$hasErrors 				= true;
-				} elseif(!\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(trim($requestArguments['FrontendUser']['email']))){
+				} elseif(trim($requestArguments['FrontendUser']['email'])!="" && !\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(trim($requestArguments['FrontendUser']['email']))){
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.email.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.email.invalid', $this->extensionName )
@@ -240,13 +286,13 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 				}
 				
 				if(!$passwordError){
-					$createUser->setPassword(trim($requestArguments['FrontendUser']['password']));				
+					$addUser->setPassword(trim($requestArguments['FrontendUser']['password']));				
 				}
 								
 				/*
 				foreach($adminUser->getUsergroup() AS $group){
-					$loadedGroup = $this->frontendUserGroupRepository->findOneByUid($group->getUid());					
-					$createUser->addUsergroup($loadedGroup);					
+					$loadedGroup = $this->frontendUserGroupRepository->findByUid($group->getUid());					
+					$addUser->addUsergroup($loadedGroup);					
 				}
 				*/
 				
@@ -254,31 +300,46 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$groups = explode(",",trim($requestArguments['FrontendUser']['usergroup']));
 					foreach($groups AS $group){
 						if(isset($groupSelect[$group])){
-							$loadedGroup = $this->frontendUserGroupRepository->findOneByUid($group);																
-							$createUser->addUsergroup($loadedGroup);	
+							$loadedGroup = $this->frontendUserGroupRepository->findByUid($group);																
+							$addUser->addUsergroup($loadedGroup);	
 						}
 					}
 				}
 												
-				$createUser->setIsMooxFeuser(1);				
-				$createUser->setCompany($adminUser->getCompany());
-				$createUser->setUsername(trim($requestArguments['FrontendUser']['username']));
-				$createUser->setTitle(trim($requestArguments['FrontendUser']['title']));
-				$createUser->setName(trim($requestArguments['FrontendUser']['name']));
-				$createUser->setFirstName(trim($requestArguments['FrontendUser']['first_name']));
-				$createUser->setMiddleName(trim($requestArguments['FrontendUser']['middle_name']));
-				$createUser->setLastName(trim($requestArguments['FrontendUser']['last_name']));
-				$createUser->setAddress(trim($requestArguments['FrontendUser']['address']));
-				$createUser->setZip(trim($requestArguments['FrontendUser']['zip']));
-				$createUser->setCity(trim($requestArguments['FrontendUser']['city']));
-				$createUser->setCountry(trim($requestArguments['FrontendUser']['country']));
-				$createUser->setTelephone(trim($requestArguments['FrontendUser']['telephone']));
-				$createUser->setFax(trim($requestArguments['FrontendUser']['fax']));
-				$createUser->setEmail(trim($requestArguments['FrontendUser']['email']));
-				$createUser->setWww(trim($requestArguments['FrontendUser']['www']));								
+				$addUser->setIsMooxFeuser(1);				
+				$addUser->setCompany($adminUser->getCompany());
+				$addUser->setUsername(trim($requestArguments['FrontendUser']['username']));
+				$addUser->setGender(trim($requestArguments['FrontendUser']['gender']));
+				$addUser->setTitle(trim($requestArguments['FrontendUser']['title']));
+				$name = "";
+				if(trim($requestArguments['FrontendUser']['first_name'])!=""){
+					$name = trim($requestArguments['FrontendUser']['first_name']);
+				}
+				if(trim($requestArguments['FrontendUser']['middle_name'])!="" && $name==""){
+					$name = trim($requestArguments['FrontendUser']['middle_name']);
+				} elseif(trim($requestArguments['FrontendUser']['middle_name'])!="" && $name!=""){
+					$name .= " ".trim($requestArguments['FrontendUser']['middle_name']);
+				}
+				if(trim($requestArguments['FrontendUser']['last_name'])!="" && $name==""){
+					$name = trim($requestArguments['FrontendUser']['last_name']);
+				} elseif(trim($requestArguments['FrontendUser']['last_name'])!="" && $name!=""){
+					$name .= " ".trim($requestArguments['FrontendUser']['last_name']);
+				}
+				$addUser->setName($name);
+				$addUser->setFirstName(trim($requestArguments['FrontendUser']['first_name']));
+				$addUser->setMiddleName(trim($requestArguments['FrontendUser']['middle_name']));
+				$addUser->setLastName(trim($requestArguments['FrontendUser']['last_name']));
+				$addUser->setAddress(trim($requestArguments['FrontendUser']['address']));
+				$addUser->setZip(trim($requestArguments['FrontendUser']['zip']));
+				$addUser->setCity(trim($requestArguments['FrontendUser']['city']));
+				$addUser->setCountry(trim($requestArguments['FrontendUser']['country']));
+				$addUser->setTelephone(trim($requestArguments['FrontendUser']['telephone']));
+				$addUser->setFax(trim($requestArguments['FrontendUser']['fax']));
+				$addUser->setEmail(trim($requestArguments['FrontendUser']['email']));
+				$addUser->setWww(trim($requestArguments['FrontendUser']['www']));								
 				
 				if(!$hasErrors){					
-					$this->frontendUserRepository->add($createUser);								
+					$this->frontendUserRepository->add($addUser);								
 					$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
 					$this->flashMessageContainer->add(
 						'&nbsp;', 
@@ -287,8 +348,8 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$this->redirect("list");					
 				} else {
 					$this->flashMessageContainer->add(
-						LocalizationUtility::translate( $this->langLL.'messages.createerror', $this->extensionName ), 
-						LocalizationUtility::translate( $this->langLL.'messages.createerror.header', $this->extensionName ), 
+						LocalizationUtility::translate( $this->langLL.'messages.adderror', $this->extensionName ), 
+						LocalizationUtility::translate( $this->langLL.'messages.adderror.header', $this->extensionName ), 
 						\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					foreach($errorMessages AS $errorMessage){
 						$this->flashMessageContainer->add($errorMessage['message'], ($errorMessage['title']!="")?$errorMessage['title'].": ":"", \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
@@ -304,18 +365,18 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 						$this->view->assign('passwordError',1);
 					}
 					
-					$this->view->assign('frontendUser', $createUser);
+					$this->view->assign('frontendUser', $addUser);
 					$this->view->assign('adminUser', $adminUser);
 					$this->view->assign('self', 1);					
 				}
 	
 			} else {			
-				$this->view->assign('frontendUser', $createUser);
+				$this->view->assign('frontendUser', $addUser);
 				$this->view->assign('adminUser', $adminUser);
 				$this->view->assign('self', 1);				
 			}
 			
-			$usergroups = $createUser->getUsergroup();
+			$usergroups = $addUser->getUsergroup();
 			foreach($usergroups AS $usergroup){
 				$usergroup = $usergroup->getUid();
 				break;
@@ -327,6 +388,8 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			if($extConf['useCompanyAdmin']){
 				$this->view->assign('useCompanyAdmin', 1);
 			}
+			
+			$this->view->assign('action', 'add');
 		} else {								
 			$this->redirect("list");
 		}				
@@ -352,7 +415,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		if($this->settings['fe_group']!=""){
 			$groups = explode(",",$this->settings['fe_group']);
 			foreach($groups AS $group){
-				$loadedGroup = $this->frontendUserGroupRepository->findOneByUid($group);
+				$loadedGroup = $this->frontendUserGroupRepository->findByUid($group);
 				$groupSelect[$group] = $loadedGroup->getTitle();				
 			}
 		}
@@ -361,10 +424,10 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		
 		$requestArguments = $this->request->getArguments();
 		
-		$adminUser = $this->frontendUserRepository->findOneByUid($accessControllService->getFrontendUserUid());
+		$adminUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());
 		
 		if(!is_object($editUser)){						
-			$editUser = $this->frontendUserRepository->findOneByUid($requestArguments['editUser']);			
+			$editUser = $this->frontendUserRepository->findByUid($requestArguments['editUser']);			
 		}
 				
 		if($accessControllService->isEditAllowed($adminUser,$editUser)){
@@ -375,7 +438,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			
 			if($requestArguments['do'] == 'save'){
 				
-				if(trim($requestArguments['FrontendUser']['name'])==""){					
+				if(false && trim($requestArguments['FrontendUser']['name'])==""){					
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.name.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.name.missing', $this->extensionName )
@@ -385,7 +448,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$hasErrors 				= true;
 				}
 				
-				if(trim($requestArguments['FrontendUser']['email'])==""){					
+				if(false && trim($requestArguments['FrontendUser']['email'])==""){					
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.email.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.email.missing', $this->extensionName )
@@ -393,7 +456,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$allErrors['email']		= true;
 					$dataError 				= true;
 					$hasErrors 				= true;
-				} elseif(!\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(trim($requestArguments['FrontendUser']['email']))){
+				} elseif(trim($requestArguments['FrontendUser']['email'])!="" && !\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(trim($requestArguments['FrontendUser']['email']))){
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.email.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.email.invalid', $this->extensionName )
@@ -425,7 +488,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 								
 				if(count($groups)>0){
 					foreach($groups AS $group){
-						$loadedGroup = $this->frontendUserGroupRepository->findOneByUid($group->getUid());					
+						$loadedGroup = $this->frontendUserGroupRepository->findByUid($group);					
 						$editUser->removeUsergroup($loadedGroup);					
 					}
 				}
@@ -434,7 +497,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$groups = explode(",",trim($requestArguments['FrontendUser']['usergroup']));
 					foreach($groups AS $group){
 						if(isset($groupSelect[$group])){
-							$loadedGroup = $this->frontendUserGroupRepository->findOneByUid($group);																
+							$loadedGroup = $this->frontendUserGroupRepository->findByUid($group);																
 							$editUser->addUsergroup($loadedGroup);	
 						}
 					}
@@ -443,8 +506,23 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 				if(!$extConf['useCompanyAdmin']){
 					$editUser->setCompany(trim($requestArguments['FrontendUser']['company']));
 				}
-				$editUser->setTitle(trim($requestArguments['FrontendUser']['title']));
-				$editUser->setName(trim($requestArguments['FrontendUser']['name']));
+				$editUser->setGender(trim($requestArguments['FrontendUser']['gender']));
+				$editUser->setTitle(trim($requestArguments['FrontendUser']['title']));				
+				$name = "";
+				if(trim($requestArguments['FrontendUser']['first_name'])!=""){
+					$name = trim($requestArguments['FrontendUser']['first_name']);
+				}
+				if(trim($requestArguments['FrontendUser']['middle_name'])!="" && $name==""){
+					$name = trim($requestArguments['FrontendUser']['middle_name']);
+				} elseif(trim($requestArguments['FrontendUser']['middle_name'])!="" && $name!=""){
+					$name .= " ".trim($requestArguments['FrontendUser']['middle_name']);
+				}
+				if(trim($requestArguments['FrontendUser']['last_name'])!="" && $name==""){
+					$name = trim($requestArguments['FrontendUser']['last_name']);
+				} elseif(trim($requestArguments['FrontendUser']['last_name'])!="" && $name!=""){
+					$name .= " ".trim($requestArguments['FrontendUser']['last_name']);
+				}
+				$editUser->setName($name);				
 				$editUser->setFirstName(trim($requestArguments['FrontendUser']['first_name']));
 				$editUser->setMiddleName(trim($requestArguments['FrontendUser']['middle_name']));
 				$editUser->setLastName(trim($requestArguments['FrontendUser']['last_name']));
@@ -486,19 +564,19 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					
 					$this->view->assign('frontendUser', $editUser);					
 					$this->view->assign('self', 0);
-					$this->view->assign('enableCompanyField', 1);
 				}
 	
 			} else {			
 				$this->view->assign('frontendUser', $editUser);				
 				$this->view->assign('self', 0);
-				$this->view->assign('enableCompanyField', 1);
 			}
 			
 			$usergroups = $editUser->getUsergroup();
 			foreach($usergroups AS $usergroup){
-				$usergroup = $usergroup->getUid();
-				break;
+				if(isset($groupSelect[$usergroup->getUid()])){
+					$usergroup = $usergroup->getUid();
+					break;
+				}
 			}
 			
 			$this->view->assign('usergroup', ($requestArguments['FrontendUser']['usergroup'])?$requestArguments['FrontendUser']['usergroup']:$usergroup);
@@ -507,6 +585,9 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			if($extConf['useCompanyAdmin']){
 				$this->view->assign('useCompanyAdmin', 1);
 			}
+			
+			$this->view->assign('action', 'edit');
+			
 		} else {						
 			$this->redirect("list");
 		}
@@ -524,10 +605,10 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		
 		$requestArguments = $this->request->getArguments();
 		
-		$adminUser = $this->frontendUserRepository->findOneByUid($accessControllService->getFrontendUserUid());
+		$adminUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());
 		
 		if(!is_object($deleteUser)){						
-			$deleteUser = $this->frontendUserRepository->findOneByUid($requestArguments['deleteUser']);			
+			$deleteUser = $this->frontendUserRepository->findByUid($requestArguments['deleteUser']);			
 		}
 				
 		if($accessControllService->isDeleteAllowed($adminUser,$deleteUser)){
@@ -542,6 +623,21 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		} 
 		
 		$this->redirect("list");
+	}	
+	
+	/**
+	 * renew recovery hash
+	 *
+	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $user
+	 * @param string $hash	 
+	 * @return void
+	 */
+	public function renewRecoveryHash(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $user = NULL, $hash) {				
+		
+		$user->setPasswordRecoveryHash($hash);
+		$user->setPasswordRecoveryTstamp(time());
+		$this->frontendUserRepository->update($user);
+		$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
 	}	
 	
 	/**
@@ -562,8 +658,8 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
 		
 		// Get all the request arguments                    
-		$frontendUser = $this->frontendUserRepository->findOneByUid($accessControllService->getFrontendUserUid());
-            
+		$frontendUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());
+       
 		if($frontendUser && $accessControllService->isAccessAllowed($frontendUser)) {
             
 			$requestArguments = $this->request->getArguments();
@@ -574,7 +670,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			
 			if($requestArguments['do'] == 'save'){
 				
-				if(trim($requestArguments['FrontendUser']['name'])==""){										
+				if(false && trim($requestArguments['FrontendUser']['name'])==""){										
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.name.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.name.missing', $this->extensionName )
@@ -584,7 +680,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$hasErrors 				= true;
 				}
 				
-				if(trim($requestArguments['FrontendUser']['email'])==""){					
+				if(false && trim($requestArguments['FrontendUser']['email'])==""){					
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.email.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.email.missing', $this->extensionName )
@@ -592,7 +688,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 					$allErrors['email']		= true;
 					$dataError 				= true;
 					$hasErrors 				= true;
-				} elseif(!\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(trim($requestArguments['FrontendUser']['email']))){				
+				} elseif(trim($requestArguments['FrontendUser']['email'])!="" && !\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(trim($requestArguments['FrontendUser']['email']))){				
 					$errorMessages[] 		= 	array( 
 														"title" => LocalizationUtility::translate( $this->langLL.'messages.email.header', $this->extensionName ),
 														"message" => LocalizationUtility::translate( $this->langLL.'messages.email.invalid', $this->extensionName )
@@ -635,8 +731,23 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 				}
 
 				$frontendUser->setCompany(trim($requestArguments['FrontendUser']['company']));
+				$frontendUser->setGender(trim($requestArguments['FrontendUser']['gender']));
 				$frontendUser->setTitle(trim($requestArguments['FrontendUser']['title']));
-				$frontendUser->setName(trim($requestArguments['FrontendUser']['name']));
+				$name = "";
+				if(trim($requestArguments['FrontendUser']['first_name'])!=""){
+					$name = trim($requestArguments['FrontendUser']['first_name']);
+				}
+				if(trim($requestArguments['FrontendUser']['middle_name'])!="" && $name==""){
+					$name = trim($requestArguments['FrontendUser']['middle_name']);
+				} else {
+					$name .= " ".trim($requestArguments['FrontendUser']['middle_name']);
+				}
+				if(trim($requestArguments['FrontendUser']['last_name'])!="" && $name==""){
+					$name = trim($requestArguments['FrontendUser']['last_name']);
+				} else {
+					$name .= " ".trim($requestArguments['FrontendUser']['last_name']);
+				}
+				$frontendUser->setName($name);					
 				$frontendUser->setFirstName(trim($requestArguments['FrontendUser']['first_name']));
 				$frontendUser->setMiddleName(trim($requestArguments['FrontendUser']['middle_name']));
 				$frontendUser->setLastName(trim($requestArguments['FrontendUser']['last_name']));
@@ -679,7 +790,6 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 						
 			$this->view->assign('frontendUser', $frontendUser);
 			$this->view->assign('self', 1);
-			$this->view->assign('enableCompanyField', 1);
 			
 			if($extConf['useCompanyAdmin']){
 				$this->view->assign('useCompanyAdmin', 1);
@@ -692,12 +802,401 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	}
 	
 	/**
+	 * action password recovery
+	 *
+	 * @param array $recovery	
+	 * @return void
+	 */
+	public function passwordRecoveryAction($recovery = NULL) {				
+		
+		$hasErrors 		= false;			
+		$errors 		= array();
+		$errorMessages 	= array();
+		
+		$mailTemplate = $this->loadTemplate($this->settings['recoveryEmailTemplate']);
+		
+		if($mailTemplate['uid']>0){
+		
+			if($recovery){				
+				if(trim($recovery['username'])=="" && trim($recovery['email'])==""){										
+					$errorMessages[] 		= 	array( 
+														"message" => "Bitte geben Sie Ihren Benutzernamen oder Ihre hinterlegte Email-Adresse ein"
+												);
+					$allErrors['username']	= true;
+					$allErrors['email']		= true;				
+					$hasErrors 				= true;
+				} elseif(trim($recovery['email'])!="" && !\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(trim($recovery['email']))){				
+					$errorMessages[] 		= 	array( 
+														"message" => "Bitte geben Sie eine korrekte Email-Adresse ein"
+												);
+					$allErrors['email']		= true;
+					$hasErrors 				= true;
+				}
+				
+				if(!$hasErrors){	
+					
+					$notUnique = false;
+					
+					if(trim($recovery['username'])!="" && trim($recovery['email'])!=""){
+						$foundUsers = $this->frontendUserRepository->findByUsernameAndEmail($this->storagePids,trim($recovery['username']),trim($recovery['email']));
+						if($foundUsers->count()==1){
+							$foundUser = $foundUsers->getFirst();
+						} elseif($foundUsers->count()>1){
+							$notUnique = true;
+						}
+					}
+					
+					if(trim($recovery['username'])!=""){
+						$foundUsers = $this->frontendUserRepository->findByUsername($this->storagePids,trim($recovery['username']));
+						if($foundUsers->count()==1){
+							$foundUser = $foundUsers->getFirst();
+						} elseif($foundUsers->count()>1){
+							$notUnique = true;
+						}
+					}
+					
+					if(trim($recovery['email'])!="" && !$foundUser){
+						$foundUsers = $this->frontendUserRepository->findByEmail($this->storagePids,trim($recovery['email']));
+						if($foundUsers->count()==1){
+							$foundUser = $foundUsers->getFirst();
+						} elseif($foundUsers->count()>1){
+							$notUnique = true;
+						}
+					}
+					
+					if($foundUser){
+						
+						if($foundUser->getEmail()!=""){
+						
+							$this->flashMessageContainer->add(
+								"Sie erhalten in Kürze ein Email mit weiteren Informationen zum Neu-Setzen Ihres Passworts", 
+								"Ihr Account konnte erfolgreich zugeordnet werden:", 
+								\TYPO3\CMS\Core\Messaging\FlashMessage::OK
+							);	
+							
+							$email = array();
+							$email['sendername'] 		= $this->settings['recoverySendername'];
+							$email['senderaddress'] 	= $this->settings['recoverySenderaddress'];
+							$email['receivername'] 		= $foundUser->getName();
+							$email['receiveraddress'] 	= $foundUser->getEmail();
+							$email['uid'] 				= $foundUser->getUid();
+							$email['email'] 			= $foundUser->getEmail();
+							$email['username'] 			= $foundUser->getUsername();
+							$email['gender'] 			= $foundUser->getGender();
+							$email['title'] 			= $foundUser->getTitle();
+							$email['name'] 				= $foundUser->getName();
+							$email['firstName'] 		= $foundUser->getFirstName();
+							$email['middleName'] 		= $foundUser->getMiddleName();
+							$email['lastName'] 			= $foundUser->getLastName();
+							$email['subject'] 			= $this->prepareSubject($mailTemplate['subject'],$email);
+							$email['body'] 				= $this->getEmailBody($mailTemplate,$email);
+							$email['pid'] 				= $GLOBALS["TSFE"]->id;							
+							$email['hash']				= md5($email['uid'].time());							
+							$email['url'] 				= $this->uriBuilder->setTargetPageUid($email['pid'])->setNoCache(TRUE)->setCreateAbsoluteUri(TRUE)->uriFor('newPassword', array("uid" => $email['uid'], "hash" => $email['hash']), 'FrontendUser', 'MooxFeusers', 'Pi1');
+							$email['body'] 				= $this->getEmailBody($mailTemplate,$email);
+							
+							$this->renewRecoveryHash($foundUser,$email['hash']);
+							
+							$this->sendMail($email);
+							
+						} else {							
+							$this->flashMessageContainer->add(
+								"Bitte wenden Sie Sich an den Administrator", 
+								"Für Ihre Account wurde keine Email-Adresse hinterlegt:", 
+								\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+							);
+						}
+
+						$recovery = NULL;
+					} elseif($notUnique) {
+						$this->flashMessageContainer->add(
+							"Bitte wenden Sie Sich an den Administrator", 
+							"Ihr Account konnte nicht eindeutig zugeordnet werden:", 
+							\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+						);
+					} else {
+						$this->flashMessageContainer->add(
+							"Bitte überprüfen Sie Ihre Eingaben oder wenden Sie Sich an den Administrator", 
+							"Ihr Account konnte nicht zugeordnet werden:", 
+							\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+						);
+					}
+					
+				} else {							
+					foreach($errorMessages AS $errorMessage){
+						$this->flashMessageContainer->add($errorMessage['message'], ($errorMessage['title']!="")?$errorMessage['title'].": ":"", \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+					}
+											
+					$this->view->assign('allErrors', $allErrors);					
+				}	
+			}
+			
+			$this->view->assign('object', $recovery);
+			$this->view->assign('hasMailTemplate', true);
+			
+		} else {
+		
+			$this->flashMessageContainer->add(
+				"Bitte wenden Sie Sich an den Administrator", 
+				"Es ist ein Fehler aufgetreten [no mail template selected]:", 
+				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+			);			
+		}
+	}
+	
+	/**
+	 * action password recovery
+	 *
+	 * @param array $new	
+	 * @param integer $uid
+	 * @param string $hash
+	 * @return void
+	 */
+	public function newPasswordAction($new = NULL, $uid = 0, $hash = '') {						
+		
+		$newPasswordAllowed = true;
+		
+		if(is_null($new)){
+			$new 			= array();
+			$new['uid'] 	= $uid;
+			$new['hash'] 	= $hash;
+		}
+		
+		$users = $this->frontendUserRepository->findByUidAndHash($this->storagePids,$new['uid'],$new['hash']);
+		
+		if(is_object($users) && $users->count()>1){			
+			$newPasswordAllowed = false;
+		} elseif(!is_object($users)){
+			$newPasswordAllowed = false;
+		} else {
+			$user = $users->getFirst();
+			if(is_object($user)){								
+				if(isset($new['save'])){
+					if(strlen(trim($new['password']))<$this->settings['passwordMinlength']){							
+						$errorMessages[] 		= 	array( 
+														"title" => LocalizationUtility::translate( $this->langLL.'messages.password.header', $this->extensionName ),
+														"message" => LocalizationUtility::translate( $this->langLL.'messages.password.wronglength', $this->extensionName, array($this->settings['passwordMinlength']) )
+												);
+						$allErrors['password']	= true;
+						$passwordError 			= true;
+						$hasErrors 				= true;
+					} 
+					if(trim($new['password'])!=trim($new['passwordRepeat'])){
+						
+						$errorMessages[] 		= 	array( 
+														"title" => LocalizationUtility::translate( $this->langLL.'messages.password.header', $this->extensionName ),
+														"message" => LocalizationUtility::translate( $this->langLL.'messages.password.notmatching', $this->extensionName )
+												);																	
+						$allErrors['repeat']	= true;
+						$passwordError 			= true;
+						$hasErrors 				= true;
+					}
+
+					if($hasErrors){
+						foreach($errorMessages AS $errorMessage){
+							$this->flashMessageContainer->add($errorMessage['message'], ($errorMessage['title']!="")?$errorMessage['title'].": ":"", \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						}										
+						$this->view->assign('allErrors', $allErrors);
+						$this->view->assign('passwordError', $passwordError);
+					} else {
+						$user->setPassword(trim($new['password']));
+						$user->setPasswordRecoveryHash("");
+						$user->setPasswordRecoveryTstamp(0);
+						$this->frontendUserRepository->update($user);
+						$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
+						
+						$this->flashMessageContainer->add(
+							"Sie können Sich ab jetzt mit Ihrem neuen Passwort anmelden", 
+							"Ihr Passwort wurde erfolgreich geändert:", 
+							\TYPO3\CMS\Core\Messaging\FlashMessage::OK
+						);
+						unset($new['password']);
+						unset($new['passwordRepeat']);
+						$this->redirect("passwordRecovery");
+					}
+				}
+			} else {
+				$newPasswordAllowed = false;
+			}
+		}
+		
+		if(!$newPasswordAllowed){
+			$this->flashMessageContainer->add(
+				"Bitte fordern Sie unten eine neue URL an oder wenden Sie sich an Ihren Administrator", 
+				"Diese Passwort-Zrücksetzen-Url ist fehlerhaft oder nicht mehr gültig:", 
+				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+			);
+			$this->redirect("passwordRecovery");
+		}
+		
+		$this->view->assign('object', $new);
+		$this->view->assign('newPasswordAllowed', $newPasswordAllowed);		
+	}
+	
+	/**
+	 * load template
+	 *
+	 * @param \int $uid
+	 * @return array/object $template
+	 */
+	public function loadTemplate($uid = 0) {
+		
+		$template = array();
+		
+		if($uid>0){
+		
+			$object = $this->templateRepository->findByUid($uid);
+			
+			if($object->getTemplate()!=""){
+				$template['uid'] 		= $object->getUid();
+				$template['title'] 		= $object->getTitle();
+				$template['subject'] 	= $object->getSubject();
+				$template['category'] 	= $object->getCategory();
+				$template['template'] 	= $object->getTemplate();				
+			}
+		}
+		
+		return $template;
+	}
+	
+	/**
+	 * get email template and render email body
+	 *
+	 * @param array $template template
+	 * @param array $variables variables
+	 * @return string $emailBody email body
+	 */
+	private function getEmailBody($template, $variables) {
+		
+		if (!empty($this->extConf['mailRenderingPartialRoot'])){
+			$partialRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->extConf['mailRenderingPartialRoot']);
+			if(!is_dir($partialRootPath)){
+				unset($partialRootPath);	
+			} 
+		} 
+			
+		if($partialRootPath==""){
+			$conf = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+			$partialRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(str_replace("Backend/","",$conf['view']['partialRootPath'])."Mail");
+		}
+		
+		$emailView = $this->objectManager->create('TYPO3\\CMS\\Fluid\\View\StandaloneView');
+        $emailView->setFormat('html');
+        $emailView->setTemplateSource($template['template']);
+		if($partialRootPath!=""){
+			$emailView->setPartialRootPath($partialRootPath);
+		}
+        $emailView->assignMultiple($variables);
+        $emailBody = $emailView->render();
+		
+        return $emailBody;
+    }
+	
+	/**
+	 * prepare mail subject
+	 *
+	 * @param string $subject subject
+	 * @param array $variables $variables
+	 * @return string $subject
+	 */
+	public function prepareSubject($subject,$variables = NULL) {
+        
+		$subject = str_replace("#KW#",date("W"),$subject);
+		$subject = str_replace("#YEAR#",date("Y"),$subject);
+		$subject = str_replace("#MONTH#",date("m"),$subject);
+		$subject = str_replace("#DAY#",date("d"),$subject);
+		$subject = str_replace("#TITLE#",$variables['title'],$subject);
+		$subject = str_replace("#USERNAME#",$variables['username'],$subject);
+		$subject = str_replace("#NAME#",$variables['name'],$subject);
+		$subject = str_replace("#FIRSTNAME#",$variables['firstName'],$subject);
+		$subject = str_replace("#MIDDLENAME#",$variables['middleName'],$subject);
+		$subject = str_replace("#LASTNAME#",$variables['lastName'],$subject);
+		$subject = str_replace("#EMAIL#",$variables['email'],$subject);
+				
+		return $subject;
+	}
+	
+	/**
+	 * send email
+	 *
+	 * @param array $mail mail
+	 * @param array $variables variables
+	 * @return string $emailBody email body
+	 */
+	private function sendMail($email) {
+		
+		if($this->extConf['useSMTP']){
+			$TYPO3_CONF_VARS['MAIL']['transport'] 				= "smtp";
+			if($this->extConf['smtpEncrypt']!="" && $this->extConf['smtpEncrypt']!="none"){
+				$TYPO3_CONF_VARS['MAIL']['transport_smtp_server'] 	= $this->extConf['smtpEncrypt'];
+			}
+			$TYPO3_CONF_VARS['MAIL']['transport_smtp_encrypt']  = $this->extConf['smtpServer'];
+			$TYPO3_CONF_VARS['MAIL']['transport_smtp_username'] = $this->extConf['smtpUsername'];
+			$TYPO3_CONF_VARS['MAIL']['transport_smtp_password'] = $this->extConf['smtpPassword'];
+		}
+		
+		if($email['sendername']==""){
+			$email['sendername'] = $email['senderaddress'];
+		}
+		
+		if($email['receivername']==""){
+			$email['receivername'] = $email['receiveraddress'];
+		}
+		
+		$mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');				
+		$mail->setFrom(array($email['senderaddress'] => $email['sendername']));
+		$mail->setTo(array($email['receiveraddress'] => $email['receivername']));						
+		$mail->setSubject($email['subject']);
+		$mail->setBody(strip_tags($email['body']));
+		$mail->addPart($email['body'], 'text/html');
+		$mail->send();
+	}
+	
+	/**
 	 * action error
 	 *
 	 * @return void
 	 */
 	public function errorAction() {				
-					
+		$this->redirect("profile");			
+	}
+	
+	/**
+	 * Returns storage pids
+	 *
+	 * @return array
+	 */
+	public function getStoragePids() {
+		return $this->storagePids;
+	}
+
+	/**
+	 * Set storage pids
+	 *
+	 * @param array $storagePids storage pids
+	 * @return void
+	 */
+	public function setStoragePids($storagePids) {
+		$this->storagePids = $storagePids;
+	}
+	
+	/**
+	 * Returns ext conf
+	 *
+	 * @return array
+	 */
+	public function getExtConf() {
+		return $this->extConf;
+	}
+
+	/**
+	 * Set ext conf
+	 *
+	 * @param array $extConf ext conf
+	 * @return void
+	 */
+	public function setExtConf($extConf) {
+		$this->extConf = $extConf;
 	}
 }
 ?>

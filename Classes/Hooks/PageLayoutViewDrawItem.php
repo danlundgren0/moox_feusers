@@ -83,7 +83,7 @@ class TxMooxFeusersPageLayoutViewDrawItem implements \TYPO3\CMS\Backend\View\Pag
 					}
 				}
 				
-				$itemContent = $GLOBALS['LANG']->sL(self::LLPATH . 'pi1_preview_mode').": ".$mode;
+				$itemContent = $GLOBALS['LANG']->sL(self::LLPATH . 'pi1_preview_mode').": ".$mode."<br />";
 			break;
 		}
 	}

@@ -24,7 +24,7 @@
 				<source>personal information</source>
 				<target>Persönliche Informationen</target>
 			</trans-unit>
-			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.header_data">
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_add.header_data">
 				<source>new user</source>
 				<target>Neuer Benutzer</target>
 			</trans-unit>	
@@ -75,6 +75,10 @@
 			<trans-unit id="tx_mooxfeusers_frontenduser_form.username">
 				<source>username</source>
 				<target>Benutzername</target>
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.gender">
+				<source>gender</source>
+				<target>Anrede</target>
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_frontenduser_form.title">
 				<source>title</source>
@@ -148,11 +152,11 @@
 				<source>save</source>
 				<target>Änderungen übernehmen</target>
 			</trans-unit>	
-			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.save">
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_add.save">
 				<source>save</source>
 				<target>Benutzer anlegen</target>
 			</trans-unit>
-			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.cancel">
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_add.cancel">
 				<source>cancel</source>
 				<target>abbrechen</target>
 			</trans-unit>
@@ -185,11 +189,11 @@
 				<source>profile could not be saved</source>
 				<target>Änderungen konnten nicht übernommen werden.</target>
 			</trans-unit>
-			<trans-unit id="tx_mooxfeusers_frontenduser.messages.createerror.header">
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.adderror.header">
 				<source>form:</source>
 				<target>Formular:</target>
 			</trans-unit>			
-			<trans-unit id="tx_mooxfeusers_frontenduser.messages.createerror">
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.adderror">
 				<source>Please verify your entries.</source>
 				<target>Bitte überprüfen Sie Ihre Eingaben.</target>
 			</trans-unit>

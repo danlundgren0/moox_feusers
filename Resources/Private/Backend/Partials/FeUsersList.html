@@ -10,8 +10,8 @@
 				<f:link.action action="edit" arguments="{uid:item.uid,pagination:pagination}" title="{item.username} [{item.name}] bearbeiten">
 					<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open">&nbsp;</span>
 				</f:link.action>
-				<f:link.action action="toggleState" arguments="{uid:item.uid,pagination:pagination}" title="{item.username} [{item.name}] {f:if(condition: item.hidden, then: 'deaktivieren', else: 'aktivieren')}">
-					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-{f:if(condition: item.hidden, then: 'unhide', else: 'hide')}">&nbsp;</span>
+				<f:link.action action="toggleState" arguments="{uid:item.uid,pagination:pagination}" title="{item.username} [{item.name}] {f:if(condition: item.disable, then: 'deaktivieren', else: 'aktivieren')}">
+					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-{f:if(condition: item.disable, then: 'unhide', else: 'hide')}">&nbsp;</span>
 				</f:link.action>
 				<f:if condition="{mailerActive}">
 					<f:link.action action="toggleDisallowMailing" arguments="{uid:item.uid,pagination:pagination}" title="Newsletter-Empfang für {item.username} [{item.name}] {f:if(condition: item.mailingAllowed, then: 'deaktivieren', else: 'aktivieren')}">

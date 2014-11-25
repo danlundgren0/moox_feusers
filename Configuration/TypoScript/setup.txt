@@ -53,6 +53,11 @@ plugin.tx_mooxfeusers {
 		showPopover = {$plugin.tx_mooxfeusers.settings.showPopover}
 		showStatus = {$plugin.tx_mooxfeusers.settings.showStatus}
 		showVerdicts = {$plugin.tx_mooxfeusers.settings.showVerdicts}
+		verdict1 = {$plugin.tx_mooxfeusers.settings.verdict1}
+		verdict2 = {$plugin.tx_mooxfeusers.settings.verdict2}
+		verdict3 = {$plugin.tx_mooxfeusers.settings.verdict3}
+		verdict4 = {$plugin.tx_mooxfeusers.settings.verdict4}
+		verdict5 = {$plugin.tx_mooxfeusers.settings.verdict5}
 		showVerdictsInsideProgressBar = {$plugin.tx_mooxfeusers.settings.showVerdictsInsideProgressBar}
 		showErrors = {$plugin.tx_mooxfeusers.settings.showErrors}
 		passwordTooShort = {$plugin.tx_mooxfeusers.settings.passwordTooShort}

@@ -25,6 +25,12 @@
 					<f:form.textfield type="text" property="title" placeholder="Titel" id="feuser-title" />
 				</div>
 				<div class="tx-moox-feusers-admin-form-header">
+					Voller Name (* wird automatisch erzeugt)
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" readonly="1" property="name" id="feuser-name" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
 					Vorname
 				</div>
 				<div class="tx-moox-feusers-admin-form-item">
@@ -144,11 +150,11 @@
 				<f:render partial="FeUserGroupSelector" arguments="{object: object, usergroupSelectionTree: usergroupSelectionTree}" />
 				<div class="clear"></div>
 				<f:if condition="{mailerActive}">
-					<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.disallowedMailing}"> has-error</f:if>">
+					<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.disallowMailing}"> has-error</f:if>">
 						Empfang von Newslettern unterbinden
 					</div>
 					<div class="tx-moox-feusers-admin-form-item">
-						<f:form.checkbox property="disallowedMailing" id="feuser-disallowed-mailing" value="1" />
+						<f:form.checkbox property="disallowMailing" id="feuser-disallow-mailing" value="1" />
 					</div>
 				</f:if>
 				<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.isCompanyAdmin}"> has-error</f:if>">

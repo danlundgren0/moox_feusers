@@ -11,7 +11,7 @@
 		<div class="feuser-details-content-inner">		
 			<strong>Benutzergruppe(n):</strong><br />
 			<div class="feuser-groups">
-				<f:for each="{item.usergroup}" as="group" iteration="iteration">
+				<f:for each="{item.sortedUsergroup}" as="group" iteration="iteration">
 					<f:if condition="{iteration.isFirst}">
 						<f:then>
 							<span class="t3-icon t3-icon-apps t3-icon-apps-toolbar t3-icon-toolbar-menu-shortcut">&nbsp;</span>
@@ -187,6 +187,19 @@
 			<strong>Empfang von Newslettern erlaubt:</strong><br />
 			<v:switch value="{item.disallowMailing}">
 				<v:case case="0" break="TRUE">
+					Ja
+				</v:case>				
+				<v:case case="default">
+					Nein
+				</v:case>
+			</v:switch>
+		</div>		
+	</f:if>
+	<f:if condition="{conf.useCompanyAdmin}">
+		<div class="feuser-details-content-inner">
+			<strong>Benutzer darf Benutzer seiner Firma administrieren:</strong><br />
+			<v:switch value="{item.isCompanyAdmin}">
+				<v:case case="1" break="TRUE">
 					Ja
 				</v:case>				
 				<v:case case="default">

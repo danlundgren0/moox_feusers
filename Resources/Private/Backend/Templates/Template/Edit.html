@@ -1,0 +1,51 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<f:layout name="Templates" />
+
+<f:section name="content">
+	<f:flashMessages />	
+	<div class="tx-moox-feusers-admin">
+		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" />Vorlage bearbeiten</h1>
+		<div class="tx-moox-feusers-admin-body">
+			<div class="tx-moox-feusers-admin-form">				
+				<div class="tx-moox-feusers-admin-form-header">
+					Titel der Vorlage
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield required="1" type="text" property="title" placeholder="Titel der Vorlage" id="template-title" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Kategorie
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.select options="{categories}" property="category" id="template-category" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					Mail-Betreff
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield required="1" type="text" property="subject" placeholder="Mail-Betreff" id="template-subject" />
+				</div>
+				<div class="tx-moox-feusers-admin-form-header">
+					HTML/FLUID-Code der Vorlage
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textarea property="template"  />					
+				</div>
+				<f:form.hidden name="uid" id="template-uid" value="{uid}" />
+			</div>
+			<div class="tx-moox-feusers-admin-info">
+				<div class="tx-moox-feusers-admin-header">
+					Vorschau der Vorlage
+				</div>
+				<div class="tx-moox-feusers-admin-iframe">
+					<div class="tx-moox-feusers-admin-iframe-header">{object.subject}</div>
+					<div class="tx-moox-feusers-admin-iframe-content">
+						<iframe src="<f:uri.action action="previewIframe" arguments="{uid: uid}" />" marginheight="0" marginwidth="0" frameborder="0"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</f:section>

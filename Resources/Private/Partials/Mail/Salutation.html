@@ -1,0 +1,20 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+<v:switch value="{gender}">
+    <v:case case="1" break="TRUE">
+        <v:variable.set name="salutation" value="Sehr geehrter Herr" />
+    </v:case>
+	<v:case case="2" break="TRUE">
+        <v:variable.set name="salutation" value="Sehr geehrte Frau" />
+    </v:case>
+    <v:case case="default">
+         <v:variable.set name="salutation" value="Guten Tag" />
+    </v:case>
+</v:switch>
+<f:if condition="{lastName} != ''">
+	<f:then>
+		<h2>{salutation} <f:if condition="{title}!=">{title} </f:if>{lastName} ({username}),</h2>																	
+	</f:then>
+	<f:else>
+		<h2>Sehr geehrter Herr John Doe (john.doe),</h2>
+	</f:else>
+</f:if>

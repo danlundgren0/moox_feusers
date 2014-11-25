@@ -115,6 +115,9 @@ function mooxFeusersUpdateUsergroupsField(id){
 function mooxFeusersAddOption(id,value,label){	
 	var alreadyExisting = false;
 	var maxCount = $j("#feuser-usergroup-selector-max").val();
+	if(maxCount === undefined){
+		maxCount = 0;
+	}	
 	var countOptions = $j(id + '_list option').size();
 	if(countOptions<maxCount || maxCount==0){
 		$j(id + '_list option').each(function(){
@@ -134,6 +137,9 @@ function mooxFeusersAddOption(id,value,label){
 function mooxFeusersToggleOption(id,value,label){	
 	var alreadyExisting = false;
 	var maxCount = $j("#feuser-usergroup-selector-max").val();
+	if(maxCount === undefined){
+		maxCount = 0;
+	}	
 	var countOptions = $j(id + '_list option').size();
 	$j(id + '_list option').each(function(){
 		if($j(this).attr('value')==value){

@@ -67,13 +67,14 @@
 		</v:switch>
 		<v:variable.set name="text" value="{text}{fieldsSeparator}{additionalText}" />
 	</f:for>
-	<f:for each="{replacements}" as="replacement">
+	<v:variable.set name="title" value="{text}" />
+	<f:for each="{replacements}" as="replacement">		
 		<v:variable.set name="text" value="{v:format.replace(substring: replacement.search, content: text, replacement: replacement.replace)}" />
 	</f:for>
 	<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-{field.name}" onclick="mooxFeusersToggleDetails({item.uid})">
 		<f:if condition="{iteration.isFirst}">
 			<span id="feuser-details-{item.uid}-expander" class="feuser-details-expander-reset pointer t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down">&nbsp;</span>					
 		</f:if>
-		<span title="{text} [UID: {item.uid}]"><f:format.raw>{text -> f:format.crop(maxCharacters: field.lenght)}</f:format.raw></span>
+		<span title="{title} [UID: {item.uid}]"><f:format.raw>{text -> f:format.crop(maxCharacters: field.lenght)}</f:format.raw></span>
 	</td>				
 </f:for>

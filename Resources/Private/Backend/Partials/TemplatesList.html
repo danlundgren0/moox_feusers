@@ -1,0 +1,20 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<tbody>
+	<f:for each="{templates}" as="item" iteration="iteration">
+		<tr class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
+			<td class="tx-moox-feusers-admin-table-value" style="width: 100px">
+				<f:link.action action="delete" arguments="{uid:item.uid}" onclick="return window.confirm('Wollen Sie diese Vorlagen wirklich löschen? Falls die Vorlage derzeit für einen Mailer-Task gewählt wurde, wird stattdessen auf die Standardvorlage zurückgegriffen.')" title="{item.title} löschen">
+					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete">&nbsp;</span>
+				</f:link.action>
+				<f:link.action action="edit" arguments="{uid:item.uid}" title="{item.title} bearbeiten">
+					<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open">&nbsp;</span>
+				</f:link.action>				
+			</td>
+			<td class="tx-moox-feusers-admin-table-value">
+				<span title="UID: {item.uid}" class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_mooxmailer_domain_model_template t3-icon-tx_mooxmailer_domain_model_template-default">&nbsp;</span>
+				{item.title -> f:format.crop(maxCharacters: 100)}			
+			</td>		
+		</tr>		
+	</f:for>
+</tbody>

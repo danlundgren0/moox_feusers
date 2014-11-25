@@ -1,0 +1,41 @@
+{namespace v=Tx_Vhs_ViewHelpers}
+
+<f:layout name="Templates" />
+
+<f:section name="content">
+
+	<f:flashMessages />
+
+	<div class="tx-moox-feusers-admin">
+		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Vorlagen</h1>
+		<div class="tx-moox-feusers-admin-body">
+			<div class="tx-moox-feusers-admin-info">
+				<f:if condition="{templates -> f:count()}>0">
+					<f:then>
+						<div class="tx-moox-feusers-admin-header">
+							Derzeit sind folgende Vorlagen angelegt
+						</div>
+						<div class="tx-moox-feusers-admin-table">
+							<table cellpadding="0" cellspacing="0" border="0" width="100%">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Titel</th>										
+									</tr>
+								</thead>
+								<f:render partial="TemplatesList" arguments="{_all}" />								
+							</table>
+						</div>
+						<div class="clear"></div>						
+					</f:then>
+					<f:else>
+						<div class="tx-moox-feusers-admin-noschedules">
+							Derzeit sind keine Vorlagen vorhanden.
+						</div>
+					</f:else>
+				</f:if>
+			</div>		
+		</div>
+	</div>
+
+</f:section>

@@ -72,9 +72,9 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 			$constraints[] = $query->equals('is_company_admin', 0);
 		}
 		if($filter['state']==1){
-			$constraints[] = $query->equals('hidden', 0);
+			$constraints[] = $query->equals('disable', 0);
 		} elseif($filter['state']==2){
-			$constraints[] = $query->equals('hidden', 1);
+			$constraints[] = $query->equals('disable', 1);
 		}
 		$filter['query'] = trim($filter['query']);
 		if($filter['query']!=""){
@@ -129,15 +129,27 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	/**
 	 * Finds all company users
 	 *	
+	 * @param array $storagePids
+	 * @param integer $uid uid to exclude from list
 	 * @param string $company The company to get users from
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The users
 	 */
-	public function findByCompany($uid = 0, $company = '') {
+	public function findByCompany($storagePids = array(), $uid = 0, $company = '') {
 		
 		if($uid>0 && $company!=""){
 		
 			$query = $this->createQuery();
-					
+			
+			if(is_numeric($storagePids) && $storagePids>0){
+				$storagePids = array($storagePids);
+			}
+			
+			if(!is_array($storagePids) || count($storagePids)<1){
+				$storagePids = array(0);			
+			}
+				
+			$query->getQuerySettings()->setStoragePageIds($storagePids);
+			
 			$query->matching(
 				$query->logicalAnd(
 					$query->equals('company', $company),
@@ -153,18 +165,30 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 			return NULL;
 		}
 	}
+	
 	/**
 	 * Finds user by username
 	 *	
-	 * @param string $company The company to get users from
+	 * @param array $storagePids
+	 * @param string $username
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The users
 	 */
-	public function findByUsername($username = '') {
+	public function findByUsername($storagePids = array(),$username = '') {
 		
 		if($username!=""){
 		
 			$query = $this->createQuery();
-					
+			
+			if(is_numeric($storagePids) && $storagePids>0){
+				$storagePids = array($storagePids);
+			}
+			
+			if(!is_array($storagePids) || count($storagePids)<1){
+				$storagePids = array(0);			
+			}
+				
+			$query->getQuerySettings()->setStoragePageIds($storagePids);
+			
 			$query->matching(
 				$query->equals('username', $username)			
 			);						
@@ -174,6 +198,152 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 		} else {
 			return NULL;
 		}
+	}
+	
+	/**
+	 * Finds user by email
+	 *	
+	 * @param array $storagePids
+	 * @param string $email
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The users
+	 */
+	public function findByEmail($storagePids = array(), $email = '') {
+		
+		if($email!=""){
+		
+			$query = $this->createQuery();
+			
+			if(is_numeric($storagePids) && $storagePids>0){
+				$storagePids = array($storagePids);
+			}
+			
+			if(!is_array($storagePids) || count($storagePids)<1){
+				$storagePids = array(0);			
+			}
+				
+			$query->getQuerySettings()->setStoragePageIds($storagePids);
+			
+			$query->matching(
+				$query->equals('email', $email)			
+			);						
+			
+			return $query->execute();
+			
+		} else {
+			return NULL;
+		}
+	}
+	
+	/**
+	 * Finds user by username and email
+	 *	
+	 * @param array $storagePids
+	 * @param string $username
+	 * @param string $email
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The users
+	 */
+	public function findByUsernameAndEmail($storagePids = array(), $username = '', $email = '') {
+		
+		if($username!="" && $email!=""){
+		
+			$query = $this->createQuery();
+			
+			if(is_numeric($storagePids) && $storagePids>0){
+				$storagePids = array($storagePids);
+			}
+			
+			if(!is_array($storagePids) || count($storagePids)<1){
+				$storagePids = array(0);			
+			}
+				
+			$query->getQuerySettings()->setStoragePageIds($storagePids);
+			
+			$query->matching(
+				$query->logicalAnd(
+					$query->equals('username', $username),
+					$query->equals('email', $email)
+				)
+			);						
+			
+			return $query->execute();
+			
+		} else {
+			return NULL;
+		}
+	}
+	
+	/**
+	 * Finds user by uid and hash
+	 *	
+	 * @param array $storagePids
+	 * @param integer $uid
+	 * @param string $hash
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The users
+	 */
+	public function findByUidAndHash($storagePids = array(), $uid = 0, $hash = '') {
+		
+		if($uid>0 && $hash!=""){
+		
+			$query = $this->createQuery();
+			
+			if(is_numeric($storagePids) && $storagePids>0){
+				$storagePids = array($storagePids);
+			}
+			
+			if(!is_array($storagePids) || count($storagePids)<1){
+				$storagePids = array(0);			
+			}
+				
+			$query->getQuerySettings()->setStoragePageIds($storagePids);
+			
+			$query->matching(
+				$query->logicalAnd(
+					$query->equals('uid', $uid),
+					$query->equals('passwordRecoveryHash', $hash),
+					$query->greaterThan('passwordRecoveryTstamp', (time()-(86400*2)))
+				)
+			);						
+			
+			return $query->execute();
+			
+		} else {
+			return NULL;
+		}
+	}
+	
+	/**
+	 * Override default findByUid function to enable also the option to turn of
+	 * the enableField setting
+	 *
+	 * @param integer $uid id of record
+	 * @param boolean $respectEnableFields if set to false, hidden records are shown
+	 * @return \TYPO3\MooxFeusers\Domain\Model\FrontendUser
+	 */
+	public function findByUid($uid, $respectEnableFields = TRUE) {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+		$query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
+
+		return $query->matching(
+			$query->logicalAnd(
+				$query->equals('uid', $uid),
+				$query->equals('deleted', 0)
+			))->execute()->getFirst();
+	}
+	
+	/**
+	 * findReallyAll
+	 *	
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The users
+	 */
+	public function findReallyAll() {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+
+		return $query->execute();
 	}
 }
 ?>

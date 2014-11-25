@@ -19,7 +19,7 @@
 			<trans-unit id="tx_mooxfeusers_frontenduser_action_profile.header_data">
 				<source>personal information</source>				
 			</trans-unit>
-			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.header_data">
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_add.header_data">
 				<source>new user</source>				
 			</trans-unit>	
 			<trans-unit id="tx_mooxfeusers_frontenduser_action_list.header">
@@ -57,6 +57,9 @@
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_frontenduser_form.username">
 				<source>username</source>				
+			</trans-unit>
+			<trans-unit id="tx_mooxfeusers_frontenduser_form.gender">
+				<source>gender</source>				
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_frontenduser_form.title">
 				<source>title</source>				
@@ -112,10 +115,10 @@
 			<trans-unit id="tx_mooxfeusers_frontenduser_action_profile.save">
 				<source>save</source>				
 			</trans-unit>	
-			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.save">
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_add.save">
 				<source>save</source>				
 			</trans-unit>
-			<trans-unit id="tx_mooxfeusers_frontenduser_action_create.cancel">
+			<trans-unit id="tx_mooxfeusers_frontenduser_action_add.cancel">
 				<source>cancel</source>				
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_frontenduser_action_edit.save">
@@ -140,10 +143,10 @@
 			<trans-unit id="tx_mooxfeusers_frontenduser.messages.profileerror">
 				<source>profile could not be saved</source>				
 			</trans-unit>
-			<trans-unit id="tx_mooxfeusers_frontenduser.messages.createerror.header">
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.adderror.header">
 				<source>form:</source>				
 			</trans-unit>			
-			<trans-unit id="tx_mooxfeusers_frontenduser.messages.createerror">
+			<trans-unit id="tx_mooxfeusers_frontenduser.messages.adderror">
 				<source>Please verify your entries.</source>				
 			</trans-unit>
 			<trans-unit id="tx_mooxfeusers_frontenduser.messages.usersaved.header">

@@ -25,7 +25,7 @@
 	</div>
 	<div class="tx-moox-feusers-edit">		
 		<div class="tx-moox-feusers-form">
-			<f:form action="edit" arguments="{do: 'save'}" controller="FrontendUser" noCache="1" method="POST" name="tx-moox-feusers-edit-form">
+			<f:form action="edit" arguments="{do: 'save'}" controller="FrontendUser" noCache="1" method="POST" name="tx-moox-feusers-edit-form" additionalAttributes="{role: 'form', data-toggle: 'validator'}">
 				<div class="tx-moox-feusers-form-buttons">
 					<f:link.action action="list" title="{f:translate(key: 'tx_mooxfeusers_frontenduser_action_edit.cancel')}">
 						<button type="button" class="btn btn-warning">

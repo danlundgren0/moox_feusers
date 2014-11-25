@@ -3,12 +3,12 @@
 		<h3 style="margin-top:0px">
 			<f:if condition="{self}">
 				<f:then>					
-					<f:if condition="{enableCompanyField}">
+					<f:if condition="{action}=='add'">
 						<f:then>
-							{f:translate(key: 'tx_mooxfeusers_frontenduser_action_profile.header_data')}
+							{f:translate(key: 'tx_mooxfeusers_frontenduser_action_add.header_data')} [{adminUser.company}]
 						</f:then>
 						<f:else>
-							{f:translate(key: 'tx_mooxfeusers_frontenduser_action_create.header_data')} [{adminUser.company}]
+							{f:translate(key: 'tx_mooxfeusers_frontenduser_action_profile.header_data')}							
 						</f:else>
 					</f:if>
 				</f:then>
@@ -19,9 +19,24 @@
 		</h3>
 	</div>
 	<div class="panel-body">
+		
+		<f:if condition="{action}=='add'">		
+			<f:then>
+				<div class="form-group<f:if condition="{allErrors.username}"> has-error</f:if>">
+					<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.username')} [*{f:translate(key: 'tx_mooxfeusers_frontenduser_form.required')}]:</label>
+					<f:form.textfield value="{frontendUser.username}" required="1" type="text" name="FrontendUser[username]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.username')}" class="form-control" />
+				</div>
+			</f:then>
+			<f:else>
+				<div class="form-group">		
+					<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.username')}:</label>		
+					<f:form.textfield value="{frontendUser.username}" readonly="1" type="text" name="FrontendUser[username]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.username')}" class="form-control" />			
+				</div>
+			</f:else>
+		</f:if>
 		<div class="form-group">		
 			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.company')}:</label>		
-			<f:if condition="{enableCompanyField}">
+			<f:if condition="{action}!='add'">
 				<f:then>
 					<f:if condition="{useCompanyAdmin}">
 						<f:then>
@@ -37,28 +52,29 @@
 				</f:else>
 			</f:if>
 		</div>
-		<f:if condition="{fegroups}">
-			<div class="form-group">
-				<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.usergroup')}:</label>			
-				<f:form.select name="FrontendUser[usergroup]" options="{fegroups}" class="form-control" value="{usergroup}" />			
-			</div>
-		</f:if>			
-		<f:if condition="{enableCompanyField}">		
-			<f:else>
-				<div class="form-group<f:if condition="{allErrors.username}"> has-error</f:if>">
-					<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.username')} [*{f:translate(key: 'tx_mooxfeusers_frontenduser_form.required')}]:</label>
-					<f:form.textfield value="{frontendUser.username}" required="1" type="text" name="FrontendUser[username]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.username')}" class="form-control" />
-				</div>
-			</f:else>
-		</f:if>		
+		<div class="form-group">
+			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.usergroup')}:</label>
+			<select class="form-control" name="tx_mooxfeusers_pi1[FrontendUser][usergroup]">
+				<f:comment>
+					<option value="">Keine Benutzergruppe</option>
+				</f:comment>
+				<f:if condition="{fegroups -> f:count()}>0">
+					<f:for each="{fegroups}" as="group" key="key" iteration="iteration">
+						<option value="{key}"<f:if condition="{key}=={usergroup}"> selected="selected"</f:if>>{group}</option>
+					</f:for>
+				</f:if>
+			</select>			
+		</div>		
 		<div class="form-group">
 			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.title')}:</label>
 			<f:form.textfield value="{frontendUser.title}" type="text" name="FrontendUser[title]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.title')}" class="form-control" />
 		</div>
-		<div class="form-group<f:if condition="{allErrors.name}"> has-error</f:if>">
-			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.name')} [*{f:translate(key: 'tx_mooxfeusers_frontenduser_form.required')}]:</label>
-			<f:form.textfield value="{frontendUser.name}" required="1" type="text" name="FrontendUser[name]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.name')}" class="form-control" />
-		</div>
+		<f:if condition="{frontendUser.name}">
+			<div class="form-group<f:if condition="{allErrors.name}"> has-error</f:if>">
+				<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.name')}:</label>
+				<f:form.textfield value="{frontendUser.name}" readonly="1" type="text" name="FrontendUser[name]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.name')}" class="form-control" />
+			</div>
+		</f:if>
 		<div class="form-group">
 			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.first_name')}:</label>
 			<f:form.textfield value="{frontendUser.firstname}" type="text" name="FrontendUser[first_name]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.first_name')}" class="form-control" />
@@ -96,8 +112,8 @@
 			<f:form.textfield value="{frontendUser.fax}" type="text" name="FrontendUser[fax]" placeholder="{f:translate(key: 'tx_mooxfeusers_frontenduser_form.fax')}" class="form-control" />
 		</div>
 		<div class="form-group<f:if condition="{allErrors.email}"> has-error</f:if>">
-			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.email')} [*{f:translate(key: 'tx_mooxfeusers_frontenduser_form.required')}]:</label>
-			<f:form.textfield value="{frontendUser.email}" required="1" type="text" name="FrontendUser[email]" placeholder="Email-Adresse" class="form-control" />
+			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.email')}:</label>
+			<f:form.textfield value="{frontendUser.email}" type="text" name="FrontendUser[email]" placeholder="Email-Adresse" class="form-control" />
 		</div>
 		<div class="form-group">
 			<label class="control-label">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.www')}:</label>
@@ -108,7 +124,7 @@
 <div class="panel <f:if condition="{passwordError}"><f:then>panel-danger</f:then><f:else>panel-default</f:else></f:if>" style="margin-bottom:0px">
 	<div class="panel-heading">
 		<h3 style="margin-top:0px">{f:translate(key: 'tx_mooxfeusers_frontenduser_form.header_password')}</h3>
-		<f:if condition="{enableCompanyField}">
+		<f:if condition="{action}!='add'">
 			Hinweis: {f:translate(key: 'tx_mooxfeusers_frontenduser_form.password_hint')}
 		</f:if>
 	</div>

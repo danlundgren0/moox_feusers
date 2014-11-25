@@ -11,19 +11,61 @@
 					<onChange>reload</onChange>
 					<config>
 						<type>select</type>
-						<items>														
-							<numIndex index="0">
-								<numIndex index="0">LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_controller_selection.frontenduser_profile</numIndex>
-								<numIndex index="1">FrontendUser->profile;FrontendUser->list;FrontendUser->create;FrontendUser->edit;FrontendUser->delete;FrontendUser->error</numIndex>
-							</numIndex>
-						</items>
-						<default>FrontendUser->profile;FrontendUser->list;FrontendUser->create;FrontendUser->edit;FrontendUser->delete;FrontendUser->error</default>
+						<itemsProcFunc>EXT:moox_feusers/Classes/Hooks/ItemsProcFunc.php:&amp;Tx_MooxFeusers_Hooks_ItemsProcFunc->processPi1SwitchableControllerActionsSelector</itemsProcFunc>						
+						<default></default>
 					</config>
 				</TCEforms>
 			</switchableControllerActions>
+			<settings.storagePid>
+				<TCEforms>
+					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_storage_pid</label>			
+					<displayCond>
+						<OR>
+							<numIndex index="0"><![CDATA[FIELD:switchableControllerActions:=:FrontendUser->profile;FrontendUser->list;FrontendUser->add;FrontendUser->edit;FrontendUser->delete;FrontendUser->error]]></numIndex>
+							<numIndex index="1"><![CDATA[FIELD:switchableControllerActions:=:FrontendUser->profile;FrontendUser->error]]></numIndex>
+						</OR>
+					</displayCond>
+					<config>
+						<type>select</type>		
+						<allowNonIdValues>1</allowNonIdValues>
+						<maxitems>1</maxitems>
+						<size>1</size>
+						<minitems>1</minitems>						
+						<foreign_table>pages</foreign_table>
+						<foreign_table_where>AND pages.module='mxfeuser' AND pages.deleted=0 AND pages.hidden=0 ORDER BY pages.title ASC</foreign_table_where>
+						<itemsProcFunc>EXT:moox_feusers/Classes/Hooks/ItemsProcFunc.php:&amp;Tx_MooxFeusers_Hooks_ItemsProcFunc->processStoragePidSelector</itemsProcFunc>
+						<items>
+							<numIndex index="0" type="array">
+								<numIndex index="0">[Definiert durch TS]:</numIndex>
+								<numIndex index="1">TS</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+			</settings.storagePid>
+			<settings.storagePids>
+				<TCEforms>
+					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_storage_pids</label>					
+					<config>
+						<type>select</type>						
+						<maxitems>99</maxitems>
+						<size>3</size>
+						<minitems>0</minitems>						
+						<foreign_table>pages</foreign_table>
+						<foreign_table_where>AND pages.module='mxfeuser' AND pages.deleted=0 AND pages.hidden=0 ORDER BY pages.title ASC</foreign_table_where>
+						<itemsProcFunc>EXT:moox_feusers/Classes/Hooks/ItemsProcFunc.php:&amp;Tx_MooxFeusers_Hooks_ItemsProcFunc->processStoragePidSelector</itemsProcFunc>
+					</config>
+				</TCEforms>
+			</settings.storagePids>
 			<settings.fe_group>
 				<TCEforms>
 					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_fe_group</label>
+					<displayCond>
+						<OR>
+							<numIndex index="0"><![CDATA[FIELD:switchableControllerActions:=:FrontendUser->profile;FrontendUser->list;FrontendUser->add;FrontendUser->edit;FrontendUser->delete;FrontendUser->error]]></numIndex>
+							<numIndex index="1"><![CDATA[FIELD:switchableControllerActions:=:FrontendUser->profile;FrontendUser->error]]></numIndex>
+						</OR>
+					</displayCond>
 					<config>
 						<type>select</type>						
 						<maxitems>10</maxitems>
@@ -33,7 +75,42 @@
 						<foreign_table_where>AND fe_groups.deleted = 0 AND fe_groups.hidden = 0 order by fe_groups.title</foreign_table_where>
 					</config>
 				</TCEforms>
-			</settings.fe_group>
+			</settings.fe_group>			
+			<settings.recoveryEmailTemplate>
+				<TCEforms>
+					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_recovery_email_template</label>
+					<displayCond><![CDATA[FIELD:switchableControllerActions:=:FrontendUser->passwordRecovery;FrontendUser->newPassword;FrontendUser->error]]></displayCond>
+					<config>
+						<type>select</type>						
+						<maxitems>1</maxitems>
+						<size>1</size>
+						<minitems>1</minitems>
+						<itemsProcFunc>EXT:moox_feusers/Classes/Hooks/ItemsProcFunc.php:&amp;Tx_MooxFeusers_Hooks_ItemsProcFunc->processEmailTemplateSelector</itemsProcFunc>						
+					</config>
+				</TCEforms>
+			</settings.recoveryEmailTemplate>
+			<settings.recoverySendername>
+				<TCEforms>
+					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_recovery_sendername</label>
+					<displayCond><![CDATA[FIELD:switchableControllerActions:=:FrontendUser->passwordRecovery;FrontendUser->newPassword;FrontendUser->error]]></displayCond>
+					<config>
+						<type>input</type>
+						<size>30</size>
+						<eval>trim</eval>
+					</config>
+				</TCEforms>
+			</settings.recoverySendername>
+			<settings.recoverySenderaddress>
+				<TCEforms>
+					<label>LLL:EXT:moox_feusers/Resources/Private/Language/locallang_be.xml:pi1_recovery_senderaddress</label>
+					<displayCond><![CDATA[FIELD:switchableControllerActions:=:FrontendUser->passwordRecovery;FrontendUser->newPassword;FrontendUser->error]]></displayCond>
+					<config>
+						<type>input</type>
+						<size>30</size>
+						<eval>required,trim</eval>
+					</config>
+				</TCEforms>
+			</settings.recoverySenderaddress>
 		</el>
 		
 	</ROOT>	
