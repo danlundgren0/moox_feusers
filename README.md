@@ -3,7 +3,7 @@
 
 ### TYPO3-Extension moox_feusers
 
-MOOX Address Management is a backend module to manage customers and primarily used by moox_feusers (this Ext is not published by now, write to moox@dcn.de if you want a demo).
+MOOX User Management is a backend module to manage customers and primarily used by moox_mailer (this Ext is not published by now, write to moox@dcn.de if you want a demo) and moox_news. It adds more security to news and associated file downloads, encrypts urls and offers autologin for mail-links.
 
 ![MOOX Bootstrap Responsive Preview](https://raw.github.com/dcngmbh/moox_feusers/master/ext_preview_forge.jpg)
 
