@@ -14,8 +14,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'title' => 'MOOX feusers',
 	'description' => 'Manage feusers, login, register, edit, add, delete',
 	'category' => 'plugin',
-	'author' => 'Dominic Martin',
-	'author_email' => 'dm@dcn.de',
+	'author' => 'MOOX Team',
+	'author_email' => 'moox@dcn.de',
 	'author_company' => 'DCN GmbH',
 	'shy' => '',
 	'priority' => '',
@@ -30,9 +30,9 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '0.8.5',
 	'constraints' => array(
 		'depends' => array(
-			'extbase' => '6.0',
-			'fluid' => '6.0',
-			'typo3' => '6.0',			
+			'extbase' => '6.2',
+			'fluid' => '6.2',
+			'typo3' => '6.2',			
 		),
 		'conflicts' => array(
 		),
