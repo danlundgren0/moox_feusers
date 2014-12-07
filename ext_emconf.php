@@ -30,9 +30,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '0.8.5',
 	'constraints' => array(
 		'depends' => array(
-			'extbase' => '6.2',
-			'fluid' => '6.2',
-			'typo3' => '6.2',			
+			'typo3' => '6.2.0-6.2.99',
+			'moox_core' => '0.9.8-1.9.99'			
 		),
 		'conflicts' => array(
 		),
