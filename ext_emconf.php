@@ -11,7 +11,7 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'MOOX feusers',
+	'title' => 'MOOX User Management',
 	'description' => 'Manage feusers in a comfortable Backend-Module including Editor for system-mails.',
 	'category' => 'plugin',
 	'author' => 'MOOX Team',
