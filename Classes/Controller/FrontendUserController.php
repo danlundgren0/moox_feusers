@@ -80,7 +80,8 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
      *
      * @return void
      */
-    public function initializeAction() {			
+    public function initializeAction() {					
+		parent::initializeAction();
 		
 		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);
 		
