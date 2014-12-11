@@ -224,11 +224,31 @@ img.mailing-state {
 	margin-top: 10px;	
 }
 
+.tx-moox-feusers-admin-filter .group-list {		
+	display: none;
+	border: 1px solid #CCCCCC;
+	-moz-box-shadow: 0px 0px 10px #333333;
+	-webkit-box-shadow: 0px 0px 10px #333333;
+	box-shadow: 0px 0px 10px #333333;
+	margin-bottom: 10px;	
+	margin-top: 10px;	
+}
+
 .tx-moox-feusers-admin-filter .folder-list-import {
 	margin-left: 200px;
 }
 
 .tx-moox-feusers-admin-filter .folder-list-footer {
+	padding-left: 20px;
+	border-top: 2px solid #999999;
+	margin-top: -1px;
+	background-color: #BBBBBB;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: right;
+}
+
+.tx-moox-feusers-admin-filter .group-list-footer {
 	padding-left: 20px;
 	border-top: 2px solid #999999;
 	margin-top: -1px;
@@ -244,7 +264,18 @@ img.mailing-state {
 	color: #FFFFFF;	
 }
 
+.tx-moox-feusers-admin-filter a#group-list-close {
+	text-decoration: none;
+	font-weight: normal;
+	color: #FFFFFF;	
+}
+
 .tx-moox-feusers-admin-filter .folder-noothers {	
+	background-color: #FFFFFF;
+	padding:5px;
+}
+
+.tx-moox-feusers-admin-filter .group-noothers {	
 	background-color: #FFFFFF;
 	padding:5px;
 }
@@ -254,7 +285,16 @@ img.mailing-state {
 	margin-right: 10px;
 }
 
+.tx-moox-feusers-admin-filter .group-icon {	
+	float: left;
+	margin-right: 10px;
+}
+
 .tx-moox-feusers-admin-filter .current-folder-icon {		
+	
+}
+
+.tx-moox-feusers-admin-filter .current-group-icon {		
 	
 }
 
@@ -283,6 +323,35 @@ img.mailing-state {
 }
 
 .tx-moox-feusers-admin-filter .folder-list ul li a {
+	display: block;
+	text-decoration: none;
+}
+
+.tx-moox-feusers-admin-filter .group-list ul {
+	margin: 0px;
+	margin-bottom: -2px;
+}
+
+.tx-moox-feusers-admin-filter .group-list ul li {
+	background-color: #FFFFFF;
+	border-bottom: 2px solid #EEEEEE;
+	padding: 3px;
+	padding-left: 15px;
+}
+
+.tx-moox-feusers-admin-filter .group-list ul li:hover {
+	background-color: #F1F1F1;	
+}
+
+.tx-moox-feusers-admin-filter .group-list ul li.active {
+	background-color: #F1F1F1;	
+}
+
+.tx-moox-feusers-admin-filter .group-list ul li.group-last {
+	border: 0px;
+}
+
+.tx-moox-feusers-admin-filter .group-list ul li a {
 	display: block;
 	text-decoration: none;
 }

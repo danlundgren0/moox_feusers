@@ -29,6 +29,42 @@
 					</div>
 				</div>
 			</div>
+			<f:if condition="{page}>0">
+				<div class="tx-moox-feusers-admin-filter tx-moox-feusers-admin-filter-group">
+					<div class="filter-field">					
+						<div id="selected-group">
+							<v:switch value="{filter.group}">
+								<v:case case="all" break="TRUE">
+									<v:variable.set name="currentFeGroup" value="Alle Benutzer" />
+								</v:case>
+								<v:case case="nogroup" break="TRUE">
+									<v:variable.set name="currentFeGroup" value="Benutzer ohne Gruppe" />
+								</v:case>
+								<v:case case="default">
+									<v:variable.set name="currentFeGroup" value="{feGroup.title}&nbsp;&nbsp;&nbsp;[UID: {feGroup.uid}]" />
+								</v:case>
+							</v:switch>
+							<img class="current-group-icon pointer" width="16" height="16" alt="Liste" align="center" title="Liste" src="../typo3/sysext/t3skin/icons/module_web_list.gif">
+							<span id="group-expander" class="pointer t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down">&nbsp;</span>
+							<span class="pointer group" title="{currentFeGroup}">{currentFeGroup -> f:format.raw()}</span>
+						</div>
+						<div class="clear"></div>
+					</div>				
+					<div class="group-list" id="group-list">
+						<f:if condition="{feGroups}">
+							<f:then>
+								<f:render partial="FeGroupList" arguments="{group: filter.group, feGroups: feGroups}" />
+							</f:then>
+							<f:else>
+								<div class="group-noothers">Keine Gruppen im gewählten Ordner gefunden</div>
+							</f:else>
+						</f:if>
+						<div class="group-list-footer">							
+							<a href="#" id="group-list-close" class="pointer" title="schließen">schließen <span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-close">&nbsp;</span></a>
+						</div>
+					</div>
+				</div>
+			</f:if>
 			<div class="tx-moox-feusers-admin-filter">
 				<f:form noCache="1" method="POST" id="filterForm" name="filter" object="{filter}">
 					<div class="filter-field">						

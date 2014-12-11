@@ -61,6 +61,11 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 				
 		$constraints[] = $query->equals('deleted', 0);
 		
+		if(is_numeric($filter['group']) && $filter['group']>0){
+			$constraints[] = $query->contains('usergroup', $filter['group']);
+		} elseif($filter['group']=="nogroup"){
+			$constraints[] = $query->equals('usergroup', NULL);
+		} 		
 		if($filter['mailing']==1){
 			$constraints[] = $query->equals('disallow_mailing', 0);
 		} elseif($filter['mailing']==2){

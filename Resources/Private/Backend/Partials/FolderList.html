@@ -1,10 +1,10 @@
 <ul class="list-unstyled">
-	<li class="folder pointer<f:if condition="{page} == {folder.uid}"> active</f:if>">
-		<f:link.action action="{f:if(condition: action, then: action, else: 'index')}" additionalParams="{id:0}" title="Benutzer ohne Ordner"><img class="folder-icon" width="16" height="16" align="left" alt="Benutzer ohne Ordner" title="Benutzer ohne Ordner" src="../typo3conf/ext/moox_address/ext_icon.gif">Benutzer ohne Ordner</f:link.action>
+	<li class="folder pointer<f:if condition="{page}<1"> active</f:if>">
+		<f:link.action action="{f:if(condition: action, then: action, else: 'index')}" additionalParams="{id:0}" title="Benutzer ohne Ordner"><img class="folder-icon" width="16" height="16" align="left" alt="Benutzer ohne Ordner" title="Benutzer ohne Ordner" src="../typo3conf/ext/moox_feusers/ext_icon.gif">Benutzer ohne Ordner</f:link.action>
 	</li>
 	<f:for each="{folders}" as="folder" iteration="iteration">			
 		<li class="folder pointer<f:if condition="{page} == {folder.uid}"> active</f:if>">
-			<f:link.action action="{f:if(condition: action, then: action, else: 'index')}" additionalParams="{id:folder.uid}" title="UID: {folder.uid}"><f:if condition="{folder.folder}">&nbsp;&nbsp;&nbsp;&nbsp;</f:if><img class="folder-icon" width="16" height="16" align="left" alt="{folder.title} [UID: {folder.uid}]" title="{folder.title} [UID: {folder.uid}]" src="../typo3conf/ext/moox_address/ext_icon.gif">{folder.title}<span style="float: right" title="Pfad: <f:for each="{folder.rootline}" as="path">\{path.title}</f:for> [UID: {folder.uid}]">[UID: {folder.uid} | Rootpage: {folder.rootpage.title}]</span></f:link.action>
+			<f:link.action action="{f:if(condition: action, then: action, else: 'index')}" additionalParams="{id:folder.uid}" title="UID: {folder.uid}"><f:if condition="{folder.folder}">&nbsp;&nbsp;&nbsp;&nbsp;</f:if><img class="folder-icon" width="16" height="16" align="left" alt="{folder.title} [UID: {folder.uid}]" title="{folder.title} [UID: {folder.uid}]" src="../typo3conf/ext/moox_feusers/ext_icon.gif">{folder.title}<span style="float: right" title="Pfad: <f:for each="{folder.rootline}" as="path">\{path.title}</f:for> [UID: {folder.uid}]">[UID: {folder.uid} | Rootpage: {folder.rootpage.title}]</span></f:link.action>
 		</li>		
 	</f:for>
 </ul>

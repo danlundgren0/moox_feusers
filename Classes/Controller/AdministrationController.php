@@ -242,9 +242,30 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			
 		}		
 		
+		$feGroups = $this->frontendUserGroupRepository->findByPids($this->page);
+		
+		if(is_numeric($filter['group']) && $filter['group']>0){			
+			$feGroupIsValid = false;
+			foreach($feGroups AS $feGroup){
+				if($feGroup->getUid()==$filter['group']){
+					$this->view->assign('feGroup', $this->frontendUserGroupRepository->findByUid($filter['group']));
+					$feGroupIsValid = true;
+					break;
+				}
+			}
+			if(!$feGroupIsValid){
+				$filter['group'] = "all";				
+			}
+		}
+		
+		if($filter['group']==""){
+			$filter['group'] = "all";
+		}
+		
 		$feUsers 	= $this->frontendUserRepository->findAll($this->page,$filter);
 		
 		$this->view->assign('feUsers', $feUsers);
+		$this->view->assign('feGroups', $feGroups);
 		$this->view->assign('fields', $this->getListViewFields());
 		$this->view->assign('fieldsSeparator', $listViewFieldSeparator);		
 		$this->view->assign('filter', $filter);		
@@ -1517,6 +1538,18 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	}
 	
 	/**
+	 * action change group
+	 *
+	 * @param \string $group		
+	 * @return void
+	 */
+	public function changeGroupAction($group = "") {			
+		
+		$this->processFilter(array("group" => $group));						
+		$this->redirect("index");		
+	}
+	
+	/**
 	 * get fe user
 	 *
 	 * @param \int $uid
@@ -1819,7 +1852,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * @return \array $filter
 	 */
 	public function processFilter($filter = array()) {
-		
+				
 		if($this->backendSession->get("filter")){
 			$filter_tmp = unserialize($this->backendSession->get("filter"));
 			if(isset($filter['mailing'])){
@@ -1840,6 +1873,9 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			if(isset($filter['query'])){
 				$filter_tmp['query'] = $filter['query'];
 			}
+			if(isset($filter['group'])){
+				$filter_tmp['group'] = $filter['group'];
+			}
 			$filter = $filter_tmp;			
 		} else {			
 			$filter['mailing'] 	= 0;			
@@ -1858,7 +1894,8 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				$filter['sortDirection'] = $this->settings['defaultSortDirection'];
 			} else {
 				$filter['sortDirection'] = "ASC";
-			}						
+			}
+			$filter['group'] = "all";
 		}
 		$this->backendSession->store("filter",serialize($filter));
 		return $filter;
