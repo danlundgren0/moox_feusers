@@ -1,0 +1,13 @@
+<ul class="list-unstyled">
+	<li class="group pointer<f:if condition="{group}=='all'"> active</f:if>">
+		<f:link.action action="changeGroup" arguments="{group:'all'}" title="Alle Benutzer"><img class="group-icon" width="16" height="16" align="left" alt="Alle Benutzer" title="Alle Benutzer" src="../typo3conf/ext/moox_feusers/ext_icon.gif" />Alle Benutzer</f:link.action>
+	</li>
+	<f:for each="{feGroups}" as="feGroup" iteration="iteration">			
+		<li class="group pointer<f:if condition="{group} == {feGroup.uid}"> active</f:if>">
+		<f:link.action action="changeGroup" arguments="{group:feGroup.uid}" title="UID: {feGroup.uid}"><img class="group-icon" width="16" height="16" align="left" alt="{feGroup.title} [UID: {feGroup.uid}]" title="{feGroup.title} [UID: {feGroup.uid}]" src="../typo3conf/ext/moox_feusers/ext_icon.gif" />{feGroup.title}<span style="float: right" title="UID: {feGroup.uid}">[UID: {feGroup.uid}]</span></f:link.action>
+		</li>		
+	</f:for>
+	<li class="group pointer<f:if condition="{group}=='nogroup'"> active</f:if>">
+		<f:link.action action="changeGroup" arguments="{group:'nogroup'}" title="Benutzer ohne Gruppe"><img class="group-icon" width="16" height="16" align="left" alt="Benutzer ohne Gruppe" title="Benutzer ohne Gruppe" src="../typo3conf/ext/moox_feusers/ext_icon.gif" />Benutzer ohne Gruppe</f:link.action>
+	</li>
+</ul>
