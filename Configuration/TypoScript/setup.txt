@@ -73,12 +73,7 @@ plugin.tx_mooxfeusers {
 module.tx_mooxfeusers {
 	persistence {
 		storagePid = {$module.tx_mooxfeusers.persistence.storagePid}
-	}
-	view {
-		templateRootPath = {$module.tx_mooxfeusers.view.templateRootPath}
-		partialRootPath = {$module.tx_mooxfeusers.view.partialRootPath}
-		layoutRootPath = {$module.tx_mooxfeusers.view.layoutRootPath}
-	}
+	}	
 	settings {
 		defaultSortField 		= {$module.tx_mooxfeusers.settings.defaultSortField}
 		defaultSortDirection 	= {$module.tx_mooxfeusers.settings.defaultSortDirection}

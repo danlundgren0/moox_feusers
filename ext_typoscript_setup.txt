@@ -34,3 +34,11 @@ config.tx_extbase {
         updateReferenceIndex = 1
     }
 }
+
+module.tx_mooxfeusers {
+	view {
+		templateRootPath = EXT:moox_feusers/Resources/Private/Backend/Templates/
+		partialRootPath = EXT:moox_feusers/Resources/Private/Backend/Partials/
+		layoutRootPath = EXT:moox_feusers/Resources/Private/Backend/Layouts/
+	}
+}

@@ -140,15 +140,7 @@ plugin.tx_mooxfeusers {
 	}
 }
 
-module.tx_mooxfeusers {
-	view {
-		# cat=module.tx_mooxfeusers/file; type=string; label=Path to template root (BE)
-		templateRootPath = EXT:moox_feusers/Resources/Private/Backend/Templates/
-		# cat=module.tx_mooxfeusers/file; type=string; label=Path to template partials (BE)
-		partialRootPath = EXT:moox_feusers/Resources/Private/Backend/Partials/
-		# cat=module.tx_mooxfeusers/file; type=string; label=Path to template layouts (BE)
-		layoutRootPath = EXT:moox_feusers/Resources/Private/Backend/Layouts/
-	}
+module.tx_mooxfeusers {	
 	persistence {
 		# cat=module.tx_mooxfeusers//a; type=string; label=Default storage PID
 		storagePid =
