@@ -54,12 +54,8 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	protected function initializeAction() {
-		parent::initializeAction();		
-				
-		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);
-		if (!empty($this->extConf['enableCompatibilityMode'])){
-			$this->setCompatibilityMode(1);
-		}
+		parent::initializeAction();					
+		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);		
 		$this->templateRepository = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\TemplateRepository');			
 	}
 	
@@ -72,7 +68,6 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		
 		$this->view->assign('templates', $this->templateRepository->findAll(false));
 		$this->view->assign('action', 'show');
-		$this->view->assign('compatibilityMode',$this->getCompatibilityMode());
 	}
 	
 	/**
@@ -109,7 +104,6 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			$this->view->assign('object', $add);
 			$this->view->assign('categories',$this->getTemplateCategories());			
 			$this->view->assign('action', 'add');
-			$this->view->assign('compatibilityMode',$this->getCompatibilityMode());
 		}
 	}
 	
@@ -158,7 +152,6 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				$this->view->assign('categories',$this->getTemplateCategories());
 				$this->view->assign('action', 'edit');
 				$this->view->assign('uid', $uid);
-				$this->view->assign('compatibilityMode',$this->getCompatibilityMode());
 			}
 		} else {
 			$this->redirect("index");
@@ -238,7 +231,6 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		} else {
 			$this->view->assign('preview', "Vorschau kann nicht angezeigt werden.");
 		}
-		$this->view->assign('compatibilityMode',$this->getCompatibilityMode());
 	}
 	
 	/**
@@ -253,26 +245,7 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$categories['passwordrecovery'] = "Passwort-Wiederherstellungs-Mail";
 		
 		return $categories;
-	}
-	
-	/**
-	 * Returns compatibility mode
-	 *
-	 * @return integer
-	 */
-	public function getCompatibilityMode() {
-		return $this->compatibilityMode;
-	}
-
-	/**
-	 * Set compatibility mode
-	 *
-	 * @param boolean $compatibilityMode compatibility mode
-	 * @return void
-	 */
-	public function setCompatibilityMode($compatibilityMode) {
-		$this->compatibilityMode = $compatibilityMode;
-	}
+	}		
 	
 	/**
 	 * Returns ext conf
