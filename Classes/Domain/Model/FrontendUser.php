@@ -140,15 +140,41 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	 */
     protected $sortedUsergroup;
 	
-	public function initializeObject() {
-		/**
-		 * Do not modify this method!
-		 * It will be rewritten on each save in the extension builder
-		 * You may modify the constructor of this class instead
-		 */
-		$this->falImages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}	
+	/**
+	 * quality
+	 *
+	 * @var integer
+	 */
+	protected $quality;
 	
+	/**
+	 * bounces
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\MooxMailer\Domain\Model\Bounce>
+	 */
+	protected $bounces = NULL;
+	  
+	/**
+	 * initialize object
+	 */
+	public function initializeObject() {
+		//Do not remove the next line: It would break the functionality
+		$this->initStorageObjects();
+	}
+  
+	/**
+	 * Initializes all ObjectStorage properties
+	 * Do not modify this method!
+	 * It will be rewritten on each save in the extension builder
+	 * You may modify the constructor of this class instead
+	 *
+	 * @return void
+	 */
+	protected function initStorageObjects() {
+		$this->bounces = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->falImages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+		
 	/**
      * get tstamp
 	 *
@@ -500,5 +526,25 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 			return array();
 	   }	  
     }
+	
+	/**
+	 * get quality
+	 *
+	 * @return integer $quality quality
+	 */
+	public function getQuality() {
+	   return $this->quality;
+	}
+	
+	/**
+	 * Returns the bounces
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\MooxMailer\Domain\Model\Bounce> $bounces
+	 */
+	public function getBounces() {
+		return $this->bounces;
+	}
+		
+	
 }
 ?>

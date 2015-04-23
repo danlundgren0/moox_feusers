@@ -1,0 +1,9 @@
+{namespace v=FluidTYPO3\Vhs\ViewHelpers}
+<div class="feuser-bounces-content">										
+	<div class="feuser-details-bounces-inner">
+		<strong>Bounces:</strong><br />
+		<f:for each="{item.bounces}" as="bounce" iteration="iteration">
+			{bounce.title} | {bounce.action} | {bounce.code} | {bounce.type} | {bounce.status} | {bounce.recipient}<br />
+		</f:for>					
+	</div>
+</div>

@@ -66,6 +66,10 @@ $j(document).ready(function() {
 	  $j("#filterForm").submit();
 	});
 	
+	$j("#filter-quality").on("change", function () {
+	  $j("#filterForm").submit();
+	});
+	
 	$j("#filter-per-page").on("change", function () {
 	  $j("#filterForm").submit();
 	});
@@ -81,6 +85,10 @@ $j(document).ready(function() {
 	$j(".feuser-details").on("click", function () {
 		$j(this).hide("fast");
 	});
+	
+	$j(".feuser-bounces").on("click", function () {
+		$j(this).hide("fast");
+	});
 });
 
 function mooxFeusersToggleDetails(id){
@@ -92,6 +100,7 @@ function mooxFeusersToggleDetails(id){
 		visible = false;
 	}	
 	$j(".feuser-details").hide("fast");
+	$j(".feuser-bounces").hide("fast");
 	$j(".feuser-details-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
 	$j(".feuser-details-expander-reset").addClass( "t3-icon-move-down" );
 	if (visible) {		
@@ -102,6 +111,23 @@ function mooxFeusersToggleDetails(id){
 		$j("#feuser-details-" + id).show("fast");
 		$j("#feuser-details-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
 		$j("#feuser-details-" + id + "-expander").addClass( "t3-icon-move-up" );		
+	}	
+}
+
+function mooxFeusersToggleBounces(id){
+	$j("#folder-list").hide("fast");
+	$j("#group-list").hide("fast");
+	if ( $j("#feuser-bounces-" + id).is(":visible") ) {
+		visible = true;
+	} else { 
+		visible = false;
+	}	
+	$j(".feuser-bounces").hide("fast");
+	$j(".feuser-details").hide("fast");	
+	if (visible) {		
+		$j("#feuser-bounces-" + id).hide("fast");				
+	} else { 
+		$j("#feuser-bounces-" + id).show("fast");		
 	}	
 }
 

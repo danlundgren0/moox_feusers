@@ -153,7 +153,8 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 											"starttime",
 											"endtime",
 											"crdate",
-											"lastlogin"
+											"lastlogin",
+											"quality"
 									)
 								);
 		
@@ -1876,10 +1877,14 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			if(isset($filter['group'])){
 				$filter_tmp['group'] = $filter['group'];
 			}
+			if(isset($filter['quality'])){
+				$filter_tmp['quality'] = $filter['quality'];
+			}
 			$filter = $filter_tmp;			
 		} else {			
 			$filter['mailing'] 	= 0;			
-			$filter['state'] 	= 0;			
+			$filter['state'] 	= 0;
+			$filter['quality'] 	= 'all';			
 			if($this->settings['itemsPerPage']>0){
 				$filter['perPage'] 	= $this->settings['itemsPerPage'];
 			} else {

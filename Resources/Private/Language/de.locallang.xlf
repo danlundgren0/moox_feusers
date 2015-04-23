@@ -382,7 +382,22 @@
 				<source>address</source>
 				<target>Adresse</target>
 			</trans-unit>
-
+			<trans-unit id="listview.quality">
+				<source>quality</source>
+				<target>Qualität</target>
+			</trans-unit>
+			<trans-unit id="listview.quality.0">
+				<source>ok</source>
+				<target>Ok</target>
+			</trans-unit>
+			<trans-unit id="listview.quality.1">
+				<source>warning</source>
+				<target>Warnung</target>
+			</trans-unit>
+			<trans-unit id="listview.quality.2">
+				<source>error</source>
+				<target>Fehler</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

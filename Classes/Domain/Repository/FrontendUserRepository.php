@@ -81,6 +81,9 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 		} elseif($filter['state']==2){
 			$constraints[] = $query->equals('disable', 1);
 		}
+		if(in_array((string)$filter['quality'],array("0","1","2"))){
+			$constraints[] = $query->equals('quality', $filter['quality']);
+		} 
 		$filter['query'] = trim($filter['query']);
 		if($filter['query']!=""){
 			$constraints[] = $query->logicalOr(	

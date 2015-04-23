@@ -1,6 +1,7 @@
 {namespace v=FluidTYPO3\Vhs\ViewHelpers}
 <f:for each="{fields}" as="field" iteration="iteration">	
 	<v:variable.set name="text" value="" />
+	<v:variable.set name="class" value="" />
 	<v:switch value="{field.name}">
 		<v:case case="fullname" break="TRUE">
 			<v:variable.set name="text" value="{f:format.stripTags(value: item.firstName)}{f:if(condition: item.middleName, then: ' ')}{f:format.stripTags(value: item.middleName)}{f:if(condition: item.lastName, then: ' ')}{f:format.stripTags(value: item.lastName)}" />
@@ -11,6 +12,10 @@
 		</v:case>
 		<v:case case="fulladdress" break="TRUE">
 			<v:variable.set name="text" value="{f:format.stripTags(value: item.zip)} {f:format.stripTags(value: item.city)}<br />{f:format.stripTags(value: item.address)}" />
+		</v:case>
+		<v:case case="quality" break="TRUE">
+			<v:variable.set name="text"><f:translate key="listview.{field.name}.{item.quality}" default="{field.name}-{item.quality}" /></v:variable.set>
+			<v:variable.set name="class" value="quality quality-{item.quality}" />
 		</v:case>
 		<v:case case="default">
 			<f:if condition="{field.type}=='datetime'">
@@ -71,10 +76,10 @@
 	<f:for each="{replacements}" as="replacement">		
 		<v:variable.set name="text" value="{v:format.replace(substring: replacement.search, content: text, replacement: replacement.replace)}" />
 	</f:for>
-	<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-{field.name}" onclick="mooxFeusersToggleDetails({item.uid})">
+	<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-{field.name}" onclick="mooxFeusersToggleDetails({item.uid})"<f:if condition="{iteration.isLast}"> style="text-align:right"</f:if>>
 		<f:if condition="{iteration.isFirst}">
 			<span id="feuser-details-{item.uid}-expander" class="feuser-details-expander-reset pointer t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down">&nbsp;</span>					
 		</f:if>
-		<span title="{title} [UID: {item.uid}]"><f:format.raw>{text -> f:format.crop(maxCharacters: field.lenght)}</f:format.raw></span>
+		<span title="{title} [UID: {item.uid}]"<f:if condition="{class}"> class="{class}"</f:if>><f:format.raw>{text -> f:format.crop(maxCharacters: field.lenght)}</f:format.raw></span>
 	</td>				
 </f:for>

@@ -1,5 +1,5 @@
 {namespace v=FluidTYPO3\Vhs\ViewHelpers}
-<th>
+<th<f:if condition="{isLast}"> style="text-align:right"</f:if>>
 	<v:variable.set name="sortFieldTxt"><f:translate key="listview.{field.name}" default="{field.name}" /></v:variable.set>
 	<v:variable.set name="sortField" value="{field.name}" />
 	<f:for each="{field.additional}" as="additionalField" iteration="iteration">

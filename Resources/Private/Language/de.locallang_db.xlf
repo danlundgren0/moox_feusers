@@ -115,7 +115,16 @@
 			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.is_moox_user">
 				<source>Is MOOX user</source>
 				<target>Benutzer ist MOOX-Benutzer</target>				
-			</trans-unit>						
+			</trans-unit>	
+			<trans-unit id="tx_mooxfeusers_domain_model_frontenduser.quality">
+				<source>quality</source>
+				<target>Qualität</target>				
+			</trans-unit>
+					
+			<trans-unit id="tx_mooxfeusers_domain_model_template">
+				<source>template</source>
+				<target>Vorlage</target>				
+			</trans-unit>				
 			
 		</body>
 	</file>

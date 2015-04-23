@@ -7,7 +7,7 @@ mailRenderingPartialRoot =
 # cat=basic/enable/103; type=boolean; label=Enable company administration in frontend
 useCompanyAdmin = 0
 # cat=backend module/basic/104; type=string; label=Default fields to show in backend module:[comma separated: field1:lenght1,field2:lenght2... for example: forename:40,surname:30]
-listViewFields = username,name,company,email
+listViewFields = username,name,company,email,quality
 
 # SMTP
 ###########################

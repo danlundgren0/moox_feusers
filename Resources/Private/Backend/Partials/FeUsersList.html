@@ -14,6 +14,14 @@
 					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-{f:if(condition: item.disable, then: 'unhide', else: 'hide')}">&nbsp;</span>
 				</f:link.action>
 				<f:if condition="{mailerActive}">
+					<f:if condition="{item.bounces -> f:count()}>0">
+						<f:then>
+							<img onclick="mooxFeusersToggleBounces({item.uid})" id="feuser-bounces-{item.uid}-expander" class="mailing-bounces mailing-bounces-expander" src="{f:uri.resource(path:'Icons/icon_has_bounces.png')}" width="16" height="16" alt="Bounce-Mails anzeigen" title="Bounce-Mails anzeigen" />								
+						</f:then>
+						<f:else>
+							<img class="mailing-bounces" src="{f:uri.resource(path:'Icons/icon_no_bounces.png')}" width="16" height="16" alt="Keine Bounce-Mails" title="Keine Bounce-Mails" />
+						</f:else>
+					</f:if>
 					<f:link.action action="toggleDisallowMailing" arguments="{uid:item.uid,pagination:pagination}" title="Newsletter-Empfang für {item.username} [{item.name}] {f:if(condition: item.mailingAllowed, then: 'deaktivieren', else: 'aktivieren')}">
 						<f:if condition="{item.disallowMailing}">
 							<f:then>
@@ -33,5 +41,14 @@
 				<f:render partial="FeUserDetails" arguments="{item: item, mailerActive: mailerActive, replacements: replacements, conf: conf}" />
 			</td>
 		</tr>
+		<f:if condition="{mailerActive}">
+			<f:if condition="{item.bounces -> f:count()}>0">
+				<tr class="feuser-bounces" id="feuser-bounces-{item.uid}">
+					<td colspan="<v:math.sum a="{fields -> f:count()}" b="1" />">
+						<f:render partial="FeUserBounces" arguments="{item: item, conf: conf}" />
+					</td>
+				</tr>
+			</f:if>
+		</f:if>
 	</f:for>
 </tbody>

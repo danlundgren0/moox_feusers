@@ -288,7 +288,18 @@
 			<trans-unit id="listview.fulladdress">
 				<source>address</source>				
 			</trans-unit>
-
+			<trans-unit id="listview.quality">
+				<source>quality</source>				
+			</trans-unit>
+			<trans-unit id="listview.quality.0">
+				<source>ok</source>				
+			</trans-unit>
+			<trans-unit id="listview.quality.1">
+				<source>warning</source>				
+			</trans-unit>
+			<trans-unit id="listview.quality.2">
+				<source>error</source>				
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

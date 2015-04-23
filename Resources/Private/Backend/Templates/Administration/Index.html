@@ -68,8 +68,9 @@
 			<div class="tx-moox-feusers-admin-filter">
 				<f:form noCache="1" method="POST" id="filterForm" name="filter" object="{filter}">
 					<div class="filter-field">						
-						<f:form.select property="mailing" id="filter-mailing" class="filter-mailing" options="{0:'Zeige alle Benutzer',1:'Zeige nur Benutzer an die Newsletter geschickt werden dürfen',2:'Zeige nur Benutzer an die keine Newsletter geschickt werden dürfen'}" />
+						<f:form.select property="mailing" id="filter-mailing" class="filter-mailing" options="{0:'Zeige alle Benutzer',1:'Zeige nur Newsletter-Empfänger',2:'Zeige nur Benutzer die keine Newsletter empfangen'}" />
 						<f:form.select property="state" id="filter-state" class="filter-state" options="{0:'aktivierte und deaktivierte',1:'nur aktivierte',2:'nur deaktivierte'}" />
+						<f:form.select property="quality" id="filter-quality" class="filter-quality" options="{all:'Alle Qualitätstufen',0:'Qualitätstufe [Ok]',1:'Qualitätstufe [Warnung]',2:'Qualitätstufe [Fehlerhaft]'}" />
 						<f:form.select property="perPage" id="filter-per-page" class="filter-per-page" options="{10:'10 Benutzer pro Seite',25:'25 Benutzer pro Seite',50:'50 Benutzer pro Seite',100:'100 Benutzer pro Seite',500:'500 Benutzer pro Seite'}" />
 					</div>
 					<div class="filter-field">	
@@ -89,7 +90,7 @@
 										<tr>
 											<th></th>
 											<f:for each="{fields}" as="field" iteration="iteration">
-												<f:render partial="FeUsersListHeader" arguments="{filter: filter, field: field}" />																						
+												<f:render partial="FeUsersListHeader" arguments="{filter: filter, field: field, isLast: iteration.isLast}" />																						
 											</f:for>
 										</tr>
 									</thead>
