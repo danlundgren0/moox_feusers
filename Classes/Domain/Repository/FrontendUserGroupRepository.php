@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Domain\Repository;
+namespace DCNGmbH\MooxFeusers\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -84,7 +84,7 @@ class FrontendUserGroupRepository extends \TYPO3\CMS\Extbase\Domain\Repository\F
 	 *
 	 * @param integer $uid id of record
 	 * @param boolean $respectEnableFields if set to false, hidden records are shown
-	 * @return \TYPO3\MooxFeusers\Domain\Model\FrontendUserGroup
+	 * @return \DCNGmbH\MooxFeusers\Domain\Model\FrontendUserGroup
 	 */
 	public function findByUid($uid, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();

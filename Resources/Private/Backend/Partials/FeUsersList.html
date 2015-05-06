@@ -3,7 +3,7 @@
 <tbody>
 	<f:for each="{feUsers}" as="item" iteration="iteration">
 		<tr id="feuser-row-{item.uid}" class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
-			<td class="tx-moox-feusers-admin-table-options" style="width: 120px">
+			<td class="tx-moox-feusers-admin-table-options" style="width: 150px">
 				<f:link.action action="delete" arguments="{uid:item.uid,pagination:pagination}" onclick="return window.confirm('Wollen Sie diesen Benutzer wirklich löschen?')" title="{item.username} [{item.name}] löschen">
 					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete">&nbsp;</span>
 				</f:link.action>							
@@ -32,6 +32,26 @@
 							</f:else>
 						</f:if>
 					</f:link.action>
+				</f:if>
+				<f:if condition="{folders -> f:count()}>0">
+					<div class="feuser-move">
+						<f:image id="feuser-move-expander-{newsItem.uid}" class="feuser-move-expander" src="EXT:moox_feusers/Resources/Public/Icons/icon-move.png" alt="In Ordner verschieben" />	
+						<ul id="feuser-move-selection-{newsItem.uid}" class="feuser-move-selection">
+							<li class="feuser-move-selection-header">In welchen Ordner wollen Sie den Benutzer "{item.username}" verschieben?</li>
+							<f:if condition="{page}!='0'">
+								<li>								
+									<f:link.action action="moveToFolder" arguments="{pid:0.uid,uid:item.uid}" title="UID: 0"><span title="Benutzer ohne Ordner [UID: 0]" class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-pages t3-icon-pages-contains-mxfeuser">&nbsp;</span>&nbsp;&nbsp;Benutzer ohne Ordner</f:link.action>
+								</li>
+							</f:if>
+							<f:for each="{folders}" as="moveFolder" iteration="iteration2">			
+								<f:if condition="{page}!={moveFolder.uid}">
+									<li>								
+										<f:link.action action="moveToFolder" arguments="{pid:moveFolder.uid,uid:item.uid}" title="UID: {moveFolder.uid}"><f:if condition="{moveFolder.folder}">&nbsp;&nbsp;&nbsp;&nbsp;</f:if><span title="{moveFolder.title} [UID: {moveFolder.uid}]" class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-pages t3-icon-pages-contains-mxfeuser">&nbsp;</span>&nbsp;&nbsp;{moveFolder.title}<span style="float: right" title="Pfad: <f:for each="{moveFolder.rootline}" as="path">\{path.title}</f:for> [UID: {moveFolder.uid}]">[UID: {moveFolder.uid} | Rootpage: {moveFolder.rootpage.title}]</span></f:link.action>
+									</li>
+								</f:if>
+							</f:for>
+						</ul>
+					</div>
 				</f:if>
 			</td>
 			<f:render partial="FeUsersListColums" arguments="{fields: fields, item: item, replacements: replacements, fieldsSeparator: fieldsSeparator}" />	

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Controller;
+namespace DCNGmbH\MooxFeusers\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +37,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	/**
 	 * frontendUserRepository
 	 *
-	 * @var \TYPO3\MooxFeusers\Domain\Repository\FrontendUserRepository	
+	 * @var \DCNGmbH\MooxFeusers\Domain\Repository\FrontendUserRepository	
 	 */
 	protected $frontendUserRepository;
 
@@ -61,21 +61,21 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	/**
 	 * fileRepository
 	 *
-	 * @var \TYPO3\MooxFeusers\Domain\Repository\FileRepository
+	 * @var \DCNGmbH\MooxFeusers\Domain\Repository\FileRepository
 	 */
 	protected $fileRepository;
 	
 	/**
 	 * fileReferenceRepository
 	 *
-	 * @var \TYPO3\MooxFeusers\Domain\Repository\FileReferenceRepository
+	 * @var \DCNGmbH\MooxFeusers\Domain\Repository\FileReferenceRepository
 	 */
 	protected $fileReferenceRepository;
 	
 	/**
 	 * backend session
 	 *
-	 * @var \TYPO3\MooxFeusers\Service\BackendSessionService
+	 * @var \DCNGmbH\MooxFeusers\Service\BackendSessionService
 	 */
 	protected $backendSession;
 	
@@ -159,13 +159,13 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 								);
 		
 		$this->extConf 						= unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);
-		$this->frontendUserRepository 		= $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\FrontendUserRepository');
-		$this->frontendUserGroupRepository 	= $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\FrontendUserGroupRepository');
+		$this->frontendUserRepository 		= $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Repository\\FrontendUserRepository');
+		$this->frontendUserGroupRepository 	= $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Repository\\FrontendUserGroupRepository');
 		$this->storageRepository 			= $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');		
-		$this->fileRepository 				= $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\FileRepository');
-		$this->fileReferenceRepository 		= $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\FileReferenceRepository');
+		$this->fileRepository 				= $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Repository\\FileRepository');
+		$this->fileReferenceRepository 		= $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Repository\\FileReferenceRepository');
 		$this->pageRepository 				= $this->objectManager->get('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
-		$this->backendSession 				= $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\BackendSessionService');
+		$this->backendSession 				= $this->objectManager->get('DCNGmbH\\MooxFeusers\\Service\\BackendSessionService');
 	}
 	
 	/**
@@ -402,7 +402,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 					
 					if(!$skip){
 						
-						$object = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Model\\FrontendUser');
+						$object = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Model\\FrontendUser');
 						
 						$row++;
 						
@@ -848,7 +848,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 							
 			if(!$hasErrors){
 			
-				$object = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Model\\FrontendUser');
+				$object = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Model\\FrontendUser');
 				
 				foreach($add['usergroupsUids'] AS $usergroupUid){					
 					$usergroup = $this->frontendUserGroupRepository->findByUid($usergroupUid);																
@@ -941,8 +941,8 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 						$newFileObject = $storage->getFile($newFileObject->getIdentifier());
 						$newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
 						
-						/** @var \TYPO3\MooxFeusers\Domain\Model\FileReference $newFileReference */
-						$newFileReference = $this->objectManager->get('TYPO3\MooxFeusers\Domain\Model\FileReference');
+						/** @var \DCNGmbH\MooxFeusers\Domain\Model\FileReference $newFileReference */
+						$newFileReference = $this->objectManager->get('DCNGmbH\MooxFeusers\Domain\Model\FileReference');
 						$newFileReference->setFile($newFile);
 						$newFileReference->setCruserId($GLOBALS['BE_USER']->user['uid']);						
 						
@@ -1126,8 +1126,8 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 					$newFileObject = $storage->getFile($newFileObject->getIdentifier());
 					$newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
 						
-					/** @var \TYPO3\MooxFeusers\Domain\Model\FileReference $newFileReference */
-					$newFileReference = $this->objectManager->get('TYPO3\MooxFeusers\Domain\Model\FileReference');
+					/** @var \DCNGmbH\MooxFeusers\Domain\Model\FileReference $newFileReference */
+					$newFileReference = $this->objectManager->get('DCNGmbH\MooxFeusers\Domain\Model\FileReference');
 					$newFileReference->setFile($newFile);
 					$newFileReference->setCruserId($GLOBALS['BE_USER']->user['uid']);																
 					
@@ -1322,8 +1322,8 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 						$newFileObject = $storage->getFile($newFileObject->getIdentifier());
 						$newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
 							
-						/** @var \TYPO3\MooxFeusers\Domain\Model\FileReference $newFileReference */
-						$newFileReference = $this->objectManager->get('TYPO3\MooxFeusers\Domain\Model\FileReference');
+						/** @var \DCNGmbH\MooxFeusers\Domain\Model\FileReference $newFileReference */
+						$newFileReference = $this->objectManager->get('DCNGmbH\MooxFeusers\Domain\Model\FileReference');
 						$newFileReference->setFile($newFile);
 						$newFileReference->setCruserId($GLOBALS['BE_USER']->user['uid']);						
 							
@@ -1616,7 +1616,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$folderCnt++;
 		}
 				
-		usort($folders, array("\TYPO3\MooxFeusers\Controller\AdministrationController", "sortByFolderAndTitle"));
+		usort($folders, array("\DCNGmbH\MooxFeusers\Controller\AdministrationController", "sortByFolderAndTitle"));
 		
 		$folders = array_reverse($folders);
 		
@@ -1978,6 +1978,34 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$subgroups = array_merge($subgroups,$this->generateUsergroupSelectionTree($usergroup->getSubgroup(),$depth+1));
 		}
 		return $subgroups;
+	}
+	
+	/**
+	 * action move to folder
+	 *
+	 * @param \int $pid	
+	 * @param \int $uid	 
+	 * @return void
+	 */
+	public function moveToFolderAction($pid = 0, $uid = 0) {			
+		
+		if(is_numeric($pid) && $uid>0){						
+			
+			$object = $this->frontendUserRepository->findByUid($uid,FALSE);
+			
+			$object->setPid($pid);	
+			
+			$this->frontendUserRepository->update($object);											
+			
+			$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
+			
+			$this->flashMessageContainer->add(
+					'', 
+					'Benutzer wurde erfolgreich verschoben', 
+					\TYPO3\CMS\Core\Messaging\FlashMessage::OK);						
+		} 
+		
+		$this->redirect("index");			
 	}
 
 	/**

@@ -27,11 +27,11 @@ if (TYPO3_MODE === 'BE') {
         }
         $TBE_MODULES = $temp_TBE_MODULES;
 		if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('moox_core')) {
-			$mainModuleKey 		= "FluidTYPO3.moox_core";
+			$mainModuleKey 		= "DCNGmbH.moox_core";
 			$mainModuleIcon 	= 'EXT:moox_core/ext_icon32.png';
 			$mainModuleLabels 	= 'LLL:EXT:moox_core/Resources/Private/Language/MainModule.xlf';			
 		} else {
-			$mainModuleKey 		= "TYPO3.".$_EXTKEY;
+			$mainModuleKey 		= "DCNGmbH.".$_EXTKEY;
 			$mainModuleIcon 	= 'EXT:'.$_EXTKEY.'/Resources/Public/Moox/MainModuleExtIcon.png';
 			$mainModuleLabels 	= 'LLL:EXT:'.$_EXTKEY.'/Resources/Public/Moox/MainModule.xlf';
 		}
@@ -53,12 +53,12 @@ if (TYPO3_MODE === 'BE') {
 	 * Registers a Backend Module
 	 */
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-		'TYPO3.' . $_EXTKEY,
+		'DCNGmbH.' . $_EXTKEY,
 		$mainModuleName,	 	// Make module a submodule of 'moox'
 		'feusermanagement',	// Submodule key
 		'',	// Position
 		array(
-			'Administration' => 'index,add,edit,delete,addGroup,editGroup,deleteGroup,toggleState,toggleDisallowMailing,changeGroup,import',
+			'Administration' => 'index,add,edit,delete,addGroup,editGroup,deleteGroup,toggleState,toggleDisallowMailing,changeGroup,import,moveToFolder',
 			'Template' => 'index,add,edit,delete,previewIframe',
 			'Import' => 'index',
 		),
@@ -78,33 +78,6 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_mooxfeusers_domain_model_template', 'EXT:moox_mailer/Resources/Private/Language/locallang_csh_tx_mooxfeusers_domain_model_template.xlf');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mooxfeusers_domain_model_template');
-$TCA['tx_mooxfeusers_domain_model_template'] = array(
-	'ctrl' => array(
-		'title'	=> 'LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxfeusers_domain_model_template',
-		'label' => 'title',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
-		'dividers2tabs' => TRUE,
-		'sortby' => 'sorting',
-		'versioningWS' => 2,
-		'versioning_followPages' => TRUE,
-		'origUid' => 't3_origuid',
-		'languageField' => 'sys_language_uid',
-		'transOrigPointerField' => 'l10n_parent',
-		'transOrigDiffSourceField' => 'l10n_diffsource',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden',
-			'starttime' => 'starttime',
-			'endtime' => 'endtime',
-		),		
-		'searchFields' => 'title,subject,template',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Template.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_mooxfeusers_domain_model_template.gif',
-		'hideTable' => FALSE
-	),
-);
 
 // include pageTS
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:moox_feusers/pageTSconfig.txt">');
@@ -119,129 +92,10 @@ if (TYPO3_MODE == 'BE') {
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Resources/Private/Php/class.' . $pluginSignature . '_wizicon.php';
 }
 
-$ll = 'LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xml:';
-
 /***************
- * Add extra fields to the fe_users record
- */
-$newFeUserColumns = array(	
-	'tstamp' => array(
-		'tstamp',
-		'config' => array(
-			'type' => 'passthrough'
-		)
-	),
-	'crdate' => array(
-		'crdate',
-		'config' => array(
-			'type' => 'passthrough'
-		)
-	),
-	'falImages' => array(
-		'exclude' => 0,
-		'label' => 'LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxfeusers_domain_model_frontenduser.images',
-		'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-			'falImages',
-			array(
-				'appearance' => array(
-							'headerThumbnail' => array(
-								'width' => '100',
-								'height' => '100',
-							),
-						'createNewRelationLinkTitle' => 'LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxfeusers_domain_model_frontenduser.add_images'
-						),
-				// custom configuration for displaying fields in the overlay/reference table
-				// to use the imageoverlayPalette instead of the basicoverlayPalette
-				'foreign_types' => array(
-					'0' => array(
-						'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-					),
-					\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => array(
-						'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-					),
-					\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => array(
-						'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-					),
-					\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => array(
-						'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-					),
-					\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => array(
-						'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-					),
-					\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => array(
-						'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-					)
-				),
-			),
-			$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-		)
-	),
-	'is_company_admin' => Array (		
-		'exclude' => 1,		
-		'label' => $ll . 'tx_mooxfeusers_domain_model_frontenduser.is_company_admin',		
-		'config' => Array (
-			'type' => 'check',
-			'default' => 0,
-		)
-	),
-	'is_moox_feuser' => array(
-		'label' => $ll . 'tx_mooxfeusers_domain_model_frontenduser.is_moox_feuser',
-		'config' => array(
-			'type' => 'passthrough'
-		)
-	),
-	'password_recovery_hash' => array(
-		'label' => 'password_recovery_hash',
-		'config' => array(
-			'type' => 'passthrough'
-		)
-	),
-	'password_recovery_tstamp' => array(
-		'label' => 'password_recovery_tstamp',
-		'config' => array(
-			'type' => 'passthrough'
-		)
-	),
-	'sorted_usergroup' => array(
-		'label' => 'sorted_usergroup',
-		'config' => array(
-			'type' => 'passthrough'
-		)
-	),
-);
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $newFeUserColumns);
-
-// Get the extensions's configuration
-$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
-
-if($extConf['imageUploadFolder']==""){
-	$extConf['imageUploadFolder'] = "uploads/tx_mooxfeusers";
-}
-
-$GLOBALS['TCA']['fe_users']['columns']['image']['config']['uploadfolder'] = $extConf['imageUploadFolder'];
-
-// use company admin
-if (!empty($extConf['useCompanyAdmin'])) {
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'is_company_admin');
-}
-
-/***************
-	 * Icon in page tree
-	 */
-	$TCA['pages']['columns']['module']['config']['items'][] = array('MOOX-Frontend-Benutzer', 'mxfeuser', 'EXT:moox_feusers/ext_icon.gif');
-	\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon('pages', 'contains-mxfeuser', '../typo3conf/ext/moox_feusers/ext_icon.gif');
+* Icon in page tree
+*/
+$TCA['pages']['columns']['module']['config']['items'][] = array('MOOX-Frontend-Benutzer', 'mxfeuser', 'EXT:moox_feusers/ext_icon.gif');
+\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon('pages', 'contains-mxfeuser', '../typo3conf/ext/moox_feusers/ext_icon.gif');
 
 ?>

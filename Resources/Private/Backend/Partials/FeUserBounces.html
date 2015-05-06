@@ -1,9 +1,101 @@
 {namespace v=FluidTYPO3\Vhs\ViewHelpers}
 <div class="feuser-bounces-content">										
 	<div class="feuser-details-bounces-inner">
-		<strong>Bounces:</strong><br />
-		<f:for each="{item.bounces}" as="bounce" iteration="iteration">
-			{bounce.title} | {bounce.action} | {bounce.code} | {bounce.type} | {bounce.status} | {bounce.recipient}<br />
-		</f:for>					
+		<div class="tx-moox-feusers-admin-table">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<thead>
+					<tr>
+						<th>Bounce-Datum</th>						
+						<th>Type</th>
+						<th>Action</th>
+						<th style="text-align: right">Status&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<f:for each="{item.bounces}" as="bounce" iteration="iteration">
+						<f:if condition="{iteration.cycle}<11">
+							<v:variable.set name="class" value="" />
+							<v:switch value="{bounce.action}">
+								<v:case case="failed" break="TRUE">
+									<v:variable.set name="class" value="quality quality-bounce quality-2" />
+								</v:case>
+								<v:case case="transient" break="TRUE">
+									<v:variable.set name="class" value="quality quality-bounce quality-1" />
+								</v:case>														
+							</v:switch>						
+							<tr class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-bounce-date}">
+									{f:format.date(format: 'd.m.Y H:i:s', date: bounce.bounced)}
+								</td>
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-bounce-type}" onclick="mooxFeusersToggleBounce({bounce.uid})">
+									<span id="feuser-bounces-bounce-{bounce.uid}-expander" class="feuser-bounces-bounce-expander-reset pointer t3-icon t3-icon-actions t3-icon-actions-move t3-icon-move-down">&nbsp;</span>
+									{bounce.type}
+								</td>
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-bounce-action}">
+									{bounce.action}
+								</td>								
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-bounce-status">
+									<span<f:if condition="{class}"> class="{class}"</f:if>>{bounce.status}</span>
+								</td>
+							</tr>							
+							<tr class="feuser-bounces-bounce" id="feuser-bounces-bounce-{bounce.uid}">
+								<td colspan="4" class="tx-moox-feusers-admin-table-value">
+									<div class="feuser-bounces-bounce-content">										
+										<div class="feuser-bounces-bounce-inner">
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Title</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.title}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Empfänger</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.recipient}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Job</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.job}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Gesendet am</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{f:format.date(format: "d.m.Y H:i:s", date: bounce.sent)}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Action</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.action}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Code</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.code}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Status</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.status}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Status-Details</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.statusDescription}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Typ</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.type}</div>
+											</div>
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Typ-Details</div>
+												<div class="feuser-bounces-bounce-inner-value-content">{bounce.typeDescription}</div>
+											</div>											
+											<div class="feuser-bounces-bounce-inner-value">
+												<div class="feuser-bounces-bounce-inner-value-header">Mail</div>												
+											</div>											
+											<div class="feuser-bounces-bounce-inner-html">												
+												<code><f:format.nl2br>{bounce.mail}</f:format.nl2br></code>
+											</div>
+										</div>
+									</div>
+								</td>								
+							</tr>
+						</f:if>
+					</f:for>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

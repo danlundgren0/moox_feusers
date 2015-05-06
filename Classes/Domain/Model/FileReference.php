@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Domain\Model;
+namespace DCNGmbH\MooxFeusers\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -50,7 +50,7 @@ class FileReference extends \TYPO3\CMS\Extbase\Domain\Model\FileReference {
 	protected $cruserId;
 		
     /**
-     * @var \TYPO3\MooxFeusers\Domain\Model\File
+     * @var \DCNGmbH\MooxFeusers\Domain\Model\File
      */
     protected $file;
 	
@@ -96,7 +96,7 @@ class FileReference extends \TYPO3\CMS\Extbase\Domain\Model\FileReference {
     /**
      * Set file
      *
-     * @param \TYPO3\MooxFeusers\Domain\Model\File $file
+     * @param \DCNGmbH\MooxFeusers\Domain\Model\File $file
      */
     public function setFile($file) {
         $this->file = $file;
@@ -105,7 +105,7 @@ class FileReference extends \TYPO3\CMS\Extbase\Domain\Model\FileReference {
     /**
      * Get file
      *
-     * @return \TYPO3\MooxFeusers\Domain\Model\File $file
+     * @return \DCNGmbH\MooxFeusers\Domain\Model\File $file
      */
     public function getFile() {
         return $this->file;

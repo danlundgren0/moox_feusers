@@ -86,9 +86,21 @@ $j(document).ready(function() {
 		$j(this).hide("fast");
 	});
 	
+	$j(".feuser-move-expander").on("mouseenter", function () {
+		$id = $j(this).attr("id");
+		$id = $id.replace("feuser-move-expander-","");
+		showMoveSelection($id)
+	});
+	
+	$j(".feuser-move-selection").on("mouseleave", function () {
+		$j(".feuser-move-selection").hide("fast");
+	});
+	
+	/*
 	$j(".feuser-bounces").on("click", function () {
 		$j(this).hide("fast");
 	});
+	*/
 });
 
 function mooxFeusersToggleDetails(id){
@@ -117,6 +129,9 @@ function mooxFeusersToggleDetails(id){
 function mooxFeusersToggleBounces(id){
 	$j("#folder-list").hide("fast");
 	$j("#group-list").hide("fast");
+	$j(".feuser-bounces-bounce").hide("fast");
+	$j(".feuser-bounces-bounce-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+	$j(".feuser-bounces-bounce-expander-reset").addClass( "t3-icon-move-down" );
 	if ( $j("#feuser-bounces-" + id).is(":visible") ) {
 		visible = true;
 	} else { 
@@ -128,6 +143,29 @@ function mooxFeusersToggleBounces(id){
 		$j("#feuser-bounces-" + id).hide("fast");				
 	} else { 
 		$j("#feuser-bounces-" + id).show("fast");		
+	}	
+}
+
+function mooxFeusersToggleBounce(id){
+	$j("#folder-list").hide("fast");
+	$j("#group-list").hide("fast");
+	if ( $j("#feuser-bounces-bounce-" + id).is(":visible") ) {
+		visible = true;
+	} else { 
+		visible = false;
+	}	
+	$j(".feuser-bounces-bounce").hide("fast");
+	$j(".feuser-details").hide("fast");	
+	$j(".feuser-bounces-bounce-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+	$j(".feuser-bounces-bounce-expander-reset").addClass( "t3-icon-move-down" );
+	if (visible) {		
+		$j("#feuser-bounces-bounce-" + id).hide("fast");
+		$j("#feuser-bounces-bounce-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+		$j("#feuser-bounces-bounce-" + id + "-expander").addClass( "t3-icon-move-down" );
+	} else { 
+		$j("#feuser-bounces-bounce-" + id).show("fast");
+		$j("#feuser-bounces-bounce-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+		$j("#feuser-bounces-bounce-" + id + "-expander").addClass( "t3-icon-move-up" );		
 	}	
 }
 
@@ -300,4 +338,9 @@ function mooxFeusersMoveOptionsToBottom(id){
 		newPos = newPos - 1;	
     });
 	mooxFeusersUpdateUsergroupsField(id);
+}
+
+function showMoveSelection(uid){	
+	$j(".feuser-move-selection").hide("fast");
+	$j("#feuser-move-selection-" + uid).show("fast");	
 }

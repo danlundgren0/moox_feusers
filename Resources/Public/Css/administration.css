@@ -447,6 +447,46 @@ img.mailing-state, img.mailing-bounces {
 	margin-right: 5px;
 }
 
+.tx-moox-feusers-admin-table .feuser-bounces-bounce {
+	display: none;
+}
+
+.tx-moox-feusers-admin-table .feuser-bounces-bounce-content {	
+	padding: 20px;
+	-moz-box-shadow: 0px 0px 10px #333333;
+	-webkit-box-shadow: 0px 0px 10px #333333;
+	box-shadow: 0px 0px 10px #333333;
+	background-color: #F9F9F9;
+}
+
+.tx-moox-feusers-admin-table .feuser-bounces-bounce-inner {
+	margin-bottom: 10px;
+}
+
+.tx-moox-feusers-admin-table .feuser-bounces-bounce-inner-value {
+	margin-bottom: 10px;
+}
+
+.tx-moox-feusers-admin-table .feuser-bounces-bounce-inner-value-header {	
+	font-weight: bold;	
+}
+
+.tx-moox-feusers-admin-table .feuser-bounces-bounce-inner-value-content {	
+	padding: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-color: #FFFFFF;	
+}
+
+.tx-moox-feusers-admin-table .feuser-bounces-bounce-inner-html {
+	word-wrap:break-word;
+	width: 820px;
+	background-color: #FFFFFF;
+	padding: 10px;
+	height: 300px;	
+	overflow: auto;
+}
+
 .tx-moox-feusers-admin-table table th {
 	background-color: #585858;
 	color: #FFFFFF;
@@ -496,7 +536,11 @@ img.mailing-state, img.mailing-bounces {
 
 }
 
-.tx-moox-feusers-admin-table-value-quality .quality{
+.tx-moox-feusers-admin-table-value-bounce-status {
+	text-align: right;
+}
+
+.tx-moox-feusers-admin-table-value .quality {
 	display: inline-block;
 	width: 78px;
 	padding: 4px;	
@@ -509,15 +553,19 @@ img.mailing-state, img.mailing-bounces {
 	background-color: #777;
 }
 
-.tx-moox-feusers-admin-table-value-quality .quality.quality-0{	
+.tx-moox-feusers-admin-table-value .quality-bounce {
+	width: 120px;	
+}
+
+.tx-moox-feusers-admin-table-value .quality.quality-0{	
 	background-color: #5cb85c;
 }
 
-.tx-moox-feusers-admin-table-value-quality .quality.quality-1{	
+.tx-moox-feusers-admin-table-value .quality.quality-1{	
 	background-color: #f0ad4e;
 }
 
-.tx-moox-feusers-admin-table-value-quality .quality.quality-2{	
+.tx-moox-feusers-admin-table-value .quality.quality-2{	
 	background-color: #d9534f;
 }
 
@@ -873,6 +921,65 @@ img.feuser-usergroup-selector-state {
 
 .feuser-usergroup-selector-wrapper .t3-icon-toolbar-menu-shortcut {
 	margin-right: 4px;
+}
+
+.feuser-move {
+	display: inline-block;
+}
+
+.feuser-move-expander {
+	vertical-align: middle;
+	margin-right: 3px;
+}
+
+ul.feuser-move-selection {
+	display: none;
+	margin-top: 7px;
+	position: absolute;
+	background-color: #dadada;
+	z-index: 100;
+	list-style-type: none;
+	padding-left: 0px;
+	padding: 1px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	-moz-box-shadow: 0px 0px 5px #000000;
+	-webkit-box-shadow: 0px 0px 5px #000000;
+	box-shadow: 0px 0px 5px #000000;
+}
+
+ul.feuser-move-selection li {	
+	padding: 5px;
+	padding-bottom: 3px;
+	min-width: 540px;
+	background-color: #EEEEEE;
+	border-bottom: 1px solid #dadada;	
+}
+
+ul li.feuser-move-selection-header {	
+	padding: 5px;
+	padding-bottom: 3px;
+	min-width: 540px;
+	background-color: #585858 !important;
+	color: #FFFFFF;
+	font-weight: bold;
+	border-bottom: 1px solid #dadada;	
+}
+
+ul.feuser-move-selection li:hover {
+	background-color: #FFFFFF;
+}
+
+ul li.feuser-move-selection-header:hover {
+	background-color: #dadada;
+}
+
+ul.feuser-move-selection li a {
+	display: block;
+}
+
+ul.feuser-move-selection li a:hover {
+	text-decoration: none;
 }
 
 .moox-feusers-context-element.icon-select-mainusergroup {

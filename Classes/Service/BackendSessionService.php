@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Service;
+namespace DCNGmbH\MooxFeusers\Service;
 
 /***************************************************************
  *  Copyright notice

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Controller;
+namespace DCNGmbH\MooxFeusers\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +37,7 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	/**
 	 * templateRepository
 	 *
-	 * @var \TYPO3\MooxMailer\Domain\Repository\TemplateRepository
+	 * @var \DCNGmbH\MooxMailer\Domain\Repository\TemplateRepository
 	 */
 	protected $templateRepository;		
 	
@@ -56,7 +56,7 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	protected function initializeAction() {
 		parent::initializeAction();					
 		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);		
-		$this->templateRepository = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\TemplateRepository');			
+		$this->templateRepository = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Repository\\TemplateRepository');			
 	}
 	
 	/**
@@ -80,7 +80,7 @@ class TemplateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		
 		if(isset($add['save']) || isset($add['saveAndClose']) ||  isset($add['saveAndNew'])){
 						
-			$object = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Model\\Template');
+			$object = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Model\\Template');
 			$object->setTitle($add['title']);
 			$object->setSubject($add['subject']);
 			$object->setCategory($add['category']);

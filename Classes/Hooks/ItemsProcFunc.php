@@ -63,7 +63,7 @@ class Tx_MooxFeusers_Hooks_ItemsProcFunc {
 	 */
 	public function processTemplateCategorySelector(array &$config,&$pObj) {
 		
-		$categories = \TYPO3\MooxFeusers\Controller\TemplateController::getTemplateCategories();
+		$categories = \DCNGmbH\MooxFeusers\Controller\TemplateController::getTemplateCategories();
 		
 		$config['items'] = array();
 		
@@ -82,7 +82,7 @@ class Tx_MooxFeusers_Hooks_ItemsProcFunc {
 	public function processEmailTemplateSelector(array &$config,&$pObj) {
 		
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-		$templateRepository = $objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\TemplateRepository');
+		$templateRepository = $objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Repository\\TemplateRepository');
 		$templates = $templateRepository->findAll(FALSE);
 		$config['items'] = array();
 		

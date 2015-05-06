@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Service;
+namespace DCNGmbH\MooxFeusers\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +37,7 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 	/**
 	 * frontendUserRepository
 	 *
-	 * @var \TYPO3\MooxFeusers\Domain\Repository\FrontendUserRepository
+	 * @var \DCNGmbH\MooxFeusers\Domain\Repository\FrontendUserRepository
 	 * @inject
 	 */
 	protected $frontendUserRepository;
@@ -62,19 +62,19 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
     }
      
     /**
-     * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $frontendUser
+     * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $frontendUser
      * @return boolean
      */
-    public function isAccessAllowed(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $frontendUser) {
+    public function isAccessAllowed(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $frontendUser) {
 		return $this->getFrontendUserUid() === $frontendUser->getUid() ? TRUE : FALSE;
     }
 	
 	/**     
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $adminUser
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $deleteUser
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $adminUser
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $deleteUser
      * @return boolean
      */
-    public function isDeleteAllowed(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $adminUser = NULL, \TYPO3\MooxFeusers\Domain\Model\FrontendUser $deleteUser = NULL) {
+    public function isDeleteAllowed(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $adminUser = NULL, \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $deleteUser = NULL) {
 		
 		// Get the extensions's configuration
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);	
@@ -89,11 +89,11 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
     }
 	
 	/**     
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $adminUser
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $editUser
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $adminUser
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $editUser
      * @return boolean
      */
-    public function isEditAllowed(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $adminUser = NULL, \TYPO3\MooxFeusers\Domain\Model\FrontendUser $editUser = NULL) {
+    public function isEditAllowed(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $adminUser = NULL, \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $editUser = NULL) {
 		
 		// Get the extensions's configuration
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);	
@@ -108,10 +108,10 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
     }
 	
 	/**     
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $adminUser	
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $adminUser	
      * @return boolean
      */
-    public function isCreateAllowed(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $adminUser = NULL) {
+    public function isCreateAllowed(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $adminUser = NULL) {
 		
 		// Get the extensions's configuration
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);	

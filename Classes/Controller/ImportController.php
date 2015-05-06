@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Controller;
+namespace DCNGmbH\MooxFeusers\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +37,7 @@ class ImportController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 	/**
 	 * addressRepository
 	 *
-	 * @var \TYPO3\MooxAddress\Domain\Repository\AddressRepository
+	 * @var \DCNGmbH\MooxAddress\Domain\Repository\AddressRepository
 	 */
 	protected $addressRepository;				
 	
@@ -100,7 +100,7 @@ class ImportController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 		$this->setPage((int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id'));
 		
 		$this->extConf 					= unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_address']);	
-		$this->addressRepository 		= $this->objectManager->get('TYPO3\\MooxAddress\\Domain\\Repository\\AddressRepository');		
+		$this->addressRepository 		= $this->objectManager->get('DCNGmbH\\MooxAddress\\Domain\\Repository\\AddressRepository');		
 		$this->pageRepository 			= $this->objectManager->get('TYPO3\\CMS\\Frontend\\Page\\PageRepository');	
 	}
 	
@@ -224,7 +224,7 @@ class ImportController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 					
 					if(!$skip){
 						
-						$object = $this->objectManager->get('TYPO3\\MooxAddress\\Domain\\Model\\Address');
+						$object = $this->objectManager->get('DCNGmbH\\MooxAddress\\Domain\\Model\\Address');
 						
 						$row++;
 						
@@ -532,7 +532,7 @@ class ImportController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			$folderCnt++;
 		}
 				
-		usort($folders, array("\TYPO3\MooxAddress\Controller\ImportController", "sortByFolderAndTitle"));
+		usort($folders, array("\DCNGmbH\MooxAddress\Controller\ImportController", "sortByFolderAndTitle"));
 		
 		$folders = array_reverse($folders);
 		

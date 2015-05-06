@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Controller;
+namespace DCNGmbH\MooxFeusers\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -39,7 +39,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	/**
 	 * frontendUserRepository
 	 *
-	 * @var \TYPO3\MooxFeusers\Domain\Repository\FrontendUserRepository
+	 * @var \DCNGmbH\MooxFeusers\Domain\Repository\FrontendUserRepository
 	 * @inject
 	 */
 	protected $frontendUserRepository;
@@ -55,7 +55,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	/**
 	 * templateRepository
 	 *
-	 * @var \TYPO3\MooxFeusers\Domain\Repository\TemplateRepository
+	 * @var \DCNGmbH\MooxFeusers\Domain\Repository\TemplateRepository
 	 * @inject
 	 */
 	protected $templateRepository;
@@ -125,7 +125,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 		// Get the extensions's configuration
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);		
 		
-		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
+		$accessControllService = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Service\\AccessControlService');
 		
 		if(TRUE === $accessControllService->hasLoggedInFrontendUser()) {
             $frontendUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());		  
@@ -165,13 +165,13 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			$this->settings['passwordMinlength'] = 3;
 		}
 		
-		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
+		$accessControllService = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Service\\AccessControlService');
 		
 		$requestArguments = $this->request->getArguments();
 		
 		$adminUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());
 		
-		$addUser = $this->objectManager->get('TYPO3\\MooxFeusers\\Domain\\Model\\FrontendUser');	
+		$addUser = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Model\\FrontendUser');	
 		
 		$groupSelect = array();
 		
@@ -399,10 +399,10 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	/**
 	 * action edit
 	 *	
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $editUser
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $editUser
 	 * @return void
 	 */
-	public function editAction(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $editUser = NULL) {			
+	public function editAction(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $editUser = NULL) {			
 		
 		// Get the extensions's configuration
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);
@@ -421,7 +421,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			}
 		}
 		
-		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
+		$accessControllService = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Service\\AccessControlService');
 		
 		$requestArguments = $this->request->getArguments();
 		
@@ -597,12 +597,12 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	/**
 	 * action delete
 	 *
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $deleteUser
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $deleteUser
 	 * @return void
 	 */
-	public function deleteAction(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $deleteUser = NULL) {				
+	public function deleteAction(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $deleteUser = NULL) {				
 		
-		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
+		$accessControllService = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Service\\AccessControlService');
 		
 		$requestArguments = $this->request->getArguments();
 		
@@ -629,11 +629,11 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	/**
 	 * renew recovery hash
 	 *
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $user
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $user
 	 * @param string $hash	 
 	 * @return void
 	 */
-	public function renewRecoveryHash(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $user = NULL, $hash) {				
+	public function renewRecoveryHash(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $user = NULL, $hash) {				
 		
 		$user->setPasswordRecoveryHash($hash);
 		$user->setPasswordRecoveryTstamp(time());
@@ -644,10 +644,10 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	/**
 	 * action profile
 	 *
-	 * @param \TYPO3\MooxFeusers\Domain\Model\FrontendUser $frontendUser
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $frontendUser
 	 * @return void
 	 */
-	public function profileAction(\TYPO3\MooxFeusers\Domain\Model\FrontendUser $frontendUser = NULL) {					
+	public function profileAction(\DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $frontendUser = NULL) {					
 		
 		// Get the extensions's configuration
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['moox_feusers']);		
@@ -656,7 +656,7 @@ class FrontendUserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 			$this->settings['passwordMinlength'] = 3;
 		}			
 		
-		$accessControllService = $this->objectManager->get('TYPO3\\MooxFeusers\\Service\\AccessControlService');
+		$accessControllService = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Service\\AccessControlService');
 		
 		// Get all the request arguments                    
 		$frontendUser = $this->frontendUserRepository->findByUid($accessControllService->getFrontendUserUid());

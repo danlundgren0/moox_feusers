@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Domain\Model;
+namespace DCNGmbH\MooxFeusers\Domain\Model;
 
 /***************************************************************
  *  Copyright notice

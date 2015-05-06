@@ -14,7 +14,7 @@ if (!empty($extConf['useCompanyAdmin'])) {
 $actionList .= ",passwordRecovery,newPassword,error";
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'TYPO3.' . $_EXTKEY,
+	'DCNGmbH.' . $_EXTKEY,
 	'Pi1',
 	array(
 		'FrontendUser' => $actionList,

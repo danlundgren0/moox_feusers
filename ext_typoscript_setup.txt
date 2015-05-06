@@ -4,12 +4,12 @@
 config.tx_extbase {
     persistence {
         classes {
-            TYPO3\MooxFeusers\Domain\Model\File {
+            DCNGmbH\MooxFeusers\Domain\Model\File {
                 mapping {
                     tableName = sys_file
                 }
             }
-            TYPO3\MooxFeusers\Domain\Model\FileReference {
+            DCNGmbH\MooxFeusers\Domain\Model\FileReference {
                 mapping {
                     tableName = sys_file_reference
                     columns {
@@ -17,13 +17,13 @@ config.tx_extbase {
                     }
                 }
             }
-			TYPO3\MooxFeusers\Domain\Model\FrontendUser {
+			DCNGmbH\MooxFeusers\Domain\Model\FrontendUser {
 				mapping {
 					tableName = fe_users
 					recordType = Tx_Extbase_Domain_Model_FrontendUser
 				}
 			}
-			TYPO3\MooxFeusers\Domain\Model\FrontendUserGroup {
+			DCNGmbH\MooxFeusers\Domain\Model\FrontendUserGroup {
 				mapping {
 					tableName = fe_groups
 					recordType = Tx_Extbase_Domain_Model_FrontendUserGroup

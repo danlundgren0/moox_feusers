@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\MooxFeusers\Domain\Model;
+namespace DCNGmbH\MooxFeusers\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -34,6 +34,13 @@ namespace TYPO3\MooxFeusers\Domain\Model;
  */
 class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 		
+	/**
+	 * pid
+	 *
+	 * @var integer
+	 */
+    protected $pid;
+	
 	/**
 	 * tstamp
 	 *
@@ -150,7 +157,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	/**
 	 * bounces
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\MooxMailer\Domain\Model\Bounce>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DCNGmbH\MooxMailer\Domain\Model\Bounce>
 	 */
 	protected $bounces = NULL;
 	  
@@ -174,7 +181,26 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 		$this->bounces = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->falImages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
-		
+	
+	/**
+     * get pid
+	 *
+     * @return integer $pid pid
+     */
+    public function getPid() {
+       return $this->pid;
+    }
+     
+    /**
+     * set pid
+	 *
+     * @param integer $pid pid
+	 * @return void
+     */
+    public function setPid($pid) {
+        $this->pid = $pid;
+    }
+	
 	/**
      * get tstamp
 	 *
@@ -377,11 +403,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	/**
      * adds a fal image
      *
-     * @param \TYPO3\MooxFeusers\Domain\Model\FileReference $falImage
+     * @param \DCNGmbH\MooxFeusers\Domain\Model\FileReference $falImage
      *
      * @return void
      */
-    public function addFalImage(\TYPO3\MooxFeusers\Domain\Model\FileReference $falImage) {
+    public function addFalImage(\DCNGmbH\MooxFeusers\Domain\Model\FileReference $falImage) {
         $this->falImages->attach($falImage);
     }	
 	
@@ -513,7 +539,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
        $user = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('usergroup', 'fe_users', 'uid='.$this->uid);
 	   if(!is_null($user) && $user['usergroup']!="" && $user['usergroup']!=0){
 			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-			$frontendUserGroupRepository = $objectManager->get('TYPO3\\MooxFeusers\\Domain\\Repository\\FrontendUserGroupRepository');
+			$frontendUserGroupRepository = $objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Repository\\FrontendUserGroupRepository');
 			$return = array();
 			foreach(explode(",",$user['usergroup']) AS $uid){
 				$group = $frontendUserGroupRepository->findByUid($uid,FALSE);
@@ -539,7 +565,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	/**
 	 * Returns the bounces
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\MooxMailer\Domain\Model\Bounce> $bounces
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DCNGmbH\MooxMailer\Domain\Model\Bounce> $bounces
 	 */
 	public function getBounces() {
 		return $this->bounces;

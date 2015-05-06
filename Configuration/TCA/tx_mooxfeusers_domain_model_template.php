@@ -1,10 +1,29 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
-
-$TCA['tx_mooxfeusers_domain_model_template'] = array(
-	'ctrl' => $TCA['tx_mooxfeusers_domain_model_template']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxfeusers_domain_model_template',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+		'sortby' => 'sorting',
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),		
+		'searchFields' => 'title,subject,template',		
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('moox_feusers') . 'Resources/Public/Icons/tx_mooxfeusers_domain_model_template.gif',
+		'hideTable' => FALSE
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, category, subject, template',
 	),
@@ -134,5 +153,4 @@ $TCA['tx_mooxfeusers_domain_model_template'] = array(
 		),		
 	),
 );
-
 ?>
