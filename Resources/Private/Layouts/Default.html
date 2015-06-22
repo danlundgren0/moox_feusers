@@ -5,17 +5,17 @@
 		<v:asset.style name="moox-feusers-css" group="moox-feusers" path="{settings.cssfile}" standalone="TRUE" allowMoveToFooter="FALSE" external="1" />
 	</f:then>
 	<f:else>
-		<v:asset.style name="moox-feusers-css" group="moox-feusers" path="typo3conf/ext/moox_feusers/Resources/Public/Css/main.css" standalone="TRUE" allowMoveToFooter="FALSE" external="1" />
+		<v:asset.style name="moox-feusers-css" group="moox-feusers" path="{f:uri.resource(path:'Css/main.css')}" standalone="TRUE" allowMoveToFooter="FALSE" external="1" />
 	</f:else>
 </f:if>
 <f:if condition="{settings.enableBootstrapValidator}">
-	<v:asset.script name="bootstrap-validator" path="EXT:moox_feusers/Resources/Public/Js/validator.js" dependencies="jquery" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
+	<v:asset.script name="bootstrap-validator" path="{f:uri.resource(path:'JavaScript/Contrib/validator.js')}" dependencies="jquery" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
 </f:if>
 <f:if condition="{settings.jqueryPasswordStrengthMeter}">
 	<f:if condition="{settings.enableZxcvbn}">
-		<v:asset.script name="zxcvbn" path="EXT:moox_feusers/Resources/Public/Js/zxcvbn-async.js" dependencies="jquery" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
+		<v:asset.script name="zxcvbn" path="{f:uri.resource(path:'JavaScript/Contrib/zxcvbn-async.js')}" dependencies="jquery" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
 	</f:if>
-	<v:asset.script name="pwstrength" path="EXT:moox_feusers/Resources/Public/Js/pwstrength.js" dependencies="zxcvbn" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
+	<v:asset.script name="pwstrength" path="{f:uri.resource(path:'JavaScript/Contrib/pwstrength.js')}" dependencies="zxcvbn" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE" />
 	<v:asset.script name="pwstrength-init" dependencies="pwstrength" group="moox-feusers" standalone="TRUE" allowMoveToFooter="TRUE">
 	<![CDATA[
 		$(document).ready(function () {

@@ -108,6 +108,40 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	protected $allowedFields;
 	
 	/**
+	 * csvExportFields
+	 *
+	 * @var array
+	 */
+	public static $csvExportFields = 	array(	"uid",
+												"pid",
+												"crdate",
+												"tstamp",
+												"usergroup",
+												"disable",
+												"disallow_mailing",
+												"username",
+												"password",
+												"title",
+												"first_name",
+												"middle_name",
+												"last_name",
+												"company",
+												"country",
+												"zip",
+												"city",
+												"address",
+												"telephone",
+												"fax",
+												"email",
+												"www",
+												"quality",
+												"last_bounce_crdate",
+												"last_bounce_status",
+												"last_bounce",
+												"last_error_crdate",
+												"last_error"	);
+	
+	/**
 	 * sort helper function
 	 *
 	 * @param \array $a
@@ -191,9 +225,9 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * @param \array $filter
 	 * @return void
 	 */
-	public function indexAction($filter = array()) {			
+	public function indexAction($filter = array()) {							
 		
-		$folders 	= $this->getFolders();
+		$folders = $this->getFolders();
 		
 		$this->redirectToFolder($folders);
 		
@@ -266,6 +300,7 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$feUsers 	= $this->frontendUserRepository->findAll($this->page,$filter);
 		
 		$this->view->assign('feUsers', $feUsers);
+		$this->view->assign('count', $feUsers->count());
 		$this->view->assign('feGroups', $feGroups);
 		$this->view->assign('fields', $this->getListViewFields());
 		$this->view->assign('fieldsSeparator', $listViewFieldSeparator);		
@@ -280,375 +315,6 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$this->view->assign('replacements', $this->getQueryReplacements($filter['query']));
 		$this->view->assign('mailerActive', $this->mailerActive);
 		$this->view->assign('conf', $this->extConf);
-	}
-	
-	/**
-	 * action import
-	 *
-	 * @param \array $import
-	 * @return void
-	 */
-	public function importAction($import = array()) {			
-		
-		$allowedFields = 	array( 
-									"gender",
-									"title",
-									"forename",
-									"surname",
-									"company",
-									"department",
-									"street",
-									"zip",
-									"city",
-									"region",
-									"country",
-									"phone",
-									"mobile",
-									"fax",
-									"email",
-									"www",
-									"unused"								
-							);
-		
-		if(isset($import['process'])){
-			
-			$csvFields = explode($import['separator'],$import['format']);
-			
-			$hasErrors 		= false;			
-			$errors 		= array();
-			$errorMessages 	= array();
-			
-			if(trim($import['file']['name'])==""){					
-				$errorMessages[] 		= 	array( 
-													"title" => "Datei",
-													"message" => "Bitte wählen Sie eine Import-Datei aus"
-										);					
-				$allErrors['file']		= true;
-				$dataError 				= true;
-				$hasErrors 				= true;
-			} else {
-				$fileInfo = $this->getFileInfo($import['file']['name']);
-				if(!in_array($fileInfo['extension'],array("csv"))){					
-					$errorMessages[] 		= 	array( 
-														"title" => "Datei",
-														"message" => 'Es sind nur Dateien vom Typ "csv" erlaubt'									
-												);					
-					$allErrors['file']		= true;
-					$dataError 				= true;
-					$hasErrors 				= true;
-				}
-			}
-			if(trim($import['format'])==""){					
-				$errorMessages[] 		= 	array( 
-													"title" => "Format",
-													"message" => "Bitte geben Sie ein Import-Format vor"
-										);					
-				$allErrors['format']		= true;
-				$dataError 				= true;
-				$hasErrors 				= true;
-			} elseif(trim($import['separator'])!=""){				
-				if(!in_array("forename",$csvFields)){					
-					$errorMessages[] 		= 	array( 
-														"title" => "Format",
-														"message" => 'Ihr Format muss mindestens das Feld "forename" beinhalten'
-											);					
-					$allErrors['format']		= true;
-					$dataError 				= true;
-					$hasErrors 				= true;
-				}
-			}
-			if(trim($import['separator'])==""){					
-				$errorMessages[] 		= 	array( 
-													"title" => "Trennzeichen",
-													"message" => "Bitte geben Sie ein Trennzeichen vor"
-										);					
-				$allErrors['separator']		= true;
-				$dataError 				= true;
-				$hasErrors 				= true;
-			}
-				
-			if(!$hasErrors){
-								
-				$row 			= 1;
-				$handle 		= fopen($import['file']['tmp_name'], "r");
-				
-				$errors 		= 0;
-				$added 			= 0;
-				$skipped 		= 0;
-				$exisiting 		= 0;
-				
-				$csvFieldsTmp 	= $csvFields;
-				$csvFields 		= array();
-				
-				$cnt 			= 0;
-				foreach($csvFieldsTmp AS $csvField){
-					if(in_array(strtolower($csvField),$allowedFields)){
-						$csvFields[$cnt] = strtolower($csvField);
-					} else {
-						$csvFields[$cnt] = "unused";
-					}
-					$cnt++;
-				}
-								
-				while (($data = fgetcsv($handle, 5000, $import['separator'])) !== FALSE) {
-					
-					$skip = false;
-					
-					if($import['skipFirst'] && $row==1){
-						$skip = true;
-					} elseif(!$import['skipFirst'] && $row==1 && in_array("forename",$data)){
-						$skip = true;
-					}
-					
-					if(!$skip){
-						
-						$object = $this->objectManager->get('DCNGmbH\\MooxFeusers\\Domain\\Model\\FrontendUser');
-						
-						$row++;
-						
-						$num = count($data);
-					    
-						for ($c=0; $c < $num; $c++) {
-							if($csvFields[$c] == "gender"){
-								if(in_array(strtolower(trim($data[$c])),array("herr","männlich","m","mr","male","1"))){
-									$data[$c] = 1;
-								} elseif(in_array(strtolower(trim($data[$c])),array("frau","weiblich","w","mrs","female","f","2"))){
-									$data[$c] = 2;
-								} else {
-									$data[$c] = 0;
-								}
-								$object->setGender($data[$c]);			
-							} elseif($csvFields[$c] == "title"){
-								$object->setTitle(trim($data[$c]));			
-							} elseif($csvFields[$c] == "forename"){								
-								$object->setForename(trim($data[$c]));			
-							} elseif($csvFields[$c] == "surname"){
-							    $object->setSurname(trim($data[$c]));
-							} elseif($csvFields[$c] == "company"){
-								$object->setCompany(trim($data[$c]));
-							} elseif($csvFields[$c] == "department"){
-								$object->setDepartment(trim($data[$c]));
-							} elseif($csvFields[$c] == "street"){
-								$object->setStreet(trim($data[$c]));
-							} elseif($csvFields[$c] == "zip"){
-								$object->setZip(trim($data[$c]));
-							} elseif($csvFields[$c] == "city"){
-								$object->setCity(trim($data[$c]));
-							} elseif($csvFields[$c] == "region"){
-								$object->setRegion(trim($data[$c]));
-							} elseif($csvFields[$c] == "country"){
-								$object->setCountry(trim($data[$c]));
-							} elseif($csvFields[$c] == "phone"){
-								$object->setPhone(trim($data[$c]));
-							} elseif($csvFields[$c] == "mobile"){
-								$object->setMobile(trim($data[$c]));
-							} elseif($csvFields[$c] == "fax"){
-								$object->setFax(trim($data[$c]));
-							} elseif($csvFields[$c] == "email"){
-								$object->setEmail(trim($data[$c]));
-							} elseif($csvFields[$c] == "www"){
-								$object->setWww(trim($data[$c]));
-							}
-						}
-						
-						$isValid = true;
-						
-						if($object->getGender()==""){
-							$object->setGender(0);
-						}						
-						if($object->getForename()==""){
-							$isValid = false;
-						}
-						if($object->getEmail()!="" && !\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail($object->getEmail())){
-							$isValid = false;
-						}
-						if($import['mailingAllowed'] && $object->getEmail()!=""){
-							$object->setMailingAllowed(1);
-							$object->setRegistered(time());
-						}
-						if($isValid){
-							$duplicate = $this->frontendUserRepository->findDuplicate($object);
-							if(!is_object($duplicate)){
-								if($import['mode']>0){
-									$foundFeUser = $this->frontendUserRepository->findByEmail($object->getEmail());									
-									if(!is_object($foundFeUser)){
-										$this->frontendUserRepository->add($object);										
-										$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
-										$added++;
-									} elseif(is_object($foundFeUser) && in_array($import['mode'],array(1,2))){
-										if($import['mode']==2 && $foundFeUser->getUnregistered()==0){
-											$foundFeUser->setMailingAllowed($object->getMailingAllowed());
-											$foundFeUser->setRegistered($object->getRegistered());
-										}
-										if($import['mode']==2 || $foundFeUser->getGender()==0){
-											$foundFeUser->setGender($object->getGender());
-										}
-										if($import['mode']==2 || $foundFeUser->getTitle()==""){
-											$foundFeUser->setTitle($object->getTitle());
-										}
-										if($import['mode']==2 || $foundFeUser->getForename()==""){
-											$foundFeUser->setForename($object->getForename());
-										}
-										if($import['mode']==2 || $foundFeUser->getSurname()==""){
-											$foundFeUser->setSurname($object->getSurname());
-										}
-										if($import['mode']==2 || $foundFeUser->getCompany()==""){
-											$foundFeUser->setCompany($object->getCompany());
-										}
-										if($import['mode']==2 || $foundFeUser->getDepartment()==""){
-											$foundFeUser->setDepartment($object->getDepartment());
-										}
-										if($import['mode']==2 || $foundFeUser->getStreet()==""){
-											$foundFeUser->setStreet($object->getStreet());
-										}
-										if($import['mode']==2 || $foundFeUser->getZip()==""){
-											$foundFeUser->setZip($object->getZip());
-										}
-										if($import['mode']==2 || $foundFeUser->getCity()==""){
-											$foundFeUser->setCity($object->getCity());
-										}
-										if($import['mode']==2 || $foundFeUser->getRegion()==""){
-											$foundFeUser->setRegion($object->getRegion());
-										}
-										if($import['mode']==2 || $foundFeUser->getCountry()==""){
-											$foundFeUser->setCountry($object->getCountry());
-										}
-										if($import['mode']==2 || $foundFeUser->getPhone()==""){
-											$foundFeUser->setPhone($object->getPhone());
-										}
-										if($import['mode']==2 || $foundFeUser->getMobile()==""){
-											$foundFeUser->setMobile($object->getMobile());
-										}
-										if($import['mode']==2 || $foundFeUser->getFax()==""){
-											$foundFeUser->setFax($object->getFax());
-										}
-										if($import['mode']==2 || $foundFeUser->getWww()==""){
-											$foundFeUser->setWww($object->getWww());
-										}
-										$this->frontendUserRepository->update($foundFeUser);
-										$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
-										$updated++;
-									} else {
-										$skipped++;
-									}
-								} else {
-									$this->frontendUserRepository->add($object);
-									$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
-									$added++;
-								}																									
-							} else {
-								$exisiting++;
-							}
-						} else {
-							$errors++;
-						}
-
-						$object = NULL;
-					
-					} else {
-						$row++;
-					}
-				}
-				$successMessage = "";
-				$infoMessage 	= "";
-				$errorMessage 	= "";
-				if($added>0){
-					$successMessage .= $added.' Adresse(n) wurde importiert.';
-				}
-				if($updated>0){
-					$successMessage .= ' '.$updated.' Adresse(n) wurden '.(($import['mode']==2)?"überschrieben":"upgedated").'.';
-				}
-				if($skipped>0){
-					$infoMessage .= ' '.$skipped.' Adresse(n) wurde übersprungen.';
-				}
-				if($exisiting>0){
-					$infoMessage .= ' '.$exisiting.' Adresse(n) waren bereits vorhanden.';
-				}
-				if($errors>0){
-					$errorMessage .= ' '.$errors.' Adresse(n) konnten wegen fehlerhafter Daten nicht importiert werden.';
-				}
-				
-				if($successMessage!=""){
-					$this->flashMessageContainer->add(
-						'', 
-						$successMessage, 
-						\TYPO3\CMS\Core\Messaging\FlashMessage::OK);
-				}
-				if($infoMessage!=""){
-					$this->flashMessageContainer->add(
-						'', 
-						$infoMessage, 
-						\TYPO3\CMS\Core\Messaging\FlashMessage::INFO);
-				}
-				if($errorMessage!=""){
-					$this->flashMessageContainer->add(
-						'', 
-						$errorMessage, 
-						\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-				}
-				
-				if($added>0 || $updated>0){
-					$this->redirect("index");
-				}
-				
-			} else {					
-					
-				foreach($errorMessages AS $errorMessage){
-					$this->flashMessageContainer->add($errorMessage['message'], ($errorMessage['title']!="")?$errorMessage['title'].": ":"", \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-				}
-					
-				$this->view->assign('allErrors', $allErrors);					
-					
-				if($dataError){
-					$this->view->assign('dataError',1);
-				}											
-			}
-			
-		} else {
-			
-			if(!count($import)){
-				$import['format'] 			= ($this->settings['importFormat'])?$this->settings['importFormat']:"forename;surname;email";				
-				$import['separator'] 		= ($this->settings['importSeparator'])?$this->settings['importSeparator']:";";
-				$import['mode'] 			= (in_array($this->settings['importMode'],array(0,1,2,3)))?$this->settings['importMode']:"2";
-				$import['skipFirst'] 		= ($this->settings['importSkipFirst'])?$this->settings['importSkipFirst']:0;
-				$import['mailingAllowed'] 	= ($this->settings['importMailingAllowed'])?$this->settings['importMailingAllowed']:0;
-			}
-		}
-		
-		$rootline = $this->pageRepository->getRootLine($this->page);
-		
-		foreach($rootline AS $rootlinepage){
-			if($rootlinepage['is_siteroot']){
-				$rootpage = $rootlinepage;
-				break;
-			}
-		}
-		
-		if(!$rootpage){
-			$rootpage = $rootline[0];
-		}
-		
-		$rootline = array_reverse($rootline);
-		
-		if(isset($rootline[count($rootline)-2])){			
-			$pageInfo = $this->pageRepository->getPage((int)$rootline[count($rootline)-2]['uid']);		
-			if($pageInfo['module']=='mxfeuser'){
-				$folder = $pageInfo['uid'];				
-			}
-			
-		}
-		
-		$folders 	= $this->getFolders();
-				
-		$this->view->assign('action', 'import');
-		$this->view->assign('page', $this->page);
-		$this->view->assign('folder', $folder);
-		$this->view->assign('rootpage', $rootpage);
-		$this->view->assign('rootline', $rootline);
-		$this->view->assign('folders', (count($folders)>0)?$folders:false);
-		$this->view->assign('object', $import);
-		$this->view->assign('mailerActive', $this->mailerActive);
-		
 	}
 	
 	/**
@@ -873,12 +539,12 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				if(trim($add['middleName'])!="" && $name==""){
 					$name = trim($add['middleName']);
 				} elseif(trim($add['middleName'])!="" && $name!=""){
-					$name .= " ".$add['middleName'];
+					$name .= " ".trim($add['middleName']);
 				}
 				if(trim($add['lastName'])!="" && $name==""){
 					$name = trim($add['lastName']);
 				} elseif(trim($add['lastName'])!="" && $name!=""){
-					$name .= " ".$add['lastName'];
+					$name .= " ".trim($add['lastName']);
 				}
 				$add['name'] = $name;
 				$object->setName($name);
@@ -1548,6 +1214,367 @@ class AdministrationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		
 		$this->processFilter(array("group" => $group));						
 		$this->redirect("index");		
+	}
+	
+	/**
+	 * action csvExport
+	 *
+	 * @param \array $items		
+	 * @return void
+	 */
+	public function csvExportAction($items = array()) {			
+		
+		global $BE_USER;
+		
+		if(is_array($items) && count($items)){
+		
+			if($BE_USER->user['moox_feusers_custom_csv_export_fields']!=""){
+				$fields = explode(",",$BE_USER->user['moox_feusers_custom_csv_export_fields']);
+			} elseif($this->extConf['defaultCsvExportFields']!=""){
+				$fields = explode(",",$this->extConf['defaultCsvExportFields']);
+			} else {
+				$fields = self::$csvExportFields;
+			}
+			
+			$csv = implode(";",$fields)."\n";						
+			
+			foreach($items AS $uid){					
+				$object = $this->frontendUserRepository->findByUid($uid,FALSE);						
+				$objectCsv = $this->getCsvExportContent($fields,$object);
+				if($objectCsv!=""){
+					$csv .= $objectCsv;
+					$csv .= "\n";				
+				}
+				unset($object);
+			}
+			
+			header('Content-Type: application/csv');
+			header('Content-Disposition: attachment; filename=fe_user_'.date("YmdHis").'.csv');
+			header('Pragma: no-cache');
+			
+			echo $csv;
+			
+			exit();
+			
+		} else {
+			$this->redirect("index");
+		}
+	}
+	
+	/**
+	 * action csvFilteredExport
+	 *
+	 * @return void
+	 */
+	public function csvFilteredExportAction() {			
+		
+		global $BE_USER;
+		
+		$this->page = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id');
+		
+		$filter = $this->processFilter($filter);
+		
+		$feGroups = $this->frontendUserGroupRepository->findByPids($this->page);
+		
+		if(is_numeric($filter['group']) && $filter['group']>0){			
+			$feGroupIsValid = false;
+			foreach($feGroups AS $feGroup){
+				if($feGroup->getUid()==$filter['group']){
+					$this->view->assign('feGroup', $this->frontendUserGroupRepository->findByUid($filter['group']));
+					$feGroupIsValid = true;
+					break;
+				}
+			}
+			if(!$feGroupIsValid){
+				$filter['group'] = "all";				
+			}
+		}
+		
+		if($filter['group']==""){
+			$filter['group'] = "all";
+		}
+		
+		$feUsers = $this->frontendUserRepository->findAll($this->page,$filter);
+		
+		if($feUsers->count()){
+			
+			if($BE_USER->user['moox_feusers_custom_csv_fields']!=""){
+				$fields = explode(",",$BE_USER->user['moox_feusers_custom_csv_fields']);
+			} elseif($this->extConf['defaultCsvExportFields']!=""){
+				$fields = explode(",",$this->extConf['defaultCsvExportFields']);
+			} else {
+				$fields = self::$csvExportFields;
+			}
+			
+			$csv = implode(";",$fields)."\n";			
+			
+			foreach($feUsers AS $object){					
+				$objectCsv = $this->getCsvExportContent($fields,$object);
+				if($objectCsv!=""){
+					$csv .= $objectCsv;
+					$csv .= "\n";				
+				}				
+			}
+			
+			header('Content-Type: application/csv');
+			header('Content-Disposition: attachment; filename=fe_user_'.date("YmdHis").'.csv');
+			header('Pragma: no-cache');
+			
+			echo $csv;
+			
+			exit();
+			
+		} else {
+			$this->redirect("index");
+		}
+	}
+	
+	/**
+	 * action multiple
+	 *
+	 * @param \string $function	
+	 * @param \array $items
+	 * @param \array $pagination
+	 * @return void
+	 */
+	public function multipleAction($function = "", $items = array(), $pagination = array()) {			
+		
+		$functionCnt = 0;
+		
+		if(is_array($items) && count($items)){
+			switch ($function) {
+				case "delete":
+					$feUser = array();
+					foreach($items AS $uid){					
+						$object = $this->frontendUserRepository->findByUid($uid,FALSE);						
+						if(is_object($object)){
+							$feUser[] = $object;
+							unset($object);
+						}
+					}
+					$this->view->assign('items', $feUser);
+					$this->view->assign('function', $function);
+					$this->view->assign('functionTxt', "löschen");
+					$this->view->assign('pagination', $pagination);
+					$skipRedirect = true;
+					break;
+				case "deleteConfirmed":
+					foreach($items AS $uid){					
+						$object = $this->frontendUserRepository->findByUid($uid,FALSE);						
+						if(is_object($object)){
+							$this->frontendUserRepository->remove($object);
+							unset($object);
+							$functionCnt++;
+						}
+					}
+					$message = $functionCnt." Benutzer gelöscht";
+					$skipPagination = true;
+					break;
+				case "show":
+					foreach($items AS $uid){					
+						$object = $this->frontendUserRepository->findByUid($uid,FALSE);						
+						if(is_object($object)){
+							$object->setDisable(0);						
+							$this->frontendUserRepository->update($object);
+							unset($object);
+							$functionCnt++;
+						}
+					}
+					$message = $functionCnt." Benutzer aktiviert";
+					break;
+				case "hide":
+					foreach($items AS $uid){					
+						$object = $this->frontendUserRepository->findByUid($uid,FALSE);						
+						if(is_object($object)){
+							$object->setDisable(1);						
+							$this->frontendUserRepository->update($object);
+							unset($object);						
+						}
+					}
+					$message = $functionCnt." Benutzer deaktiviert";
+					break;
+				case "mailon":
+					foreach($items AS $uid){					
+						$object = $this->frontendUserRepository->findByUid($uid,FALSE);						
+						if(is_object($object)){
+							$object->setDisallowMailing(0);						
+							$this->frontendUserRepository->update($object);
+							unset($object);
+							$functionCnt++;
+						}
+					}
+					$message = "Mailempfang f�r ".$functionCnt." Benutzer wurde erlaubt";
+					break;
+				case "mailoff":
+					foreach($items AS $uid){					
+						$object = $this->frontendUserRepository->findByUid($uid,FALSE);						
+						if(is_object($object)){
+							$object->setDisallowMailing(1);						
+							$this->frontendUserRepository->update($object);
+							unset($object);
+							$functionCnt++;
+						}
+					}
+					$message = "Mailempfang f�r ".$functionCnt." Benutzer wurde unterbunden";
+					break;
+				case "csvexport":
+					$this->redirect("csvExport","Administration","MooxFeusers",array('items' => $items));					
+					break;
+				
+			}
+		}
+		
+		if($functionCnt){
+			$this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();					
+		}
+		
+		if($message){
+			$this->flashMessageContainer->add(
+					'', 
+					$message, 
+					\TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+		}
+		
+		if(!$skipRedirect){
+			if($pagination['currentPage']>1 && !$skipPagination){			
+				$this->redirect("index","Administration","MooxFeusers",array('@widget_0' => $pagination));			
+			} else {
+				$this->redirect("index");
+			}		
+		}
+	}
+	
+	/**
+	 * get csv export content
+	 *
+	 * @param \array $fields
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $object
+	 * @return string $csv
+	 */
+	public function getCsvExportContent($fields = array(),$object = NULL) {
+		
+		$csv = "";		
+		
+		if(is_object($object) && count($fields)){
+			
+			$fieldCnt = 0;
+			
+			foreach($fields AS $field){						
+				if($fieldCnt>0){
+					$csv .= ";";
+				}
+				if($field=="usergroup"){
+					$usergroupCnt = 0;
+					foreach($object->getUsergroup() AS $usergroup){
+						if($usergroupCnt>0){
+							$csv .= ",";
+						}
+						$csv .= $usergroup->getUid();
+						$usergroupCnt++;
+					}
+				} elseif($field=="crdate"){
+					$csv .= date("Y-m-d H:i:s",$object->getCrdate());
+				} elseif($field=="tstamp"){
+					$csv .= date("Y-m-d H:i:s",$object->getTstamp());
+				} elseif($field=="quality"){
+					if($object->getQuality()==2){
+						$csv .= "error";
+					} elseif($object->getQuality()==2){
+						$csv .= "warning";
+					} else {
+						$csv .= "ok";
+					}
+				} elseif($field=="last_bounce_crdate"){
+					$bounces = $object->getBounces();
+					if(count($bounces)){
+						foreach($bounces AS $bounce){
+							$csv .= $bounce->getCrdate()->format("Y-m-d H:i:s");
+							break;
+						}
+					}
+				} elseif($field=="last_bounce_status"){
+					$bounces = $object->getBounces();
+					if(count($bounces)){
+						foreach($bounces AS $bounce){
+							$csv .= $bounce->getStatus();
+							break;
+						}
+					}
+				} elseif($field=="last_bounce"){
+					$bounces = $object->getBounces();
+					if(count($bounces)){
+						foreach($bounces AS $bounce){
+							$csv .= $bounce->getType();
+							break;
+						}
+					}
+				} elseif($field=="last_error_crdate"){
+					$errors = $object->getErrors();
+					if(count($errors)){
+						foreach($errors AS $error){
+							$csv .= $error->getCrdate()->format("Y-m-d H:i:s");
+							break;
+						}
+					}
+				}  elseif($field=="last_error"){
+					$errors = $object->getErrors();
+					if(count($errors)){
+						foreach($errors AS $error){
+							$csv .= $error->getTitle();
+							break;
+						}
+					}
+				} else {
+					$getCall = "get".\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($field);
+					if(method_exists($object,$getCall)){
+						$csv .= $object->$getCall();
+					}
+				}
+				$fieldCnt++;
+			}
+		}
+		return $csv;
+	}
+	
+	/**
+	 * Redirect to form to create a fe user group record
+	 *
+	 * @return void
+	 */
+	public function addGroupAction() {
+		$this->redirectToCreateNewRecord('fe_groups');
+	}
+	
+	/**
+	 * Redirect to tceform creating a new record
+	 *
+	 * @param string $table table name
+	 * @return void
+	 */
+	private function redirectToCreateNewRecord($table) {
+		$pid = $this->page;
+		if ($pid === 0) {
+			if (isset($this->tsConfiguration['defaultPid.'])
+				&& is_array($this->tsConfiguration['defaultPid.'])
+				&& isset($this->tsConfiguration['defaultPid.'][$table])
+			) {
+				$pid = (int)$this->tsConfiguration['defaultPid.'][$table];
+			}
+		}
+
+		$returnUrl = 'mod.php?M=moox_MooxFeusersFeusermanagement&id=' . $this->page . $this->getToken();
+		$url = 'alt_doc.php?edit[' . $table . '][' . $pid . ']=new&returnUrl=' . urlencode($returnUrl);
+		
+		\TYPO3\CMS\Core\Utility\HttpUtility::redirect($url);
+	}
+	
+	/**
+	 * Get a CSRF token
+	 *
+	 * @return string
+	 */
+	protected function getToken() {
+		return '&moduleToken=' . \TYPO3\CMS\Core\FormProtection\FormProtectionFactory::get()->generateToken('moduleCall', 'moox_MooxFeusersFeusermanagement');
 	}
 	
 	/**

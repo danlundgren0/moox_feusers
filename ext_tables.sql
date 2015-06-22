@@ -1,12 +1,21 @@
 #
 # Extend table structure of table 'fe_users'
 #
-CREATE TABLE fe_users (	
+CREATE TABLE fe_users (
+	gender tinyint(3) DEFAULT '0' NOT NULL,
 	falImages int(11) unsigned NOT NULL DEFAULT '0',
 	is_company_admin tinyint(3) DEFAULT '0' NOT NULL,
     is_moox_feuser tinyint(3) DEFAULT '0' NOT NULL,
 	password_recovery_hash varchar(255) NOT NULL,
 	password_recovery_tstamp int(11) unsigned NOT NULL DEFAULT '0'
+);
+
+#
+# Extend table structure of table 'be_users'
+#
+CREATE TABLE be_users (	
+	moox_feusers_custom_csv_export_fields text NOT NULL,
+	moox_feusers_custom_csv_import_fields text NOT NULL,
 );
 
 #

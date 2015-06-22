@@ -35,6 +35,13 @@ namespace DCNGmbH\MooxFeusers\Domain\Model;
 class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 		
 	/**
+	 * uid
+	 *
+	 * @var integer
+	 */
+    protected $uid;
+	
+	/**
 	 * pid
 	 *
 	 * @var integer
@@ -160,6 +167,13 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DCNGmbH\MooxMailer\Domain\Model\Bounce>
 	 */
 	protected $bounces = NULL;
+	
+	/**
+	 * errors
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DCNGmbH\MooxMailer\Domain\Model\Error>
+	 */
+	protected $errors = NULL;
 	  
 	/**
 	 * initialize object
@@ -179,8 +193,28 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	 */
 	protected function initStorageObjects() {
 		$this->bounces = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->errors = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->falImages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
+	
+	/**
+     * get uid
+	 *
+     * @return integer $uid uid
+     */
+    public function getUid() {
+       return $this->uid;
+    }
+     
+    /**
+     * set uid
+	 *
+     * @param integer $uid uid
+	 * @return void
+     */
+    public function setUid($uid) {
+        $this->uid = $uid;
+    }
 	
 	/**
      * get pid
@@ -476,20 +510,25 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 	/**
 	 * Setter for password. As we have encrypted passwords here, we need to encrypt them before storing!
 	 *
-	 * @param $password
+	 * @param string $password
+	 * @param boolean $plain
 	 */
-	public function setPassword($password) {
-		if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('saltedpasswords')) {
-			if (\TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::isUsageEnabled('BE')) {
-				$objSalt = \TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance(NULL);
-				if (is_object($objSalt)) {
-					$password = $objSalt->getHashedPassword($password);
-				}
-			}
-			$this->password = $password;
+	public function setPassword($password,$plain=FALSE) {
+		if($plain){
+			$this->password = $password;	
 		} else {
-			parent::setPassword($password);
-		}		
+			if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('saltedpasswords')) {
+				if (\TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::isUsageEnabled('BE')) {
+					$objSalt = \TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance(NULL);
+					if (is_object($objSalt)) {
+						$password = $objSalt->getHashedPassword($password);
+					}
+				}
+				$this->password = $password;
+			} else {
+				parent::setPassword($password);
+			}	
+		}
 	}
 	
 	/**
@@ -571,6 +610,13 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser  {
 		return $this->bounces;
 	}
 		
-	
+	/**
+	 * Returns the errors
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DCNGmbH\MooxMailer\Domain\Model\Error> $errors
+	 */
+	public function getErrors() {
+		return $this->errors;
+	}
 }
 ?>

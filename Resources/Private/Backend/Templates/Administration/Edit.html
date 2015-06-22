@@ -6,6 +6,12 @@
 		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Benutzer bearbeiten</h1>
 		<div class="tx-moox-feusers-admin-body">			
 			<div class="tx-moox-feusers-admin-form">				
+				<div class="tx-moox-feusers-admin-form-header">
+					Benutzername (* nicht änderbar)
+				</div>
+				<div class="tx-moox-feusers-admin-form-item">
+					<f:form.textfield type="text" name="usernameDisplay" disabled="1" class="feuser-username" value="{object.username}" />
+				</div>
 				<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.password}"> has-error</f:if>">
 					Passwort (* leer lassen um bestehendes Passwort zu behalten)
 				</div>

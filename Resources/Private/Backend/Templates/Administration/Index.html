@@ -60,6 +60,9 @@
 							</f:else>
 						</f:if>
 						<div class="group-list-footer">							
+							<f:link.action action="addGroup" class="group-add" title="Neue Benutzergruppe anlegen">
+								<img class="group-add-icon" width="16" height="16" align="left" src="{f:uri.resource(path:'Icons/icon_group_add.png')}">Neue Benutzergruppe anlegen
+							</f:link.action>
 							<a href="#" id="group-list-close" class="pointer" title="schließen">schließen <span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-close">&nbsp;</span></a>
 						</div>
 					</div>
@@ -71,7 +74,7 @@
 						<f:form.select property="mailing" id="filter-mailing" class="filter-mailing" options="{0:'Zeige alle Benutzer',1:'Zeige nur Newsletter-Empfänger',2:'Zeige nur Benutzer die keine Newsletter empfangen'}" />
 						<f:form.select property="state" id="filter-state" class="filter-state" options="{0:'aktivierte und deaktivierte',1:'nur aktivierte',2:'nur deaktivierte'}" />
 						<f:form.select property="quality" id="filter-quality" class="filter-quality" options="{all:'Alle Qualitätstufen',0:'Qualitätstufe [Ok]',1:'Qualitätstufe [Warnung]',2:'Qualitätstufe [Fehlerhaft]'}" />
-						<f:form.select property="perPage" id="filter-per-page" class="filter-per-page" options="{10:'10 Benutzer pro Seite',25:'25 Benutzer pro Seite',50:'50 Benutzer pro Seite',100:'100 Benutzer pro Seite',500:'500 Benutzer pro Seite'}" />
+						<f:form.select property="perPage" id="filter-per-page" class="filter-per-page" options="{10:'10 Benutzer pro Seite',25:'25 Benutzer pro Seite',50:'50 Benutzer pro Seite',100:'100 Benutzer pro Seite'}" />
 					</div>
 					<div class="filter-field">	
 						<f:form.textfield type="text" property="query" id="filter-query" class="filter-query" placeholder="Suchbegriff eingeben" id="filter-query" />
@@ -84,19 +87,37 @@
 				<f:if condition="{feUsers -> f:count()}>0">
 					<f:then>						
 						<f:be.widget.paginate objects="{feUsers}" as="paginatedFeUsers" configuration="{itemsPerPage: filter.perPage}">
-							<div class="tx-moox-feusers-admin-table">
-								<table cellpadding="0" cellspacing="0" border="0" width="100%">
-									<thead>
-										<tr>
-											<th></th>
-											<f:for each="{fields}" as="field" iteration="iteration">
-												<f:render partial="FeUsersListHeader" arguments="{filter: filter, field: field, isLast: iteration.isLast}" />																						
-											</f:for>
-										</tr>
-									</thead>
-									<f:render partial="FeUsersList" arguments="{feUsers: paginatedFeUsers, pagination: pagination, mailerActive: mailerActive, replacements: replacements, fields: fields, fieldsSeparator: fieldsSeparator, conf: conf, folders:folders, page:page}" />								
-								</table>							
-							</div>
+							<f:form action="multiple" method="POST" arguments="{pagination:pagination}" id="selectForm" object="{selection}">
+								<div class="tx-moox-feusers-admin-table">
+									<table cellpadding="0" cellspacing="0" border="0" width="100%">
+										<thead>
+											<tr>
+												<th><f:form.checkbox title="Alle wählen/abwählen" name="feuser-check-all-top" class="feuser-check-all feuser-check-all-top" value="checkall" /></th>
+												<f:for each="{fields}" as="field" iteration="iteration">
+													<f:render partial="FeUsersListHeader" arguments="{filter: filter, field: field, isLast: iteration.isLast}" />																						
+												</f:for>
+											</tr>
+										</thead>
+										<f:render partial="FeUsersList" arguments="{feUsers: paginatedFeUsers, pagination: pagination, mailerActive: mailerActive, replacements: replacements, fields: fields, fieldsSeparator: fieldsSeparator, conf: conf, folders:folders, page:page}" />								
+									</table>									
+								</div>
+								<div class="tx-moox-feusers-admin-table-footer">
+									<div id="tx-moox-feusers-admin-multiple-selector">
+										<f:form.checkbox title="Alle wählen/abwählen" name="feuser-check-all-bottom" class="feuser-check-all feuser-check-all-bottom" value="checkall" />
+										<div id="tx-moox-feusers-admin-multiple-selector-txt">
+											Keine Benutzer gewählt
+										</div>
+										<f:form.select name="function" class="feuser-multiple-function-select" options="{delete:'Benutzer löschen',show:'Benutzer aktivieren',hide:'Benutzer deaktivieren',mailon:'Mailempfang erlauben',mailoff:'Mailempfang unterbinden',csvexport:'Als CSV-Datei exportieren'}" />
+										<f:form.submit class="feuser-multiple-function-submit" value="Ausführen" />
+									</div>
+									<div id="tx-moox-feusers-admin-export-buttons">
+										<f:link.action class="feuser-export-button" action="csvFilteredExport" additionalParams="{id:page}">
+											Benutzer exportieren
+										</f:link.action>
+									</div>
+									<div class="clear"></div>
+								</div>
+							</f:form>
 						</f:be.widget.paginate>
 						<div class="clear"></div>						
 					</f:then>

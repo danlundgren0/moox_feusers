@@ -91,6 +91,8 @@ module.tx_mooxfeusers {
 		importMode 				= {$module.tx_mooxfeusers.settings.importMode}
 		importSkipFirst			= {$module.tx_mooxfeusers.settings.importSkipFirst}
 		importDisallowMailing	= {$module.tx_mooxfeusers.settings.importDisallowMailing}
+		importEncodePassword	= {$module.tx_mooxfeusers.settings.importEncodePassword}
+		importDisableNew		= {$module.tx_mooxfeusers.settings.importDisableNew}
 	}
 }
 

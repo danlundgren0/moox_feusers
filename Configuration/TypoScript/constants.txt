@@ -169,14 +169,18 @@ module.tx_mooxfeusers {
 		# cat=plugin.tx_mooxfeusers/various/11; type=int+; label=[All] Minimal length of password (lenght > 3)
 		passwordMinlength = 8
 		# cat=module.tx_mooxfeusers/various/12; type=string; label=[Import] Default csv import format string
-		importFormat = gender;title;forename;surname;company;department;street;zip;city;region;country;phone;mobile;fax;email;www
+		importFormat =
 		# cat=module.tx_mooxfeusers/various/13; type=string; label=[Import] Default csv separator
-		importSeparator = ;
+		importSeparator =
 		# cat=module.tx_mooxfeusers/various/14; type=options[Email-Adress-Dubletten zulassen (Ohne Überprüfung hinzufügen)=0,Vorhandene Email-Adressen ergänzen=1,Vorhandene Email-Adressen überschreiben=2,Vorhandene Email-Adressen überspringen=3]; label=[Import] Default csv import mode
-		importMode = 2	
+		importMode =	
 		# cat=module.tx_mooxfeusers/various/15; type=boolean; label=[Import] Default behavior for line 1
-		importSkipFirst = 1	
+		importSkipFirst =	
 		# cat=module.tx_mooxfeusers/various/16; type=boolean; label=[Import] Default setting of newsletter permission
-		importDisallowMailing = 1
+		importDisallowMailing =
+		# cat=module.tx_mooxfeusers/various/17; type=boolean; label=[Import] Default setting of password encoding
+		importEncodePassword =
+		# cat=module.tx_mooxfeusers/various/18; type=boolean; label=[Import] Default setting of state for new imported users (enabled=0/disabled=1)
+		importDisableNew =
 	}
 }

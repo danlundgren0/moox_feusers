@@ -3,11 +3,11 @@
 <f:layout name="Import" />
 
 <f:section name="content">	
-	<div class="tx-moox-address-admin">
-		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Adressen importieren</h1>		
-		<div class="tx-moox-address-admin-body">
+	<div class="tx-moox-feusers-admin">
+		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Frontend-Benutzer importieren</h1>		
+		<div class="tx-moox-feusers-admin-body">
 			
-			<div class="tx-moox-address-admin-filter">				
+			<div class="tx-moox-feusers-admin-filter">				
 				<div class="filter-field">
 					<label for="folder" class="label-folder-import">
 						In diesen Ordner importieren:
@@ -22,7 +22,7 @@
 				<div class="folder-list folder-list-import" id="folder-list">
 					<f:if condition="{folders}">
 						<f:then>
-							<f:render partial="FolderList" arguments="{page: page, folders: folders, action: 'import'}" />
+							<f:render partial="FolderList" arguments="{page: page, folders: folders, action: 'index'}" />
 						</f:then>
 						<f:else>
 							<div class="folder-noothers">Keine anderen Ordner gefunden</div>
@@ -33,47 +33,67 @@
 					</div>
 				</div>
 			</div>
-			<div class="tx-moox-address-admin-form">				
+			<div class="tx-moox-feusers-admin-form">				
 				<f:form action="index" enctype="multipart/form-data" controller="Import" noCache="1" method="POST" id="importForm" name="import" object="{object}">
-					<div class="tx-moox-address-admin-form-header<f:if condition="{allErrors.file}"> has-error</f:if>">
+					<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.file}"> has-error</f:if>">
 						Import-Datei
 					</div>
-					<div class="tx-moox-address-admin-form-item<f:if condition="{allErrors.file}"> has-error</f:if>">
+					<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.file}"> has-error</f:if>">
 						<f:form.upload property="file" id="import-file" />
 					</div>
-					<div class="tx-moox-address-admin-form-header<f:if condition="{allErrors.format}"> has-error</f:if>">
+					<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.format}"> has-error</f:if>">
 						Import-Format
 					</div>
-					<div class="tx-moox-address-admin-form-item<f:if condition="{allErrors.format}"> has-error</f:if>">
+					<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.format}"> has-error</f:if>">
 						<f:form.textfield type="text" property="format" id="import-format" />
 					</div>
-					<div class="tx-moox-address-admin-form-header<f:if condition="{allErrors.separator}"> has-error</f:if>">
+					<div class="tx-moox-feusers-admin-form-header<f:if condition="{allErrors.separator}"> has-error</f:if>">
 						Import-Trennzeichen
 					</div>
-					<div class="tx-moox-address-admin-form-item<f:if condition="{allErrors.separator}"> has-error</f:if>">
+					<div class="tx-moox-feusers-admin-form-item<f:if condition="{allErrors.separator}"> has-error</f:if>">
 						<f:form.textfield type="text" property="separator" class="import-separator" id="import-separator" />
 					</div>
-					<div class="tx-moox-address-admin-form-header">
+					<div class="tx-moox-feusers-admin-form-header">
 						Import-Modus
 					</div>
-					<div class="tx-moox-address-admin-form-item">
-						<f:form.select property="mode" id="import-mode" options="{0:'Email-Adress-Dubletten zulassen (Ohne Überprüfung hinzufügen)',1:'Vorhandene Email-Adressen ergänzen',2:'Vorhandene Email-Adressen überschreiben',3:'Vorhandene Email-Adressen überspringen'}" />
+					<div class="tx-moox-feusers-admin-form-item">
+						<f:form.select property="mode" id="import-mode" options="{1:'Vorhandene Benutzer überschreiben',2:'Vorhandene Benutzer ergänzen',0:'Nur neue Benutzer importieren'}" />
 					</div>
-					<f:if condition="{mailerActive}">
-						<div class="tx-moox-address-admin-form-header">
-							Empfang von Newslettern für importierte Empfänger erlauben (falls Email-Adresse vorhanden)
+					<f:if condition="{feGroups}">
+						<div class="tx-moox-feusers-admin-form-header">
+							Import-Benutzergruppen (überschreibt, wenn Gruppen gewählt, Werte aus Import-Datei)
 						</div>
-						<div class="tx-moox-address-admin-form-item">
-							<f:form.checkbox property="mailingAllowed" value="1" class="import-mailing-allowed" id="import-mailing-allowed" />
+						<div class="tx-moox-feusers-admin-form-item">
+							<f:form.select property="feGroups" multiple="1" size="5" id="import-fe-groups" options="{feGroups}" />
 						</div>
 					</f:if>
-					<div class="tx-moox-address-admin-form-header">
-						Erste Zeile überspringen
+					<f:if condition="{mailerActive}">
+						<div class="tx-moox-feusers-admin-form-header">
+							Empfang von Newslettern für importierte Benutzer unterbinden (überschreibt, wenn gesetzt, Werte aus Import-Datei)
+						</div>
+						<div class="tx-moox-feusers-admin-form-item">
+							<f:form.checkbox property="disallowMailing" value="1" class="import-disallow-mailing" id="import-disallow-mailing" />
+						</div>
+					</f:if>
+					<div class="tx-moox-feusers-admin-form-header">
+						Neue Benutzer beim Import deaktivieren
 					</div>
-					<div class="tx-moox-address-admin-form-item">
+					<div class="tx-moox-feusers-admin-form-item">
+						<f:form.checkbox property="disableNew" value="1" class="import-disable-new" id="import-disable-new" />						
+					</div>
+					<div class="tx-moox-feusers-admin-form-header">
+						Passwörter beim Import/Update verschlüsseln (wenn plain in CSV-Datei)
+					</div>
+					<div class="tx-moox-feusers-admin-form-item">
+						<f:form.checkbox property="encodePassword" value="1" class="import-encode-password" id="import-encode-password" />
+					</div>
+					<div class="tx-moox-feusers-admin-form-header">
+						Erste Zeile überspringen
+					</div>					
+					<div class="tx-moox-feusers-admin-form-item">
 						<f:form.checkbox property="skipFirst" value="1" class="import-skip-first" id="import-skip-first" />
 					</div>
-					<div class="tx-moox-address-admin-form-submit">
+					<div class="tx-moox-feusers-admin-form-submit">
 						<f:form.submit property="process" id="import-process" value="importieren" />							
 					</div>
 				</f:form>

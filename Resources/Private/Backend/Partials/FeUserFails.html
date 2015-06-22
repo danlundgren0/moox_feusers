@@ -1,0 +1,32 @@
+<div class="feuser-fails-content">										
+	<div class="feuser-details-fails-inner">
+		<div class="tx-moox-feusers-admin-table">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<thead>
+					<tr>
+						<th>Fehler-Datum</th>						
+						<th>Fehler</th>
+						<th style="text-align: right">Email</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<f:for each="{item.errors}" as="error" iteration="iteration">
+						<f:if condition="{iteration.cycle}<11">											
+							<tr class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-fail-date}" style="width: 150px">
+									{f:format.date(format: 'd.m.Y H:i:s', date: error.crdate)}
+								</td>
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-fail-title}">
+									<span title="{error.title}">{error.title -> f:format.crop(maxCharacters: 80)}</span>
+								</td>
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-fail-email}" style="text-align: right">
+									{error.email}
+								</td>																
+							</tr>														
+						</f:if>
+					</f:for>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

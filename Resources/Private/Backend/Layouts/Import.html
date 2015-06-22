@@ -2,7 +2,7 @@
 
 <v:variable.set name="cssFile" value="{f:uri.resource(path:'Css/administration.css')}" />
 
-<f:be.container includeCssFiles="{admincss: cssFile}" loadExtJsTheme="false" extJsAdapter="jQuery" loadJQuery="true" loadPrototype="false">
+<f:be.container includeCssFiles="{admincss: cssFile}" loadExtJs="false" loadExtJsTheme="false" enableJumpToUrl="false" enableClickMenu="false" extJsAdapter="jQuery" loadJQuery="true" loadPrototype="false">
 	<script src="{f:uri.resource(path:'JavaScript/administration.js')}" type="text/javascript"></script>
 	<div class="typo3-fullDoc tx-moox-feusers-admin">
 		<div id="typo3-docheader">			
@@ -12,6 +12,7 @@
 					<f:be.menus.actionMenu>
 						<f:be.menus.actionMenuItem label="Import" controller="Import" action="index" />
 						<f:be.menus.actionMenuItem label="Frontend-Benutzer" controller="Administration" action="index" />
+						<f:be.menus.actionMenuItem label="Vorlagen" controller="Template" action="index" />
 					</f:be.menus.actionMenu>
 				</div>
 				<div class="right">

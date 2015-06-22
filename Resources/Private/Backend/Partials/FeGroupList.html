@@ -4,7 +4,18 @@
 	</li>
 	<f:for each="{feGroups}" as="feGroup" iteration="iteration">			
 		<li class="group pointer<f:if condition="{group} == {feGroup.uid}"> active</f:if>">
-		<f:link.action action="changeGroup" arguments="{group:feGroup.uid}" title="UID: {feGroup.uid}"><img class="group-icon" width="16" height="16" align="left" alt="{feGroup.title} [UID: {feGroup.uid}]" title="{feGroup.title} [UID: {feGroup.uid}]" src="../typo3conf/ext/moox_feusers/ext_icon.gif" />{feGroup.title}<span style="float: right" title="UID: {feGroup.uid}">[UID: {feGroup.uid}]</span></f:link.action>
+			<div class="group-left">
+				<f:link.action class="group-link-change" action="changeGroup" arguments="{group:feGroup.uid}" title="UID: {feGroup.uid} wählen">
+					<img class="group-icon" width="16" height="16" align="left" alt="{feGroup.title} [UID: {feGroup.uid}]" title="{feGroup.title} [UID: {feGroup.uid}]" src="../typo3conf/ext/moox_feusers/ext_icon.gif" />{feGroup.title}				
+				</f:link.action>
+			</div>
+			<div class="group-right">
+				<a class="group-link-edit" title="UID: {feGroup.uid} bearbeiten" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[fe_groups][{feGroup.uid}]=edit'; return false;">
+					<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open group-icon-edit">&nbsp;</span>
+					[UID: {feGroup.uid}]
+				</a>				
+			</div>
+			<div class="clear">&nbsp;</div>
 		</li>		
 	</f:for>
 	<li class="group pointer<f:if condition="{group}=='nogroup'"> active</f:if>">

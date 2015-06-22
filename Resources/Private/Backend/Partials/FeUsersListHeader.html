@@ -13,7 +13,17 @@
 			</f:link.action>
 		</f:then>
 		<f:else>
-			{sortFieldTxt}
+			<f:if condition="{filter.sortDirection}=='ASC'">
+				<f:then>
+					<v:variable.set name="sortDirection" value="DESC" />
+				</f:then>
+				<f:else>
+					<v:variable.set name="sortDirection" value="ASC" />
+				</f:else>
+			</f:if>	
+			<f:link.action action="index" arguments="{filter: {sortField: sortField, sortDirection: sortDirection}}" title="Nach \"{sortFieldTxt}\" sortieren">
+				{sortFieldTxt}
+			</f:link.action>
 		</f:else>
 	</f:if>	
 	<span class="sort-asc<f:if condition="{filter.sortField}=={sortField}"><f:if condition="{filter.sortDirection}=='ASC'"> active</f:if></f:if>">

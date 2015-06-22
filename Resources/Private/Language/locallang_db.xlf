@@ -96,6 +96,13 @@
 				<source>template</source>							
 			</trans-unit>	
 			
+			<trans-unit id="be_users.moox_feusers_custom_csv_export_fields">
+				<source>[Frontend-User] custom csv export field list (comma separated)</source>				
+			</trans-unit>
+			<trans-unit id="be_users.moox_feusers_custom_csv_import_fields">
+				<source>[Frontend-User] custom csv import field list (comma separated)</source>				
+			</trans-unit>
+			
 		</body>
 	</file>
 </xliff>

@@ -353,5 +353,103 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 
 		return $query->execute();
 	}
+	
+	/**
+	 * Find duplicate of given object
+	 *
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $object object	
+	 * @return \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser
+	 */
+	public function findDuplicate($object = NULL) {
+		
+		if($object){
+		
+			$query = $this->createQuery();					
+			$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+
+			return $query->matching(
+				$query->logicalAnd(
+					$query->equals('gender', $object->getGender()),
+					$query->equals('title', $object->getTitle()),
+					$query->equals('firstName', $object->getFirstName()),
+					$query->equals('middleName', $object->getMiddleName()),
+					$query->equals('lastName', $object->getLastName()),
+					$query->equals('company', $object->getCompany()),
+					$query->equals('address', $object->getAddress()),
+					$query->equals('zip', $object->getZip()),
+					$query->equals('city', $object->getCity()),
+					$query->equals('country', $object->getCountry()),
+					$query->equals('telephone', $object->getTelephone()),
+					$query->equals('fax', $object->getFax()),
+					$query->equals('email', $object->getEmail()),
+					$query->equals('www', $object->getWww()),					
+					$query->equals('deleted', 0)
+				))->execute()->getFirst();
+				
+		} else {
+			return NULL;
+		}
+	}
+	
+	/**
+	 * Find existing user by uid
+	 *
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $object object	
+	 * @return \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser
+	 */
+	public function findExistingByUid($object = NULL) {
+		
+		if($object){
+		
+			$query = $this->createQuery();					
+			$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+			
+			return $query->matching(
+				$query->logicalAnd(
+					$query->equals('uid', $object->getUid()),					
+					$query->equals('deleted', 0)
+				))->execute()->getFirst();
+				
+		} else {
+			return NULL;
+		}
+	}
+	
+	/**
+	 * Find existing user by username
+	 *
+	 * @param \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser $object object	
+	 * @return \DCNGmbH\MooxFeusers\Domain\Model\FrontendUser
+	 */
+	public function findExistingByUsername($object = NULL) {
+		
+		if($object){
+		
+			$query = $this->createQuery();					
+			$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+
+			return $query->matching(
+				$query->logicalAnd(
+					$query->equals('username', $object->getUsername()),					
+					$query->equals('deleted', 0)
+				))->execute()->getFirst();
+				
+		} else {
+			return NULL;
+		}
+	}
+	
+	/**
+	* Persist all added and modified objects
+	* @return void
+	*/
+	/*
+	public function _persistAll() {
+		$this->persistenceManager->persistAll();
+	}
+	*/
 }
 ?>

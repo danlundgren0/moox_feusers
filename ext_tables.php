@@ -58,7 +58,7 @@ if (TYPO3_MODE === 'BE') {
 		'feusermanagement',	// Submodule key
 		'',	// Position
 		array(
-			'Administration' => 'index,add,edit,delete,addGroup,editGroup,deleteGroup,toggleState,toggleDisallowMailing,changeGroup,import,moveToFolder',
+			'Administration' => 'index,add,edit,delete,addGroup,editGroup,deleteGroup,toggleState,toggleDisallowMailing,changeGroup,import,moveToFolder,multiple,csvExport,csvFilteredExport',
 			'Template' => 'index,add,edit,delete,previewIframe',
 			'Import' => 'index',
 		),

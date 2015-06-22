@@ -38,6 +38,14 @@
 
 .typo3-docheader-buttons .buttongroup {	
 	margin-top: -2px;
+	clear: both;
+}
+
+.typo3-docheader-buttons .buttongroup .left {	
+	float: left;
+}
+.typo3-docheader-buttons .buttongroup .right {	
+	float: right;
 }
 
 .typo3-docheader-buttons input[type="submit"]{
@@ -79,12 +87,12 @@
 	margin-bottom: 20px !important;
 }
 
-img.mailing-state, img.mailing-bounces {
+img.mailing-state, img.mailing-errors {
 	vertical-align: middle;
 	margin-right: 3px;
 }
 
-.mailing-bounces-expander {
+.mailing-errors-expander {
 	cursor: pointer;
 }
 
@@ -243,6 +251,22 @@ img.mailing-state, img.mailing-bounces {
 	margin-top: 10px;	
 }
 
+
+.tx-moox-feusers-admin-filter .group-list .group-link-change {
+	display: block;
+}
+
+.tx-moox-feusers-admin-filter .group-list .group .group-left {
+	width: 30%;
+	float: left;	
+}
+
+.tx-moox-feusers-admin-filter .group-list .group .group-right {
+	width: 30%;
+	text-align: right;
+	float: right;	
+}
+
 .tx-moox-feusers-admin-filter .folder-list-import {
 	margin-left: 200px;
 }
@@ -258,13 +282,34 @@ img.mailing-state, img.mailing-bounces {
 }
 
 .tx-moox-feusers-admin-filter .group-list-footer {
-	padding-left: 20px;
+	padding-left: 15px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 	border-top: 2px solid #999999;
 	margin-top: -1px;
 	background-color: #BBBBBB;
 	color: #FFFFFF;
-	font-weight: bold;
-	text-align: right;
+	font-weight: normale;
+	text-align: left;
+}
+
+.tx-moox-feusers-admin-filter .group-list-footer .group-add {
+	color: #FFF;
+}
+
+.tx-moox-feusers-admin-filter .group-list-footer .group-add-icon {
+	margin-top: 2px;
+	margin-right: 10px;
+}
+
+.tx-moox-feusers-admin .user-add-icon {
+	margin-top: 2px;
+	float: left;
+}
+
+.tx-moox-feusers-admin .group-add-icon-top {
+	margin-top: 2px;
+	float: left;
 }
 
 .tx-moox-feusers-admin-filter a#folder-list-close {
@@ -277,6 +322,7 @@ img.mailing-state, img.mailing-bounces {
 	text-decoration: none;
 	font-weight: normal;
 	color: #FFFFFF;	
+	float: right;
 }
 
 .tx-moox-feusers-admin-filter .folder-noothers {	
@@ -414,20 +460,24 @@ img.mailing-state, img.mailing-bounces {
 	margin-right: 5px;
 }
 
-.tx-moox-feusers-admin-table .feuser-bounces {
+.tx-moox-feusers-admin-table .feuser-errors {
 	display: none;
 }
 
-.tx-moox-feusers-admin-table .feuser-bounces-content {
+.tx-moox-feusers-admin-table .feuser-errors-content {
 	margin: 5px;	
 	padding: 20px;
 	-moz-box-shadow: 0px 0px 10px #333333;
 	-webkit-box-shadow: 0px 0px 10px #333333;
 	box-shadow: 0px 0px 10px #333333;
-	background-color: #F9F9F9;
+	background-color: #F9F9F9;	
 }
 
-.tx-moox-feusers-admin-table .feuser-bounces-content-inner {
+.tx-moox-feusers-admin-table .feuser-bounces-content, .tx-moox-feusers-admin-table .feuser-fails-content {
+	margin-bottom: 20px;
+}
+
+.tx-moox-feusers-admin-table .feuser-bounces-content-inner, .tx-moox-feusers-admin-table .feuser-fails-content-inner {
 	margin-bottom: 10px;
 }
 
@@ -518,6 +568,113 @@ img.mailing-state, img.mailing-bounces {
 	background-color: #d9edf7;
 }
 
+.tx-moox-feusers-admin-table-row-even.tx-moox-feusers-admin-table-row-selected {
+	background-color: #d9edf7;
+}
+.tx-moox-feusers-admin-table-row-odd.tx-moox-feusers-admin-table-row-selected {
+	background-color: #e6f4fa;
+}
+
+.tx-moox-feusers-admin-table-footer {
+	margin-top: 15px;
+	background-color: #EEEEEE;
+	padding: 5px;
+}
+
+#tx-moox-feusers-admin-export-buttons {
+	float: right;
+	display: inline-block;
+}
+
+.feuser-window-open {	
+	display: inline-block;	
+	height: 16px;
+	width: 16px;
+	overflow: hidden;	
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/icon_window.png);	
+	margin-top: 2px;
+}
+
+.feuser-export-button {
+	background-color: #E0E0E0;
+	border: 1px solid #7c7c7c;
+	border-radius: 2px;
+	color: #434343;
+	cursor: pointer;
+	white-space: nowrap;	 
+	text-decoration: none!important;
+	line-height: 18px;
+	display: inline-block;	
+	padding: 3px 6px;
+	padding-left: 25px;
+	vertical-align: middle;
+	background-image: url(/typo3conf/ext/moox_feusers/Resources/Public/Icons/icon_export.png);
+	background-repeat: no-repeat;
+	background-position: 5px 4px;
+}
+
+#tx-moox-feusers-admin-multiple-selector {
+	display: none;
+	float: left;
+}
+
+#tx-moox-feusers-admin-multiple-selector-txt {
+	display: inline-block;
+	background-color: #33a3d3;
+	color: #FFF;
+	border: 1px solid #EEEEEE;
+	border-radius: 4px;
+	line-height: 24px;	
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-left: 10px;
+}
+
+.feuser-multiple-function-submit {
+	margin: 0px;	
+}
+
+.feuser-multiple-function-select {
+	line-height: 24px;
+	height: 24px;
+	margin-left: 5px;
+}
+
+.feuser-check-all-top {
+	margin: 0px;
+	margin-left: 5px;	
+}
+
+.feuser-check-all-bottom {
+	margin: 0px;
+	margin-left: 5px;	
+}
+
+.feuser-multiple-buttons {
+	margin-top: 15px;
+}
+
+.feuser-multiple-confirm-back {
+	background-color: #E0E0E0;
+	background-image: none;
+	border: 1px solid #7c7c7c;
+	border-radius: 2px;
+	color: #434343;
+	cursor: pointer;
+	white-space: nowrap;	 
+	text-decoration: none!important;
+	line-height: 18px;
+	display: inline-block;
+	margin: 0 0.5em 0.5em 0;
+	padding: 3px 6px;
+	vertical-align: middle;
+}
+
+.feuser-multiple-confirm-submit {
+	float: right;
+	line-height: 18px;
+}
+
 .tx-moox-feusers-admin-table-label {
 	font-weight: bold;
 	padding: 5px;
@@ -537,6 +694,10 @@ img.mailing-state, img.mailing-bounces {
 }
 
 .tx-moox-feusers-admin-table-value-bounce-status {
+	text-align: right;
+}
+
+.tx-moox-feusers-admin-table-value-fail-email {
 	text-align: right;
 }
 
@@ -576,6 +737,10 @@ img.mailing-state, img.mailing-bounces {
 .tx-moox-feusers-admin .tx-moox-feusers-admin-form {
 	background-color: #EEEEEE;
 	padding: 10px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form .feuser-username {
+	background-color: #DDDDDD;
 }
 
 .tx-moox-feusers-admin .tx-moox-feusers-admin-form-header {		
@@ -620,6 +785,10 @@ img.mailing-state, img.mailing-bounces {
 	width: 100%;
 	margin: 0px;
 	height: 30px;
+}
+
+.tx-moox-feusers-admin .tx-moox-feusers-admin-form-item select#import-fe-groups {
+	height: auto;
 }
 
 .tx-moox-feusers-admin .tx-moox-feusers-admin-form-item input[type="text"]{
@@ -932,23 +1101,26 @@ img.feuser-usergroup-selector-state {
 	margin-right: 3px;
 }
 
-ul.feuser-move-selection {
+.feuser-move-selection {
 	display: none;
-	margin-top: 7px;
 	position: absolute;
-	background-color: #dadada;
 	z-index: 100;
+	padding-top: 22px;
+	margin-top: -16px;
+	/*margin-bottom: -16px;*/
+}
+
+.feuser-move-selection ul {
 	list-style-type: none;
-	padding-left: 0px;
-	padding: 1px;
-	padding-top: 0px;
-	padding-bottom: 0px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
 	-moz-box-shadow: 0px 0px 5px #000000;
 	-webkit-box-shadow: 0px 0px 5px #000000;
 	box-shadow: 0px 0px 5px #000000;
 }
 
-ul.feuser-move-selection li {	
+.feuser-move-selection ul li {	
 	padding: 5px;
 	padding-bottom: 3px;
 	min-width: 540px;
@@ -956,7 +1128,7 @@ ul.feuser-move-selection li {
 	border-bottom: 1px solid #dadada;	
 }
 
-ul li.feuser-move-selection-header {	
+.feuser-move-selection ul li.feuser-move-selection-header {	
 	padding: 5px;
 	padding-bottom: 3px;
 	min-width: 540px;
@@ -966,19 +1138,19 @@ ul li.feuser-move-selection-header {
 	border-bottom: 1px solid #dadada;	
 }
 
-ul.feuser-move-selection li:hover {
+.feuser-move-selection ul li:hover {
 	background-color: #FFFFFF;
 }
 
-ul li.feuser-move-selection-header:hover {
+.feuser-move-selection ul li.feuser-move-selection-header:hover {
 	background-color: #dadada;
 }
 
-ul.feuser-move-selection li a {
+.feuser-move-selection ul li a {
 	display: block;
 }
 
-ul.feuser-move-selection li a:hover {
+.feuser-move-selection ul li a:hover {
 	text-decoration: none;
 }
 
@@ -988,4 +1160,17 @@ ul.feuser-move-selection li a:hover {
 }
 .moox-feusers-context-element.icon-select-mainusergroup span{
 	margin-right: 4px;
+}
+
+.feuser-checkbox {
+	margin: 0px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.tx-moox-feusers-admin .clear {
+	height: 1px;
+	overflow: hidden;
+	display: block;
+	clear: both;
 }

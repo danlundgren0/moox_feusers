@@ -1,215 +1,263 @@
-var $j = jQuery.noConflict();
+TYPO3.jQuery = jQuery.noConflict();
 
-$j(document).ready(function() {	
+TYPO3.jQuery(document).ready(function() {	
 	
-	$j( "form.feuser-form" ).submit(function( event ) {
-		if($j("#feuser-usergroup-selector-min")){
-			var countOptions = $j('select.feuser-usergroup-selector-display option').size();
-			var minCount = $j("#feuser-usergroup-selector-min").val();
+	TYPO3.jQuery( "form.feuser-form" ).submit(function( event ) {
+		if(TYPO3.jQuery("#feuser-usergroup-selector-min")){
+			var countOptions = TYPO3.jQuery('select.feuser-usergroup-selector-display option').size();
+			var minCount = TYPO3.jQuery("#feuser-usergroup-selector-min").val();
 			if(countOptions<minCount){
 				alert("Sie müssem mindestens " + minCount + " Benutzergruppe(n) auswählen.");
 				event.preventDefault();
 			}
 		}
 	});		
-	$j(".feuser-usergroup-selector-wrapper").bind("contextmenu",function(e){
-		value = $j(this).attr('id').replace(/feuser-usergroup-selector-wrapper-/g,'');
-		$j(".feuser-usergroup-selector-context").hide();
-		$j("#feuser-usergroup-selector-context-" + value).show();		
+	TYPO3.jQuery(".feuser-usergroup-selector-wrapper").bind("contextmenu",function(e){
+		value = TYPO3.jQuery(this).attr('id').replace(/feuser-usergroup-selector-wrapper-/g,'');
+		TYPO3.jQuery(".feuser-usergroup-selector-context").hide();
+		TYPO3.jQuery("#feuser-usergroup-selector-context-" + value).show();		
 	   return false;
 	});
-	$j(".feuser-usergroup-selector-context").mouseleave(function() {
-		$j(this).hide();
+	TYPO3.jQuery(".feuser-usergroup-selector-context").mouseleave(function() {
+		TYPO3.jQuery(this).hide();
 	}); 	
 	
-	$j("#selected-folder").click(function(){
-		if ( $j("#folder-list").is(":visible") ) {
-			$j( "#folder-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );			
-			$j( "#folder-expander" ).addClass( "t3-icon-move-down" );
+	TYPO3.jQuery("#selected-folder").click(function(){
+		if ( TYPO3.jQuery("#folder-list").is(":visible") ) {
+			TYPO3.jQuery( "#folder-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );			
+			TYPO3.jQuery( "#folder-expander" ).addClass( "t3-icon-move-down" );
 		} else { 
-			$j( "#folder-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );
-			$j( "#folder-expander" ).addClass( "t3-icon-move-up" );
+			TYPO3.jQuery( "#folder-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );
+			TYPO3.jQuery( "#folder-expander" ).addClass( "t3-icon-move-up" );
 		}		
-		$j("#folder-list").toggle("fast");
+		TYPO3.jQuery("#folder-list").toggle("fast");
 		
 	});
 	
-	$j("#group-list-close").click(function(){
-		$j("#group-list").hide("fast");
+	TYPO3.jQuery("#folder-list-close").click(function(){
+		TYPO3.jQuery("#folder-list").hide("fast");
 	});
 	
-	$j("#selected-group").click(function(){
-		if ( $j("#group-list").is(":visible") ) {
-			$j( "#group-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );			
-			$j( "#group-expander" ).addClass( "t3-icon-move-down" );
+	TYPO3.jQuery("#group-list-close").click(function(){
+		TYPO3.jQuery("#group-list").hide("fast");
+	});
+	
+	TYPO3.jQuery("#selected-group").click(function(){
+		if ( TYPO3.jQuery("#group-list").is(":visible") ) {
+			TYPO3.jQuery( "#group-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );			
+			TYPO3.jQuery( "#group-expander" ).addClass( "t3-icon-move-down" );
 		} else { 
-			$j( "#group-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );
-			$j( "#group-expander" ).addClass( "t3-icon-move-up" );
+			TYPO3.jQuery( "#group-expander" ).removeClass( "t3-icon-move-up t3-icon-move-down" );
+			TYPO3.jQuery( "#group-expander" ).addClass( "t3-icon-move-up" );
 		}		
-		$j("#group-list").toggle("fast");
+		TYPO3.jQuery("#group-list").toggle("fast");
 		
 	});
 	
-	$j("#group-list-close").click(function(){
-		$j("#group-list").hide("fast");
+	TYPO3.jQuery("#group-list-close").click(function(){
+		TYPO3.jQuery("#group-list").hide("fast");
 	});
 	
-	$j("#filter-query").on("click", function () {
-	   $j(this).select();
+	TYPO3.jQuery("#filter-query").on("click", function () {
+	   TYPO3.jQuery(this).select();
 	});
 	
-	$j("#filter-mailing").on("change", function () {
-	  $j("#filterForm").submit();
+	TYPO3.jQuery("#filter-mailing").on("change", function () {
+	  TYPO3.jQuery("#filterForm").submit();
 	});
 	
-	$j("#filter-state").on("change", function () {
-	  $j("#filterForm").submit();
+	TYPO3.jQuery("#filter-state").on("change", function () {
+	  TYPO3.jQuery("#filterForm").submit();
 	});
 	
-	$j("#filter-quality").on("change", function () {
-	  $j("#filterForm").submit();
+	TYPO3.jQuery("#filter-quality").on("change", function () {
+	  TYPO3.jQuery("#filterForm").submit();
 	});
 	
-	$j("#filter-per-page").on("change", function () {
-	  $j("#filterForm").submit();
+	TYPO3.jQuery("#filter-per-page").on("change", function () {
+	  TYPO3.jQuery("#filterForm").submit();
 	});
 	
-	$j(this).ajaxStart(function(){         
-		  $j("body").append("<div id='tx-moox-feuser-admin-overlay'><img src='/typo3conf/ext/moox_feusers/Resources/Public/Images/ajax-loader.gif' /></div>");
+	TYPO3.jQuery(this).ajaxStart(function(){         
+		  TYPO3.jQuery("body").append("<div id='tx-moox-feuser-admin-overlay'><img src='/typo3conf/ext/moox_feusers/Resources/Public/Images/ajax-loader.gif' /></div>");
     });
 	
-	$j(this).ajaxStop(function(){
-          $j("#tx-moox-feuser-admin-overlay").remove();
+	TYPO3.jQuery(this).ajaxStop(function(){
+          TYPO3.jQuery("#tx-moox-feuser-admin-overlay").remove();
     });	
 		
-	$j(".feuser-details").on("click", function () {
-		$j(this).hide("fast");
+	TYPO3.jQuery(".feuser-details").on("click", function () {
+		TYPO3.jQuery(this).hide("fast");
 	});
 	
-	$j(".feuser-move-expander").on("mouseenter", function () {
-		$id = $j(this).attr("id");
+	TYPO3.jQuery(".feuser-checkbox").on("change", function () {
+		if(TYPO3.jQuery(this).prop("checked")){
+			TYPO3.jQuery(this).parent().parent().addClass("tx-moox-feusers-admin-table-row-selected");
+		} else {
+			TYPO3.jQuery(this).parent().parent().removeClass("tx-moox-feusers-admin-table-row-selected");
+		}
+		checkedCnt 	= TYPO3.jQuery(".feuser-checkbox:checked").length;
+		boxCnt 		= TYPO3.jQuery(".feuser-checkbox").length;
+		if(checkedCnt==boxCnt){
+			TYPO3.jQuery(".feuser-check-all").prop("checked", true);
+		} else {
+			TYPO3.jQuery(".feuser-check-all").prop("checked", false);
+		}		
+		toggleSelectionMenu();
+	});
+	
+	TYPO3.jQuery(".feuser-check-all").on("change", function () {
+		if(TYPO3.jQuery(this).prop("checked")){
+			TYPO3.jQuery(".feuser-check-all").prop("checked", true);
+			TYPO3.jQuery(".feuser-checkbox").each(function(){
+				TYPO3.jQuery(this).prop("checked", true)
+				TYPO3.jQuery(this).parent().parent().addClass("tx-moox-feusers-admin-table-row-selected");
+			});
+		} else {
+			TYPO3.jQuery(".feuser-check-all").prop("checked", false);
+			TYPO3.jQuery(".feuser-checkbox").each(function(){
+				TYPO3.jQuery(this).prop("checked", false)
+				TYPO3.jQuery(this).parent().parent().removeClass("tx-moox-feusers-admin-table-row-selected");
+			});			
+		}
+		toggleSelectionMenu();
+	});
+	
+	TYPO3.jQuery(".feuser-move-expander").on("mouseenter", function () {
+		$id = TYPO3.jQuery(this).attr("id");
 		$id = $id.replace("feuser-move-expander-","");
 		showMoveSelection($id)
 	});
 	
-	$j(".feuser-move-selection").on("mouseleave", function () {
-		$j(".feuser-move-selection").hide("fast");
+	TYPO3.jQuery(".feuser-move-selection").on("mouseleave", function () {
+		TYPO3.jQuery(".feuser-move-selection").hide("fast");
 	});
 	
 	/*
-	$j(".feuser-bounces").on("click", function () {
-		$j(this).hide("fast");
+	TYPO3.jQuery(".feuser-bounces").on("click", function () {
+		TYPO3.jQuery(this).hide("fast");
 	});
 	*/
 });
 
+function toggleSelectionMenu(){
+	showMenu = TYPO3.jQuery(".feuser-checkbox:checked").length;
+	if(showMenu){
+		TYPO3.jQuery("#tx-moox-feusers-admin-multiple-selector-txt").html("<strong>" + showMenu + "</strong> Benutzer gewählt");
+		TYPO3.jQuery("#tx-moox-feusers-admin-multiple-selector").show("fast");
+	} else {
+		TYPO3.jQuery("#tx-moox-feusers-admin-multiple-selector").hide("fast");
+		TYPO3.jQuery("#tx-moox-feusers-admin-multiple-selector-txt").html("Kein Benutzer gewählt");
+	}
+}
+
 function mooxFeusersToggleDetails(id){
-	$j("#folder-list").hide("fast");
-	$j("#group-list").hide("fast");
-	if ( $j("#feuser-details-" + id).is(":visible") ) {
+	TYPO3.jQuery("#folder-list").hide("fast");
+	TYPO3.jQuery("#group-list").hide("fast");
+	if ( TYPO3.jQuery("#feuser-details-" + id).is(":visible") ) {
 		visible = true;
 	} else { 
 		visible = false;
 	}	
-	$j(".feuser-details").hide("fast");
-	$j(".feuser-bounces").hide("fast");
-	$j(".feuser-details-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
-	$j(".feuser-details-expander-reset").addClass( "t3-icon-move-down" );
+	TYPO3.jQuery(".feuser-details").hide("fast");
+	TYPO3.jQuery(".feuser-bounces").hide("fast");
+	TYPO3.jQuery(".feuser-details-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+	TYPO3.jQuery(".feuser-details-expander-reset").addClass( "t3-icon-move-down" );
 	if (visible) {		
-		$j("#feuser-details-" + id).hide("fast");		
-		$j("#feuser-details-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
-		$j("#feuser-details-" + id + "-expander").addClass( "t3-icon-move-down" );
+		TYPO3.jQuery("#feuser-details-" + id).hide("fast");		
+		TYPO3.jQuery("#feuser-details-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+		TYPO3.jQuery("#feuser-details-" + id + "-expander").addClass( "t3-icon-move-down" );
 	} else { 
-		$j("#feuser-details-" + id).show("fast");
-		$j("#feuser-details-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
-		$j("#feuser-details-" + id + "-expander").addClass( "t3-icon-move-up" );		
+		TYPO3.jQuery("#feuser-details-" + id).show("fast");
+		TYPO3.jQuery("#feuser-details-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+		TYPO3.jQuery("#feuser-details-" + id + "-expander").addClass( "t3-icon-move-up" );		
 	}	
 }
 
-function mooxFeusersToggleBounces(id){
-	$j("#folder-list").hide("fast");
-	$j("#group-list").hide("fast");
-	$j(".feuser-bounces-bounce").hide("fast");
-	$j(".feuser-bounces-bounce-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
-	$j(".feuser-bounces-bounce-expander-reset").addClass( "t3-icon-move-down" );
-	if ( $j("#feuser-bounces-" + id).is(":visible") ) {
+function mooxFeusersToggleErrors(id){
+	TYPO3.jQuery("#folder-list").hide("fast");
+	TYPO3.jQuery("#group-list").hide("fast");
+	TYPO3.jQuery(".feuser-bounces-bounce").hide("fast");
+	TYPO3.jQuery(".feuser-bounces-bounce-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+	TYPO3.jQuery(".feuser-bounces-bounce-expander-reset").addClass( "t3-icon-move-down" );
+	if ( TYPO3.jQuery("#feuser-errors-" + id).is(":visible") ) {
 		visible = true;
 	} else { 
 		visible = false;
 	}	
-	$j(".feuser-bounces").hide("fast");
-	$j(".feuser-details").hide("fast");	
+	TYPO3.jQuery(".feuser-errors").hide("fast");
+	TYPO3.jQuery(".feuser-details").hide("fast");	
 	if (visible) {		
-		$j("#feuser-bounces-" + id).hide("fast");				
+		TYPO3.jQuery("#feuser-errors-" + id).hide("fast");				
 	} else { 
-		$j("#feuser-bounces-" + id).show("fast");		
+		TYPO3.jQuery("#feuser-errors-" + id).show("fast");		
 	}	
 }
 
 function mooxFeusersToggleBounce(id){
-	$j("#folder-list").hide("fast");
-	$j("#group-list").hide("fast");
-	if ( $j("#feuser-bounces-bounce-" + id).is(":visible") ) {
+	TYPO3.jQuery("#folder-list").hide("fast");
+	TYPO3.jQuery("#group-list").hide("fast");
+	if ( TYPO3.jQuery("#feuser-bounces-bounce-" + id).is(":visible") ) {
 		visible = true;
 	} else { 
 		visible = false;
 	}	
-	$j(".feuser-bounces-bounce").hide("fast");
-	$j(".feuser-details").hide("fast");	
-	$j(".feuser-bounces-bounce-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
-	$j(".feuser-bounces-bounce-expander-reset").addClass( "t3-icon-move-down" );
+	TYPO3.jQuery(".feuser-bounces-bounce").hide("fast");
+	TYPO3.jQuery(".feuser-details").hide("fast");	
+	TYPO3.jQuery(".feuser-bounces-bounce-expander-reset").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+	TYPO3.jQuery(".feuser-bounces-bounce-expander-reset").addClass( "t3-icon-move-down" );
 	if (visible) {		
-		$j("#feuser-bounces-bounce-" + id).hide("fast");
-		$j("#feuser-bounces-bounce-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
-		$j("#feuser-bounces-bounce-" + id + "-expander").addClass( "t3-icon-move-down" );
+		TYPO3.jQuery("#feuser-bounces-bounce-" + id).hide("fast");
+		TYPO3.jQuery("#feuser-bounces-bounce-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+		TYPO3.jQuery("#feuser-bounces-bounce-" + id + "-expander").addClass( "t3-icon-move-down" );
 	} else { 
-		$j("#feuser-bounces-bounce-" + id).show("fast");
-		$j("#feuser-bounces-bounce-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
-		$j("#feuser-bounces-bounce-" + id + "-expander").addClass( "t3-icon-move-up" );		
+		TYPO3.jQuery("#feuser-bounces-bounce-" + id).show("fast");
+		TYPO3.jQuery("#feuser-bounces-bounce-" + id + "-expander").removeClass( "t3-icon-move-up t3-icon-move-down" );			
+		TYPO3.jQuery("#feuser-bounces-bounce-" + id + "-expander").addClass( "t3-icon-move-up" );		
 	}	
 }
 
 function mooxFeusersUpdateUsergroupsField(id){
-	var countOptions = $j(id + '_list option').size();
+	var countOptions = TYPO3.jQuery(id + '_list option').size();
 	var cnt = 1;
-	$j(".feuser-usergroup-selector-wrapper .t3-icon-toolbar-menu-shortcut.feuser-usergroup-selector-icon").addClass( "t3-icon-mimetypes t3-icon-mimetypes-x t3-icon-x-sys_category feuser-usergroup-selector-icon" );
-	$j(".feuser-usergroup-selector-wrapper .t3-icon-toolbar-menu-shortcut.feuser-usergroup-selector-icon").removeClass( "t3-icon-apps t3-icon-apps-toolbar t3-icon-toolbar-menu-shortcut feuser-usergroup-selector-icon" );	
+	TYPO3.jQuery(".feuser-usergroup-selector-wrapper .t3-icon-toolbar-menu-shortcut.feuser-usergroup-selector-icon").addClass( "t3-icon-mimetypes t3-icon-mimetypes-x t3-icon-x-sys_category feuser-usergroup-selector-icon" );
+	TYPO3.jQuery(".feuser-usergroup-selector-wrapper .t3-icon-toolbar-menu-shortcut.feuser-usergroup-selector-icon").removeClass( "t3-icon-apps t3-icon-apps-toolbar t3-icon-toolbar-menu-shortcut feuser-usergroup-selector-icon" );	
 	if(countOptions>0){
-		$j(id + '_list option').each( function() {
-			$j(this).text($j(this).text().replace(/ \(Hauptgruppe\)/g,''));			
+		TYPO3.jQuery(id + '_list option').each( function() {
+			TYPO3.jQuery(this).text(TYPO3.jQuery(this).text().replace(/ \(Hauptgruppe\)/g,''));			
 			if(cnt==1){
-				$j("#feuser-usergroup-selector-hidden").val($j(this).attr('value'));
-				$j(this).text($j(this).text() + " (Hauptgruppe)");											
-				$j("#feuser-usergroup-selector-icon-" + $j(this).attr('value')).removeClass( "t3-icon-mimetypes t3-icon-mimetypes-x t3-icon-x-sys_category feuser-usergroup-selector-icon" );
-				$j("#feuser-usergroup-selector-icon-" + $j(this).attr('value')).addClass( "t3-icon-apps t3-icon-apps-toolbar t3-icon-toolbar-menu-shortcut feuser-usergroup-selector-icon" );				
+				TYPO3.jQuery("#feuser-usergroup-selector-hidden").val(TYPO3.jQuery(this).attr('value'));
+				TYPO3.jQuery(this).text(TYPO3.jQuery(this).text() + " (Hauptgruppe)");											
+				TYPO3.jQuery("#feuser-usergroup-selector-icon-" + TYPO3.jQuery(this).attr('value')).removeClass( "t3-icon-mimetypes t3-icon-mimetypes-x t3-icon-x-sys_category feuser-usergroup-selector-icon" );
+				TYPO3.jQuery("#feuser-usergroup-selector-icon-" + TYPO3.jQuery(this).attr('value')).addClass( "t3-icon-apps t3-icon-apps-toolbar t3-icon-toolbar-menu-shortcut feuser-usergroup-selector-icon" );				
 			} else {
-				$j("#feuser-usergroup-selector-hidden").val($j("#feuser-usergroup-selector-hidden").val() + "," + $j(this).attr('value'));
+				TYPO3.jQuery("#feuser-usergroup-selector-hidden").val(TYPO3.jQuery("#feuser-usergroup-selector-hidden").val() + "," + TYPO3.jQuery(this).attr('value'));
 			}
 			cnt = cnt + 1;
 		});	
 	} else {
-		$j("#feuser-usergroup-selector-hidden").val("");
+		TYPO3.jQuery("#feuser-usergroup-selector-hidden").val("");
 	}
-	$j("#feuser-usergroup-selector-cnt").text(countOptions);
+	TYPO3.jQuery("#feuser-usergroup-selector-cnt").text(countOptions);
 }
 
 function mooxFeusersAddOption(id,value,label){	
 	var alreadyExisting = false;
-	var maxCount = $j("#feuser-usergroup-selector-max").val();
+	var maxCount = TYPO3.jQuery("#feuser-usergroup-selector-max").val();
 	if(maxCount === undefined){
 		maxCount = 0;
 	}	
-	var countOptions = $j(id + '_list option').size();
+	var countOptions = TYPO3.jQuery(id + '_list option').size();
 	if(countOptions<maxCount || maxCount==0){
-		$j(id + '_list option').each(function(){
-			if($j(this).attr('value')==value){
+		TYPO3.jQuery(id + '_list option').each(function(){
+			if(TYPO3.jQuery(this).attr('value')==value){
 				alreadyExisting = true;			
 			}
 		});
-		$j(id + '_list option').removeAttr('selected');
+		TYPO3.jQuery(id + '_list option').removeAttr('selected');
 		if(!alreadyExisting){
-			$j(id + '_list').append( new Option(label,value,false,true) );
-			$j("#feuser-usergroup-selector-wrapper-" + value).addClass( "feuser-usergroup-selector-active" );
+			TYPO3.jQuery(id + '_list').append( new Option(label,value,false,true) );
+			TYPO3.jQuery("#feuser-usergroup-selector-wrapper-" + value).addClass( "feuser-usergroup-selector-active" );
 		}
 	}
 	mooxFeusersUpdateUsergroupsField(id);
@@ -217,54 +265,54 @@ function mooxFeusersAddOption(id,value,label){
 
 function mooxFeusersToggleOption(id,value,label){	
 	var alreadyExisting = false;
-	var maxCount = $j("#feuser-usergroup-selector-max").val();
+	var maxCount = TYPO3.jQuery("#feuser-usergroup-selector-max").val();
 	if(maxCount === undefined){
 		maxCount = 0;
 	}	
-	var countOptions = $j(id + '_list option').size();
-	$j(id + '_list option').each(function(){
-		if($j(this).attr('value')==value){
+	var countOptions = TYPO3.jQuery(id + '_list option').size();
+	TYPO3.jQuery(id + '_list option').each(function(){
+		if(TYPO3.jQuery(this).attr('value')==value){
 			alreadyExisting = true;			
 		}
     });
-	$j(id + '_list option').removeAttr('selected');
+	TYPO3.jQuery(id + '_list option').removeAttr('selected');
 	if(!alreadyExisting){
 		if(countOptions<maxCount || maxCount==0){
-			$j(id + '_list').append( new Option(label,value,false,true) );
-			$j("#feuser-usergroup-selector-wrapper-" + value).addClass( "feuser-usergroup-selector-active" );
+			TYPO3.jQuery(id + '_list').append( new Option(label,value,false,true) );
+			TYPO3.jQuery("#feuser-usergroup-selector-wrapper-" + value).addClass( "feuser-usergroup-selector-active" );
 		}
 	} else {
-		$j(id + '_list option[value="' + value + '"]').remove();
-		$j("#feuser-usergroup-selector-wrapper-" + value).removeClass( "feuser-usergroup-selector-active" );
+		TYPO3.jQuery(id + '_list option[value="' + value + '"]').remove();
+		TYPO3.jQuery("#feuser-usergroup-selector-wrapper-" + value).removeClass( "feuser-usergroup-selector-active" );
 	}
 	mooxFeusersUpdateUsergroupsField(id);
 }
 
 function mooxFeusersAddAllOptions(id){	
 		
-	$j(".feuser-usergroup-selector-wrapper").each(function(){
-		value = $j(this).attr('id').replace(/feuser-usergroup-selector-wrapper-/g,'');
-		mooxFeusersAddOption(id,value,$j("#feuser-usergroup-selector-title-" + value).attr('title'));		
+	TYPO3.jQuery(".feuser-usergroup-selector-wrapper").each(function(){
+		value = TYPO3.jQuery(this).attr('id').replace(/feuser-usergroup-selector-wrapper-/g,'');
+		mooxFeusersAddOption(id,value,TYPO3.jQuery("#feuser-usergroup-selector-title-" + value).attr('title'));		
     });
-	$j(".feuser-usergroup-selector-wrapper").each(function(){
-		value = $j(this).attr('id').replace(/feuser-usergroup-selector-wrapper-/g,'');
-		$j(id + '_list option[value="' + value + '"]').attr('selected',true);		
+	TYPO3.jQuery(".feuser-usergroup-selector-wrapper").each(function(){
+		value = TYPO3.jQuery(this).attr('id').replace(/feuser-usergroup-selector-wrapper-/g,'');
+		TYPO3.jQuery(id + '_list option[value="' + value + '"]').attr('selected',true);		
     });	
 	mooxFeusersUpdateUsergroupsField(id);
 }
 
 function mooxFeusersRemoveOptions(id){	
-	$j(id + '_list option:selected').each(function(){
-		$j("#feuser-usergroup-selector-wrapper-" + $j(this).attr('value')).removeClass( "feuser-usergroup-selector-active" );
-		$j(this).remove();
+	TYPO3.jQuery(id + '_list option:selected').each(function(){
+		TYPO3.jQuery("#feuser-usergroup-selector-wrapper-" + TYPO3.jQuery(this).attr('value')).removeClass( "feuser-usergroup-selector-active" );
+		TYPO3.jQuery(this).remove();
     });
 	mooxFeusersUpdateUsergroupsField(id);
 }
 
 function mooxFeusersRemoveAllOptions(id){	
-	$j(id + '_list option').each(function(){
-		$j("#feuser-usergroup-selector-wrapper-" + $j(this).attr('value')).removeClass( "feuser-usergroup-selector-active" );
-		$j(this).remove();
+	TYPO3.jQuery(id + '_list option').each(function(){
+		TYPO3.jQuery("#feuser-usergroup-selector-wrapper-" + TYPO3.jQuery(this).attr('value')).removeClass( "feuser-usergroup-selector-active" );
+		TYPO3.jQuery(this).remove();
     });
 	mooxFeusersUpdateUsergroupsField(id);
 }
@@ -275,20 +323,20 @@ function mooxFeusersSetMainUsergroup(id,value,label){
 	label = typeof label !== 'undefined' ? label : '';
 	
 	var newPos = 0;
-	var countOptions = $j(id + '_list option:selected').size();
+	var countOptions = TYPO3.jQuery(id + '_list option:selected').size();
 	if(value>0){
 		mooxFeusersAddOption(id,value,label);
-		$j(id + '_list option[value="' + value + '"]').remove();
-		$j(id + '_list option').eq(newPos).before("<option value='"+value+"' selected='selected'>"+ label +"</option>");		
-		$j(".feuser-usergroup-selector-context").hide();
+		TYPO3.jQuery(id + '_list option[value="' + value + '"]').remove();
+		TYPO3.jQuery(id + '_list option').eq(newPos).before("<option value='"+value+"' selected='selected'>"+ label +"</option>");		
+		TYPO3.jQuery(".feuser-usergroup-selector-context").hide();
 	} else {
 		if(countOptions>1){
 			alert("Bitte wählen Sie nur eine Benutzergruppe als Hauptgruppe aus");
 		} else {
-			$j(id + '_list option:selected').each( function() {		
-				value = $j(this).val();
-				$j(id + '_list option').eq(newPos).before("<option value='"+value+"' selected='selected'>"+$j(this).text()+"</option>");
-				$j(this).remove();		
+			TYPO3.jQuery(id + '_list option:selected').each( function() {		
+				value = TYPO3.jQuery(this).val();
+				TYPO3.jQuery(id + '_list option').eq(newPos).before("<option value='"+value+"' selected='selected'>"+TYPO3.jQuery(this).text()+"</option>");
+				TYPO3.jQuery(this).remove();		
 				newPos = newPos + 1;
 			});					
 		}
@@ -298,49 +346,49 @@ function mooxFeusersSetMainUsergroup(id,value,label){
 
 function mooxFeusersMoveOptionsToTop(id){	
 	var newPos = 0;
-	$j(id + '_list option:selected').each( function() {		
-		$j(id + '_list option').eq(newPos).before("<option value='"+$j(this).val()+"' selected='selected'>"+$j(this).text()+"</option>");
-		$j(this).remove();		
+	TYPO3.jQuery(id + '_list option:selected').each( function() {		
+		TYPO3.jQuery(id + '_list option').eq(newPos).before("<option value='"+TYPO3.jQuery(this).val()+"' selected='selected'>"+TYPO3.jQuery(this).text()+"</option>");
+		TYPO3.jQuery(this).remove();		
 		newPos = newPos + 1;
     });
 	mooxFeusersUpdateUsergroupsField(id);
 }
 
 function mooxFeusersMoveOptionsOneUp(id){	
-	$j(id + '_list option:selected').each( function() {
-		var newPos = $j(id + '_list option').index(this) - 1;
+	TYPO3.jQuery(id + '_list option:selected').each( function() {
+		var newPos = TYPO3.jQuery(id + '_list option').index(this) - 1;
 		if (newPos > -1) {
-			$j(id + '_list option').eq(newPos).before("<option value='"+$j(this).val()+"' selected='selected'>"+$j(this).text()+"</option>");
-			$j(this).remove();
+			TYPO3.jQuery(id + '_list option').eq(newPos).before("<option value='"+TYPO3.jQuery(this).val()+"' selected='selected'>"+TYPO3.jQuery(this).text()+"</option>");
+			TYPO3.jQuery(this).remove();
 		}	
     });
 	mooxFeusersUpdateUsergroupsField(id);
 }
 
 function mooxFeusersMoveOptionsOneDown(id){	
-	var countOptions = $j(id + '_list option').size();
-	$j($j(id + '_list option:selected').get().reverse()).each( function() {
-		var newPos = $j(id + '_list option').index(this) + 1;
+	var countOptions = TYPO3.jQuery(id + '_list option').size();
+	TYPO3.jQuery(TYPO3.jQuery(id + '_list option:selected').get().reverse()).each( function() {
+		var newPos = TYPO3.jQuery(id + '_list option').index(this) + 1;
 		if (newPos < countOptions) {
-			$j(id + '_list option').eq(newPos).after("<option value='"+$j(this).val()+"' selected='selected'>"+$j(this).text()+"</option>");
-			$j(this).remove();
+			TYPO3.jQuery(id + '_list option').eq(newPos).after("<option value='"+TYPO3.jQuery(this).val()+"' selected='selected'>"+TYPO3.jQuery(this).text()+"</option>");
+			TYPO3.jQuery(this).remove();
 		}	
     });
 	mooxFeusersUpdateUsergroupsField(id);
 }
 
 function mooxFeusersMoveOptionsToBottom(id){	
-	var newPos = $j(id + '_list option').size();
+	var newPos = TYPO3.jQuery(id + '_list option').size();
 	newPos = newPos - 1;
-	$j($j(id + '_list option:selected').get().reverse()).each( function() {
-		$j(id + '_list option').eq(newPos).after("<option value='"+$j(this).val()+"' selected='selected'>"+$j(this).text()+"</option>");
-		$j(this).remove();
+	TYPO3.jQuery(TYPO3.jQuery(id + '_list option:selected').get().reverse()).each( function() {
+		TYPO3.jQuery(id + '_list option').eq(newPos).after("<option value='"+TYPO3.jQuery(this).val()+"' selected='selected'>"+TYPO3.jQuery(this).text()+"</option>");
+		TYPO3.jQuery(this).remove();
 		newPos = newPos - 1;	
     });
 	mooxFeusersUpdateUsergroupsField(id);
 }
 
 function showMoveSelection(uid){	
-	$j(".feuser-move-selection").hide("fast");
-	$j("#feuser-move-selection-" + uid).show("fast");	
+	TYPO3.jQuery(".feuser-move-selection").hide("fast");
+	TYPO3.jQuery("#feuser-move-selection-" + uid).show("fast");	
 }

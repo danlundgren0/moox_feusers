@@ -2,7 +2,7 @@
 
 <v:variable.set name="cssFile" value="{f:uri.resource(path:'Css/administration.css')}" />
 
-<f:be.container includeCssFiles="{admincss: cssFile}" loadExtJsTheme="false" extJsAdapter="jQuery" loadJQuery="true" loadPrototype="false">
+<f:be.container includeCssFiles="{admincss: cssFile}" loadExtJs="false" loadExtJsTheme="false" enableJumpToUrl="false" enableClickMenu="false" extJsAdapter="jQuery" loadJQuery="true" loadPrototype="false">
 	<script src="{f:uri.resource(path:'JavaScript/administration.js')}" type="text/javascript"></script>
 	<div class="typo3-fullDoc tx-moox-feusers-admin">
 		<div id="typo3-docheader">			
@@ -12,12 +12,10 @@
 					<f:be.menus.actionMenu>						
 						<f:be.menus.actionMenuItem label="Frontend-Benutzer" controller="Administration" action="index" />
 						<f:be.menus.actionMenuItem label="Vorlagen" controller="Template" action="index" />
-						<f:comment>
-							<f:be.menus.actionMenuItem label="Import" controller="Import" action="index" />
-						</f:comment>
+						<f:be.menus.actionMenuItem label="Import" controller="Import" action="index" />						
 					</f:be.menus.actionMenu>
 				</div>
-				<div class="right">
+				<div class="right">					 
 					<f:be.buttons.shortcut />
 				</div>
 			</div>			
@@ -25,8 +23,16 @@
 		<div class="typo3-docheader-buttons">
 			<div class="buttongroup">
 				<div class="left">
-					<f:link.action action="add" title="Neuer Benutzer">
-						<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-new">&nbsp;</span>
+					<f:link.action action="add" class="user-add" title="Neuer Benutzer">
+						<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-new user-add-icon">&nbsp;</span>
+					</f:link.action>
+					<f:link.action action="addGroup" class="group-add" title="Neue Benutzergruppe">
+						<img class="group-add-icon group-add-icon-top" width="16" height="16" align="left" src="{f:uri.resource(path:'Icons/icon_group_add.png')}">
+					</f:link.action>
+				</div>
+				<div class="right">
+					<f:link.action class="feuser-window-open" action="index" target="_blank" additionalParams="{id:page}">
+						&nbsp;
 					</f:link.action>
 				</div>
 			</div>

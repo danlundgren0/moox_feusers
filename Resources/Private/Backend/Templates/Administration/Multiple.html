@@ -1,0 +1,56 @@
+{namespace v=FluidTYPO3\Vhs\ViewHelpers}
+<f:layout name="List" />
+
+<f:section name="content">
+	<div class="tx-moox-feusers-admin">
+		<h1><f:image class="moox-icon" src="{f:uri.resource(path: 'Moox/mooxlogoicon.png')}" /> Benutzer {functionTxt}</h1>
+		<f:form action="multiple" method="POST" arguments="{pagination:pagination}" id="selectForm" object="{selection}">
+			<div class="tx-moox-feusers-admin-body">												
+				<div class="tx-moox-feusers-admin-info">
+					<f:if condition="{items -> f:count()}>0">
+						<f:then>
+							<div class="tx-moox-feusers-admin-table">
+								<table cellpadding="0" cellspacing="0" border="0" width="100%">
+									<thead>
+										<tr>
+											<th>UID</th>
+											<th>Benutzername</th>											
+											<th>Name</th>
+											<th>Firma</th>
+											<th style="text-align:right">Email</th>
+										</tr>
+									</thead>
+									<tbody>
+										<f:for each="{items}" as="feUser" iteration="iteration">
+											<tr id="feuser-row-{item.uid}" class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
+												<td style="width: 50px" class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-uid">{feUser.uid}</td>
+												<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-username">{feUser.username}</td>												
+												<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-name">{feUser.name}</td>
+												<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-company">{feUser.company}</td>
+												<td style="text-align:right" class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-email">{feUser.email}</td>
+												<f:form.hidden name="items[]" value="{feUser.uid}" />
+											</tr>
+										</f:for>
+								</table>									
+							</div>
+							<f:form.hidden name="function" value="{function}Confirmed" />							
+						</f:then>
+						<f:else>
+							<div class="tx-moox-feusers-admin-nofeusers">
+								Es wurden keine Benutzer gewählt
+							</div>
+						</f:else>
+					</f:if>
+				</div>								
+			</div>
+			<div class="feuser-multiple-buttons">
+				<f:link.action class="feuser-multiple-confirm-back" action="index">
+					Zurück
+				</f:link.action>
+				<f:if condition="{items -> f:count()}>0">
+					<f:form.submit class="feuser-multiple-confirm-submit" value="Wirklich {functionTxt}?" />
+				</f:if>
+			</div>
+		</f:form>
+	</div>		
+</f:section>

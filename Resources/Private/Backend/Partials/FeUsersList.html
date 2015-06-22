@@ -3,7 +3,8 @@
 <tbody>
 	<f:for each="{feUsers}" as="item" iteration="iteration">
 		<tr id="feuser-row-{item.uid}" class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
-			<td class="tx-moox-feusers-admin-table-options" style="width: 150px">
+			<td class="tx-moox-feusers-admin-table-options" style="width: 180px">
+				<f:form.checkbox class="feuser-checkbox" name="items[]" value="{item.uid}" />
 				<f:link.action action="delete" arguments="{uid:item.uid,pagination:pagination}" onclick="return window.confirm('Wollen Sie diesen Benutzer wirklich löschen?')" title="{item.username} [{item.name}] löschen">
 					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete">&nbsp;</span>
 				</f:link.action>							
@@ -14,12 +15,19 @@
 					<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-{f:if(condition: item.disable, then: 'unhide', else: 'hide')}">&nbsp;</span>
 				</f:link.action>
 				<f:if condition="{mailerActive}">
+					<v:variable.set name="showErrors" value="" />
 					<f:if condition="{item.bounces -> f:count()}>0">
+						<v:variable.set name="showErrors" value="1" />					
+					</f:if>
+					<f:if condition="{item.errors -> f:count()}>0">
+						<v:variable.set name="showErrors" value="1" />					
+					</f:if>
+					<f:if condition="{showErrors}">
 						<f:then>
-							<img onclick="mooxFeusersToggleBounces({item.uid})" id="feuser-bounces-{item.uid}-expander" class="mailing-bounces mailing-bounces-expander" src="{f:uri.resource(path:'Icons/icon_has_bounces.png')}" width="16" height="16" alt="Bounce-Mails anzeigen" title="Bounce-Mails anzeigen" />								
+							<img onclick="mooxFeusersToggleErrors({item.uid})" id="feuser-errors-{item.uid}-expander" class="mailing-errors mailing-errors-expander" src="{f:uri.resource(path:'Icons/icon_has_errors.png')}" width="16" height="16" alt="Fehler anzeigen" title="Fehler anzeigen" />								
 						</f:then>
 						<f:else>
-							<img class="mailing-bounces" src="{f:uri.resource(path:'Icons/icon_no_bounces.png')}" width="16" height="16" alt="Keine Bounce-Mails" title="Keine Bounce-Mails" />
+							<img class="mailing-errors" src="{f:uri.resource(path:'Icons/icon_no_errors.png')}" width="16" height="16" alt="Keine Fehler" title="Keine Fehler" />
 						</f:else>
 					</f:if>
 					<f:link.action action="toggleDisallowMailing" arguments="{uid:item.uid,pagination:pagination}" title="Newsletter-Empfang für {item.username} [{item.name}] {f:if(condition: item.mailingAllowed, then: 'deaktivieren', else: 'aktivieren')}">
@@ -36,21 +44,23 @@
 				<f:if condition="{folders -> f:count()}>0">
 					<div class="feuser-move">
 						<f:image id="feuser-move-expander-{newsItem.uid}" class="feuser-move-expander" src="EXT:moox_feusers/Resources/Public/Icons/icon-move.png" alt="In Ordner verschieben" />	
-						<ul id="feuser-move-selection-{newsItem.uid}" class="feuser-move-selection">
-							<li class="feuser-move-selection-header">In welchen Ordner wollen Sie den Benutzer "{item.username}" verschieben?</li>
-							<f:if condition="{page}!='0'">
-								<li>								
-									<f:link.action action="moveToFolder" arguments="{pid:0.uid,uid:item.uid}" title="UID: 0"><span title="Benutzer ohne Ordner [UID: 0]" class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-pages t3-icon-pages-contains-mxfeuser">&nbsp;</span>&nbsp;&nbsp;Benutzer ohne Ordner</f:link.action>
-								</li>
-							</f:if>
-							<f:for each="{folders}" as="moveFolder" iteration="iteration2">			
-								<f:if condition="{page}!={moveFolder.uid}">
+						<div id="feuser-move-selection-{newsItem.uid}" class="feuser-move-selection">
+							<ul>
+								<li class="feuser-move-selection-header">In welchen Ordner wollen Sie den Benutzer "{item.username}" verschieben?</li>
+								<f:if condition="{page}!='0'">
 									<li>								
-										<f:link.action action="moveToFolder" arguments="{pid:moveFolder.uid,uid:item.uid}" title="UID: {moveFolder.uid}"><f:if condition="{moveFolder.folder}">&nbsp;&nbsp;&nbsp;&nbsp;</f:if><span title="{moveFolder.title} [UID: {moveFolder.uid}]" class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-pages t3-icon-pages-contains-mxfeuser">&nbsp;</span>&nbsp;&nbsp;{moveFolder.title}<span style="float: right" title="Pfad: <f:for each="{moveFolder.rootline}" as="path">\{path.title}</f:for> [UID: {moveFolder.uid}]">[UID: {moveFolder.uid} | Rootpage: {moveFolder.rootpage.title}]</span></f:link.action>
+										<f:link.action action="moveToFolder" arguments="{pid:0,uid:item.uid}" title="UID: 0"><span title="Benutzer ohne Ordner [UID: 0]" class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-pages t3-icon-pages-contains-mxfeuser">&nbsp;</span>&nbsp;&nbsp;Benutzer ohne Ordner</f:link.action>
 									</li>
 								</f:if>
-							</f:for>
-						</ul>
+								<f:for each="{folders}" as="moveFolder" iteration="iteration2">			
+									<f:if condition="{page}!={moveFolder.uid}">
+										<li>								
+											<f:link.action action="moveToFolder" arguments="{pid:moveFolder.uid,uid:item.uid}" title="UID: {moveFolder.uid}"><f:if condition="{moveFolder.folder}">&nbsp;&nbsp;&nbsp;&nbsp;</f:if><span title="{moveFolder.title} [UID: {moveFolder.uid}]" class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-pages t3-icon-pages-contains-mxfeuser">&nbsp;</span>&nbsp;&nbsp;{moveFolder.title}<span style="float: right" title="Pfad: <f:for each="{moveFolder.rootline}" as="path">\{path.title}</f:for> [UID: {moveFolder.uid}]">[UID: {moveFolder.uid} | Rootpage: {moveFolder.rootpage.title}]</span></f:link.action>
+										</li>
+									</f:if>
+								</f:for>
+							</ul>
+						</div>
 					</div>
 				</f:if>
 			</td>
@@ -62,10 +72,17 @@
 			</td>
 		</tr>
 		<f:if condition="{mailerActive}">
-			<f:if condition="{item.bounces -> f:count()}>0">
-				<tr class="feuser-bounces" id="feuser-bounces-{item.uid}">
+			<f:if condition="{showErrors}">
+				<tr class="feuser-errors" id="feuser-errors-{item.uid}">
 					<td colspan="<v:math.sum a="{fields -> f:count()}" b="1" />">
-						<f:render partial="FeUserBounces" arguments="{item: item, conf: conf}" />
+						<div class="feuser-errors-content">	
+							<f:if condition="{item.errors -> f:count()}>0">
+								<f:render partial="FeUserFails" arguments="{item: item, conf: conf}" />
+							</f:if>
+							<f:if condition="{item.bounces -> f:count()}>0">
+								<f:render partial="FeUserBounces" arguments="{item: item, conf: conf}" />
+							</f:if>							
+						</div>
 					</td>
 				</tr>
 			</f:if>

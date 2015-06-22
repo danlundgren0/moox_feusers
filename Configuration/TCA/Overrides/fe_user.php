@@ -30,6 +30,20 @@ $newFeUserColumns = array(
 			'type' => 'passthrough'
 		)
 	),
+	'gender' => Array (		
+		'exclude' => 1,		
+		'label'	=> 'LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxmailer_domain_model_frontenduser.gender',		
+		'config' => Array (
+			'type' => 'select',
+			'items' => Array (
+					Array('LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxmailer_domain_model_frontenduser.gender.none', 0),
+					Array('LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxmailer_domain_model_frontenduser.gender.male', 1),
+					Array('LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxmailer_domain_model_frontenduser.gender.female', 2),					
+			),			
+			'size' => 1,	
+			'maxitems' => 1,
+		)
+	),
 	'falImages' => array(
 		'exclude' => 0,
 		'label' => 'LLL:EXT:moox_feusers/Resources/Private/Language/locallang_db.xlf:tx_mooxfeusers_domain_model_frontenduser.images',
@@ -116,6 +130,7 @@ $newFeUserColumns = array(
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $newFeUserColumns,1);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'gender', '','before:name');
 
 if($extConf['imageUploadFolder']==""){
 	$extConf['imageUploadFolder'] = "uploads/tx_mooxfeusers";

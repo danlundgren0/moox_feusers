@@ -24,7 +24,7 @@
 								</v:case>														
 							</v:switch>						
 							<tr class="tx-moox-feusers-admin-table-row tx-moox-feusers-admin-table-row-{f:if(condition: iteration.isEven, then: 'odd', else: 'even')}{f:if(condition: iteration.isLast, then: ' tx-moox-feusers-admin-table-row-last')}">
-								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-bounce-date}">
+								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-bounce-date}" style="width: 150px">
 									{f:format.date(format: 'd.m.Y H:i:s', date: bounce.bounced)}
 								</td>
 								<td class="tx-moox-feusers-admin-table-value tx-moox-feusers-admin-table-value-bounce-type}" onclick="mooxFeusersToggleBounce({bounce.uid})">

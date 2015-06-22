@@ -124,7 +124,16 @@
 			<trans-unit id="tx_mooxfeusers_domain_model_template">
 				<source>template</source>
 				<target>Vorlage</target>				
-			</trans-unit>				
+			</trans-unit>	
+
+			<trans-unit id="be_users.moox_feusers_custom_csv_export_fields">
+				<source>[Frontend-User] custom csv export field list (comma separated)</source>
+				<target>[Frontend-Benutzer] Benutzerdefinierte Feld-Liste für CSV-Export (Komma-separiert)</target>				
+			</trans-unit>
+			<trans-unit id="be_users.moox_feusers_custom_csv_import_fields">
+				<source>[Frontend-User] custom csv import field list (comma separated)</source>
+				<target>[Frontend-Benutzer] Benutzerdefinierte Feld-Liste für CSV-Import (Komma-separiert)</target>				
+			</trans-unit>
 			
 		</body>
 	</file>
