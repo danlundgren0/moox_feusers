@@ -43,8 +43,8 @@
 				</f:if>
 				<f:if condition="{folders -> f:count()}>0">
 					<div class="feuser-move">
-						<f:image id="feuser-move-expander-{newsItem.uid}" class="feuser-move-expander" src="EXT:moox_feusers/Resources/Public/Icons/icon-move.png" alt="In Ordner verschieben" />	
-						<div id="feuser-move-selection-{newsItem.uid}" class="feuser-move-selection">
+						<f:image id="feuser-move-expander-{item.uid}" class="feuser-move-expander" src="EXT:moox_feusers/Resources/Public/Icons/icon-move.png" alt="In Ordner verschieben" />	
+						<div id="feuser-move-selection-{item.uid}" class="feuser-move-selection">
 							<ul>
 								<li class="feuser-move-selection-header">In welchen Ordner wollen Sie den Benutzer "{item.username}" verschieben?</li>
 								<f:if condition="{page}!='0'">
