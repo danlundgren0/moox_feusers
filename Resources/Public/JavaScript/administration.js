@@ -124,9 +124,9 @@ TYPO3.jQuery(document).ready(function() {
 	});
 	
 	TYPO3.jQuery(".feuser-move-expander").on("mouseenter", function () {
-		$id = TYPO3.jQuery(this).attr("id");
-		$id = $id.replace("feuser-move-expander-","");
-		showMoveSelection($id)
+		id = TYPO3.jQuery(this).attr("id");
+		id = id.replace("feuser-move-expander-","");		
+		showMoveSelection(id)
 	});
 	
 	TYPO3.jQuery(".feuser-move-selection").on("mouseleave", function () {
