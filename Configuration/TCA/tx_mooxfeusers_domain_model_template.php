@@ -22,7 +22,7 @@ return array(
 		),		
 		'searchFields' => 'title,subject,template',		
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('moox_feusers') . 'Resources/Public/Icons/tx_mooxfeusers_domain_model_template.gif',
-		'hideTable' => FALSE
+		'hideTable' => TRUE
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, category, subject, template',
